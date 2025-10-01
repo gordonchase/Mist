@@ -21,13 +21,31 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-    RaycastHit2D ground = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance);
 
-    if (ground && ground.collider.Gameobject.CompareTag("ground")) {
-        isGrounded = true;
-    } else {
-        isGrounded = false;
-    }
+BoxCollider2D box = GetComponent<BoxCollider2D>();
+Vector2 rayOrigin = (Vector2)transform.position + box.offset;
+
+float halfWidth = box.size.x * 0.5f * transform.localScale.x;
+float rayDistance = groundCheckDistance;
+int groundLayer = LayerMask.GetMask("ground");
+
+
+Vector2 leftEdge = rayOrigin + Vector2.left * halfWidth;
+Vector2 center = rayOrigin;
+Vector2 rightEdge = rayOrigin + Vector2.right * halfWidth;
+
+RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance, groundLayer);
+RaycastHit2D centerRay = Physics2D.Raycast(center, Vector2.down, rayDistance, groundLayer);
+RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance, groundLayer);
+
+
+Debug.DrawRay(leftEdge, Vector2.down * rayDistance, Color.red);
+Debug.DrawRay(center, Vector2.down * rayDistance, Color.green);
+Debug.DrawRay(rightEdge, Vector2.down * rayDistance, Color.blue);
+
+
+isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;
+
 
         float xHat = Input.GetAxisRaw("Horizontal");
         float vx = xHat * xSpeed;
