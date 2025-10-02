@@ -1203,8 +1203,8 @@ Transform:
   m_GameObject: {fileID: 1135982274}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.893, y: 11.032, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalPosition: {x: -5.14, y: 11.6, z: 0}
+  m_LocalScale: {x: 10, y: 10, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2505,6 +2505,8 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: d9b66b5cf4bc6284d8adfbad03a8cee8, type: 2}
   - m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 5f77fe95a6adf9e41be412077680886a, type: 2}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileSpriteArray:
   - m_RefCount: 19
     m_Data: {fileID: -1603291472181913768, guid: 40c22e8adb3be1d46941341e46999aba, type: 3}
@@ -2512,6 +2514,8 @@ Tilemap:
     m_Data: {fileID: 5435608014139152121, guid: abef04e650ee99c40bc246fd46a6018e, type: 3}
   - m_RefCount: 6
     m_Data: {fileID: -8527442550737655860, guid: f8553bc520d121943910a2eca6667330, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 93
     m_Data:
