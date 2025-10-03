@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     
     private float maxVelX = 10;
 
+    private Animator anim;
+
     public float xSpeed;
     public float jumpStrength;
 
@@ -17,10 +19,12 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = false;
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
+
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -50,6 +54,10 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
         float xHat = Input.GetAxisRaw("Horizontal");
         float vx = xHat * xSpeed;
         rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
+
+        float horizontal = xHat;
+        if (Mathf.Abs(horizontal) < 0.01f) horizontal = 0f;
+        anim.SetFloat("Horizontal", horizontal);
 
         float yHat = new Vector2(0, Input.GetAxis("Vertical")).normalized.y;
         if (isGrounded && yHat == 1) {
