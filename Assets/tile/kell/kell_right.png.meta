@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 3445f29285ba08c4eb3f6f5cf64b03ef
+guid: 5e2ba7e3493c31942b1c2b8ad2d19811
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7585486125069662369
-    second: kell_left_0
+      213: 7656075134188850189
+    second: kell_right_0
   - first:
-      213: -4676981264990017852
-    second: kell_left_1
+      213: 5053981607975239304
+    second: kell_right_1
   - first:
-      213: -364246874317706632
-    second: kell_left_2
+      213: 1659366310828789587
+    second: kell_right_2
   - first:
-      213: 4910741820934527111
-    second: kell_left_3
+      213: 9117984057300205048
+    second: kell_right_3
   - first:
-      213: 3375726849470608318
-    second: kell_left_4
+      213: 5876222833966831313
+    second: kell_right_4
   - first:
-      213: 2162248946593813550
-    second: kell_left_5
+      213: 2053957196592897963
+    second: kell_right_5
   - first:
-      213: -1954433795206446872
-    second: kell_left_6
+      213: -3251509634924224445
+    second: kell_right_6
   - first:
-      213: -2207618257431314492
-    second: kell_left_7
+      213: -2495558258431684859
+    second: kell_right_7
   - first:
-      213: 114245593081687690
-    second: kell_left_8
+      213: -6913580915211696057
+    second: kell_right_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -99,7 +99,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -120,203 +120,216 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kell_left_0
+      name: kell_right_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0c070b55c7df3a60800000000000000
+      internalID: 7656075134188850189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kell_right_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88eb8bcce79532640800000000000000
+      internalID: 5053981607975239304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kell_right_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35f43353ed0470710800000000000000
+      internalID: 1659366310828789587
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kell_right_3
       rect:
         serializedVersion: 2
         x: 0
         y: 64
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d6f52acefbd802840b80e47e77212986
-      internalID: 1166884161
+      spriteID: 8fdbd03e036998e70800000000000000
+      internalID: 9117984057300205048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 36b18707b89971b45afba3e7230c2bb0
-      internalID: -1950590889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: kell_left_2
+      name: kell_right_4
       rect:
         serializedVersion: 2
         x: 64
         y: 64
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3e7edb36b1145644987fee97e4bcf64f
-      internalID: 1088188015
+      spriteID: 1d6d1afa8898c8150800000000000000
+      internalID: 5876222833966831313
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_3
+      name: kell_right_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
-        width: 32
-        height: 32
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 83eae6eb5dcb2b24882b0aa1ee10ee25
-      internalID: -362031549
+      spriteID: bafd6ce103f118c10800000000000000
+      internalID: 2053957196592897963
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_4
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7010486452dfec14d84e57d008b3526b
-      internalID: -1487809681
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: kell_left_5
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca945fea5d1e108459db6851d232cfca
-      internalID: -2085349523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: kell_left_6
+      name: kell_right_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 3c6eadfbe18415f4e80b29d86f675a4e
-      internalID: -1563856039
+      spriteID: 340e49ad63150e2d0800000000000000
+      internalID: -3251509634924224445
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_7
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4195be44e10da13428c2f5ce08e81909
-      internalID: -575738864
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: kell_left_8
+      name: kell_right_7
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 32
-        height: 32
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: a490a7768bf630b488e2b309f2f9a12a
-      internalID: -183521187
+      spriteID: 50f03e96cfefd5dd0800000000000000
+      internalID: -2495558258431684859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: kell_right_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74803ee89c60e00a0800000000000000
+      internalID: -6913580915211696057
       vertices: []
       indices: 
       edges: []
@@ -325,7 +338,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a00ef97f4507c8c4bafec231bd83ca38
+    spriteID: 7af2b22356e311646ac1ed6af680f356
     internalID: 0
     vertices: []
     indices: 
@@ -335,15 +348,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kell_left_0: 1166884161
-      kell_left_1: -1950590889
-      kell_left_2: 1088188015
-      kell_left_3: -362031549
-      kell_left_4: -1487809681
-      kell_left_5: -2085349523
-      kell_left_6: -1563856039
-      kell_left_7: -575738864
-      kell_left_8: -183521187
+      kell_right_0: 7656075134188850189
+      kell_right_1: 5053981607975239304
+      kell_right_2: 1659366310828789587
+      kell_right_3: 9117984057300205048
+      kell_right_4: 5876222833966831313
+      kell_right_5: 2053957196592897963
+      kell_right_6: -3251509634924224445
+      kell_right_7: -2495558258431684859
+      kell_right_8: -6913580915211696057
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -55,16 +55,21 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
         float vx = xHat * xSpeed;
         rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
 
-        float horizontal = xHat;
-        if (Mathf.Abs(horizontal) < 0.01f) horizontal = 0f;
-        anim.SetFloat("Horizontal", horizontal);
+        //float horizontal = xHat;
+        //if (Mathf.Abs(horizontal) < 0.01f) horizontal = 0f;
+        //anim.SetFloat("Horizontal", horizontal);
 
         float yHat = new Vector2(0, Input.GetAxis("Vertical")).normalized.y;
         if (isGrounded && yHat == 1) {
             float vy = yHat * jumpStrength;
             isGrounded = false;
             rb.AddForce(transform.up * vy);
+
+
         }
+        anim.SetFloat("ySpeed", rb.linearVelocity.y);
+        anim.SetFloat("xSpeed", rb.linearVelocity.x);
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
