@@ -3586,8 +3586,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundCheckDistance: 1.32
-  xSpeed: 2.75
-  jumpStrength: 250
+  mistps: {fileID: 0}
+  mistpsA: 0.2
+  xSpeed: 3
+  jumpStrength: 300
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3695,7 +3697,7 @@ GameObject:
   - component: {fileID: 1762855599}
   - component: {fileID: 1762855598}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: mistps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3876,7 +3878,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 1.5
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -3983,7 +3985,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 0.34901962}
+      maxColor: {r: 1, g: 1, b: 1, a: 0.19607843}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4047,8 +4049,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 12
-      minScalar: 50
+      scalar: 300
+      minScalar: 400
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4630,7 +4632,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 227
+      scalar: 400
       minScalar: 10
       maxCurve:
         serializedVersion: 2
