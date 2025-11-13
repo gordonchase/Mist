@@ -1,16 +1,16 @@
 fileFormatVersion: 2
-guid: e1f1c5bbeb5d210439879243af1c2c06
+guid: 7165569b63bf58245a09df8f7908655c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 420176405497341394
-    second: kell_fall_0
+      213: 7225832574967982031
+    second: kell_fall (3)_0
   - first:
-      213: 5083519756987442403
-    second: kell_fall_1
+      213: -9093429544386596436
+    second: kell_fall (3)_1
   - first:
-      213: -5429178574439645420
-    second: kell_fall_2
+      213: 4769474494983367228
+    second: kell_fall (3)_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -102,30 +102,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kell_fall_0
+      name: kell_fall (3)_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 80
-        width: 29
-        height: 48
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +121,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d56ba0f634c4d500800000000000000
-      internalID: 420176405497341394
+      spriteID: fc7a96d5170574460800000000000000
+      internalID: 7225832574967982031
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_fall_1
+      name: kell_fall (3)_1
       rect:
         serializedVersion: 2
-        x: 81
-        y: 80
-        width: 30
-        height: 48
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e4aaeb094a4c8640800000000000000
-      internalID: 5083519756987442403
+      spriteID: ca17bc82206adc180800000000000000
+      internalID: -9093429544386596436
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_fall_2
+      name: kell_fall (3)_2
       rect:
         serializedVersion: 2
-        x: 17
-        y: 16
-        width: 30
-        height: 48
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,8 +165,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 41ffc500adea7a4b0800000000000000
-      internalID: -5429178574439645420
+      spriteID: c3ae4ce88c3903240800000000000000
+      internalID: 4769474494983367228
       vertices: []
       indices: 
       edges: []
@@ -188,7 +175,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 0074cd9e755a6b4468f28a59fbe85a8d
     internalID: 0
     vertices: []
     indices: 
@@ -198,9 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kell_fall_0: 420176405497341394
-      kell_fall_1: 5083519756987442403
-      kell_fall_2: -5429178574439645420
+      kell_fall (3)_0: 7225832574967982031
+      kell_fall (3)_1: -9093429544386596436
+      kell_fall (3)_2: 4769474494983367228
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

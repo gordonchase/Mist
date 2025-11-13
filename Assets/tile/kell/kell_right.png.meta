@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 5e2ba7e3493c31942b1c2b8ad2d19811
+guid: 20a86fa2bd6fa714aa4fda01d7f05536
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7656075134188850189
-    second: kell_right_0
+      213: 4555860351262002058
+    second: kell_left 1 (1)_0
   - first:
-      213: 5053981607975239304
-    second: kell_right_1
+      213: -2477066084296835957
+    second: kell_left 1 (1)_1
   - first:
-      213: 1659366310828789587
-    second: kell_right_2
+      213: 6555273314361331307
+    second: kell_left 1 (1)_2
   - first:
-      213: 9117984057300205048
-    second: kell_right_3
+      213: -9213746806708046408
+    second: kell_left 1 (1)_3
   - first:
-      213: 5876222833966831313
-    second: kell_right_4
+      213: -8519510256399627326
+    second: kell_left 1 (1)_4
   - first:
-      213: 2053957196592897963
-    second: kell_right_5
+      213: 7707102385657779496
+    second: kell_left 1 (1)_5
   - first:
-      213: -3251509634924224445
-    second: kell_right_6
+      213: 423621763766103035
+    second: kell_left 1 (1)_6
   - first:
-      213: -2495558258431684859
-    second: kell_right_7
+      213: -5271776069285062048
+    second: kell_left 1 (1)_7
   - first:
-      213: -6913580915211696057
-    second: kell_right_8
+      213: 4316121947300635595
+    second: kell_left 1 (1)_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -120,19 +120,6 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -150,10 +137,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: d0c070b55c7df3a60800000000000000
-      internalID: 7656075134188850189
+      spriteID: 62ff7b11263bcdf49a707d850b476db8
+      internalID: 870441985
       vertices: []
       indices: 
       edges: []
@@ -172,10 +159,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 88eb8bcce79532640800000000000000
-      internalID: 5053981607975239304
+      spriteID: 4875e82482e191b439dc502654386002
+      internalID: 621220022
       vertices: []
       indices: 
       edges: []
@@ -194,10 +181,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 35f43353ed0470710800000000000000
-      internalID: 1659366310828789587
+      spriteID: 0e67aa14d0d7a8044ba9a86d6397451a
+      internalID: 160766255
       vertices: []
       indices: 
       edges: []
@@ -216,10 +203,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8fdbd03e036998e70800000000000000
-      internalID: 9117984057300205048
+      spriteID: ce391d072f2e9ff4bab242e71641b217
+      internalID: 1634943128
       vertices: []
       indices: 
       edges: []
@@ -238,10 +225,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1d6d1afa8898c8150800000000000000
-      internalID: 5876222833966831313
+      spriteID: 4b1ccbb47358edd4eb5ec63f913a13db
+      internalID: -1734379092
       vertices: []
       indices: 
       edges: []
@@ -260,10 +247,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bafd6ce103f118c10800000000000000
-      internalID: 2053957196592897963
+      spriteID: e5728f5b7a9dd4a41a78772ee43c2b8b
+      internalID: 347463442
       vertices: []
       indices: 
       edges: []
@@ -282,10 +269,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 340e49ad63150e2d0800000000000000
-      internalID: -3251509634924224445
+      spriteID: 569058154a6c32c48af9fa2630d08e17
+      internalID: -1474648362
       vertices: []
       indices: 
       edges: []
@@ -304,10 +291,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 50f03e96cfefd5dd0800000000000000
-      internalID: -2495558258431684859
+      spriteID: ec9ebfd03802cb740b93c2f9522e188a
+      internalID: 1707290856
       vertices: []
       indices: 
       edges: []
@@ -326,10 +313,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 74803ee89c60e00a0800000000000000
-      internalID: -6913580915211696057
+      spriteID: 94028342a9288074c8507ea21abc0f93
+      internalID: -808529406
       vertices: []
       indices: 
       edges: []
@@ -338,7 +325,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7af2b22356e311646ac1ed6af680f356
+    spriteID: 5ebf7f5259bf0a94e84b264bdfc68cd9
     internalID: 0
     vertices: []
     indices: 
@@ -348,15 +335,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kell_right_0: 7656075134188850189
-      kell_right_1: 5053981607975239304
-      kell_right_2: 1659366310828789587
-      kell_right_3: 9117984057300205048
-      kell_right_4: 5876222833966831313
-      kell_right_5: 2053957196592897963
-      kell_right_6: -3251509634924224445
-      kell_right_7: -2495558258431684859
-      kell_right_8: -6913580915211696057
+      kell_right_0: 870441985
+      kell_right_1: 621220022
+      kell_right_2: 160766255
+      kell_right_3: 1634943128
+      kell_right_4: -1734379092
+      kell_right_5: 347463442
+      kell_right_6: -1474648362
+      kell_right_7: 1707290856
+      kell_right_8: -808529406
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

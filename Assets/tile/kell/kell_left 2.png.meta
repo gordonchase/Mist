@@ -1,34 +1,34 @@
 fileFormatVersion: 2
-guid: 38d39996baa143a40aaf7e21bb702f99
+guid: 3da0a5f3388bd9d449d9b4a069953fdc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7585486125069662369
-    second: kell_left_0
+      213: 6849368039470565352
+    second: kell_left 2_0
   - first:
-      213: -4676981264990017852
-    second: kell_left_1
+      213: 5925560479563983736
+    second: kell_left 2_1
   - first:
-      213: -364246874317706632
-    second: kell_left_2
+      213: 4852271595311702827
+    second: kell_left 2_2
   - first:
-      213: 4910741820934527111
-    second: kell_left_3
+      213: 5693996732921176070
+    second: kell_left 2_3
   - first:
-      213: 3375726849470608318
-    second: kell_left_4
+      213: -3129667407150409331
+    second: kell_left 2_4
   - first:
-      213: 2162248946593813550
-    second: kell_left_5
+      213: -3551297422698955749
+    second: kell_left 2_5
   - first:
-      213: -1954433795206446872
-    second: kell_left_6
+      213: 4303204490906742305
+    second: kell_left 2_6
   - first:
-      213: -2207618257431314492
-    second: kell_left_7
+      213: 3587446068521587834
+    second: kell_left 2_7
   - first:
-      213: 114245593081687690
-    second: kell_left_8
+      213: 5575903204076014886
+    second: kell_left 2_8
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -120,24 +120,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: kell_left_0
+      name: kell_left 2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -152,14 +139,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f5781921f80fab690800000000000000
-      internalID: -7585486125069662369
+      spriteID: 8e78e8041f7dd0f50800000000000000
+      internalID: 6849368039470565352
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_1
+      name: kell_left 2_1
       rect:
         serializedVersion: 2
         x: 64
@@ -174,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4c6ec17b156081fb0800000000000000
-      internalID: -4676981264990017852
+      spriteID: 87b21877cd1db3250800000000000000
+      internalID: 5925560479563983736
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_2
+      name: kell_left 2_2
       rect:
         serializedVersion: 2
         x: 128
@@ -196,14 +183,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 87a2fbdc56fe1faf0800000000000000
-      internalID: -364246874317706632
+      spriteID: b23a548be4bb65340800000000000000
+      internalID: 4852271595311702827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_3
+      name: kell_left 2_3
       rect:
         serializedVersion: 2
         x: 0
@@ -218,14 +205,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 788157cfaa5762440800000000000000
-      internalID: 4910741820934527111
+      spriteID: 600600a4cd3250f40800000000000000
+      internalID: 5693996732921176070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_4
+      name: kell_left 2_4
       rect:
         serializedVersion: 2
         x: 64
@@ -240,14 +227,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eb3b1792fadf8de20800000000000000
-      internalID: 3375726849470608318
+      spriteID: d899eab23103194d0800000000000000
+      internalID: -3129667407150409331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_5
+      name: kell_left 2_5
       rect:
         serializedVersion: 2
         x: 128
@@ -262,14 +249,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e24dfa9f5f9d10e10800000000000000
-      internalID: 2162248946593813550
+      spriteID: b1cb4444fc147bec0800000000000000
+      internalID: -3551297422698955749
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_6
+      name: kell_left 2_6
       rect:
         serializedVersion: 2
         x: 0
@@ -284,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8e083bb71d470e4e0800000000000000
-      internalID: -1954433795206446872
+      spriteID: 12eac546fad08bb30800000000000000
+      internalID: 4303204490906742305
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_7
+      name: kell_left 2_7
       rect:
         serializedVersion: 2
         x: 64
@@ -306,14 +293,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4cfb32e24e6fc51e0800000000000000
-      internalID: -2207618257431314492
+      spriteID: a74d915313b29c130800000000000000
+      internalID: 3587446068521587834
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: kell_left_8
+      name: kell_left 2_8
       rect:
         serializedVersion: 2
         x: 128
@@ -328,8 +315,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a8ea9c8f2c1e59100800000000000000
-      internalID: 114245593081687690
+      spriteID: 62dc9e4fb66916d40800000000000000
+      internalID: 5575903204076014886
       vertices: []
       indices: 
       edges: []
@@ -338,7 +325,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 86d3f61f8bdb9854eaa329cdddcb45d8
+    spriteID: f39d95b25eaca10498675144ae61352b
     internalID: 0
     vertices: []
     indices: 
@@ -348,15 +335,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      kell_left_0: -7585486125069662369
-      kell_left_1: -4676981264990017852
-      kell_left_2: -364246874317706632
-      kell_left_3: 4910741820934527111
-      kell_left_4: 3375726849470608318
-      kell_left_5: 2162248946593813550
-      kell_left_6: -1954433795206446872
-      kell_left_7: -2207618257431314492
-      kell_left_8: 114245593081687690
+      kell_left 2_0: 6849368039470565352
+      kell_left 2_1: 5925560479563983736
+      kell_left 2_2: 4852271595311702827
+      kell_left 2_3: 5693996732921176070
+      kell_left 2_4: -3129667407150409331
+      kell_left 2_5: -3551297422698955749
+      kell_left 2_6: 4303204490906742305
+      kell_left 2_7: 3587446068521587834
+      kell_left 2_8: 5575903204076014886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
