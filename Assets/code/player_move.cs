@@ -13,22 +13,41 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
 
     public ParticleSystem mistps;
-    public float mistpsA = 0.2f;
+    public float mistpsA = 0.1f;
 
     public float xSpeed;
     public float jumpStrength;
+    private int key;
 
     void Start()
     {
         isGrounded = false;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        key = 0;
 
     }
 
+    void Update()
+{
+    if (Input.GetKeyDown(KeyCode.Z))
+    {
+        if (mistpsA == 0.1f){
+            mistpsA = 0.03f;
+            }
+        else{
+            mistpsA = 0.1f;
+            }
+        var main = mistps.main; 
+        Color c = main.startColor.color;
+        c.a = mistpsA;
+        main.startColor = new ParticleSystem.MinMaxGradient(c);
+    }
+}
+
+
     void FixedUpdate()
     {
-
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -59,11 +78,11 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
 
     if (Input.GetKeyDown(KeyCode.Z))
     {
-        if (mistpsA == 0.2f){
-            mistpsA = 0.05f;
+        if (mistpsA == 0.1f){
+            mistpsA = 0.03f;
             }
         else{
-            mistpsA = 0.2f;
+            mistpsA = 0.1f;
             }
         var main = mistps.main; 
         Color c = main.startColor.color;
