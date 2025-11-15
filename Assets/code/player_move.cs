@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem mistps;
     public float mistpsA = 0.1f;
 
+    public bool buringtin = false;
+    public bool flaring = false;
+
     public float xSpeed;
     public float jumpStrength;
     private int key;
@@ -32,22 +35,45 @@ public class PlayerController : MonoBehaviour
 {
     if (Input.GetKeyDown(KeyCode.Z))
     {
-        if (mistpsA == 0.1f){
-            mistpsA = 0.03f;
+        if (buringtin){
+            mistpsA = 0.075f;
+            buringtin = false;
             }
         else{
-            mistpsA = 0.1f;
+            mistpsA = 0.015f;
+            buringtin = true;
             }
-        var main = mistps.main; 
-        Color c = main.startColor.color;
-        c.a = mistpsA;
-        main.startColor = new ParticleSystem.MinMaxGradient(c);
+        
     }
+        if (Input.GetKeyDown(KeyCode.F))
+    {
+        if (flaring){
+            flaring = false;
+            }
+        else{
+            flaring = true;
+            }
+        
+    }
+
 }
 
 
     void FixedUpdate()
     {
+
+
+    
+    if (flaring){
+        if (buringtin){
+            mistpsA = 0.002f;
+            }
+        }
+        else{
+        if (buringtin){
+            mistpsA = 0.015f;
+            }
+        }
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -74,23 +100,6 @@ Debug.DrawRay(rightEdge, Vector2.down * rayDistance, Color.blue);
 isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;
 
 
-
-
-    if (Input.GetKeyDown(KeyCode.Z))
-    {
-        if (mistpsA == 0.1f){
-            mistpsA = 0.03f;
-            }
-        else{
-            mistpsA = 0.1f;
-            }
-        var main = mistps.main; 
-        Color c = main.startColor.color;
-        c.a = mistpsA;
-        main.startColor = new ParticleSystem.MinMaxGradient(c);
-    }
-
-
         float xHat = Input.GetAxisRaw("Horizontal");
         float vx = xHat * xSpeed;
         rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
@@ -107,8 +116,14 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
 
 
         }
+
         anim.SetFloat("ySpeed", rb.linearVelocity.y);
         anim.SetFloat("xSpeed", rb.linearVelocity.x);
+
+        var main = mistps.main; 
+        Color c = main.startColor.color;
+        c.a = mistpsA;
+        main.startColor = new ParticleSystem.MinMaxGradient(c);
 
     }
 
