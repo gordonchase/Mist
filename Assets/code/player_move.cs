@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class PlayerController : MonoBehaviour
 
     public ParticleSystem mistps;
     public float mistpsA = 0.1f;
+
+    public Tilemap notreal;
+    public float notrealA = 1.0f;
 
     public bool buringtin = false;
     public bool buringpewter = false;
@@ -39,6 +43,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DoEverySecond());
         xSpeed = 3.5f;
         jumpStrength = 300;
+        notrealA = 1.0f;
 
     }
 
@@ -80,10 +85,12 @@ public class PlayerController : MonoBehaviour
         if (buringtin){
             mistpsA = 0.075f;
             buringtin = false;
+            notrealA = 1.0f;
             }
         else{
             mistpsA = 0.015f;
             buringtin = true;
+            notrealA = 1.0f;
             }
         
     }
@@ -124,6 +131,7 @@ public class PlayerController : MonoBehaviour
     if (flaring){
         if (buringtin){
             mistpsA = 0.002f;
+            notrealA = 0.3f;
             }
         if (buringpewter){
             xSpeed = 10;
@@ -133,6 +141,7 @@ public class PlayerController : MonoBehaviour
         else{
         if (buringtin){
             mistpsA = 0.015f;
+            notrealA = 1.0f;
             }
         if (buringpewter){
             xSpeed = 7;
@@ -202,6 +211,10 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
         c.a = mistpsA;
         main.startColor = new ParticleSystem.MinMaxGradient(c);
 
+        Color tileColor = notreal.color;
+        tileColor.a = notrealA;
+        notreal.color = tileColor;
+
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -222,6 +235,20 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
             if (pewterbarpercent > 100)
             {
             pewterbarpercent = 100;    
+            }
+        }
+        if (collision.gameObject.CompareTag("Aitum"))
+        {
+            Destroy(collision.gameObject);
+            pewterbarpercent += 25;
+            if (pewterbarpercent > 100)
+            {
+            pewterbarpercent = 100;    
+            }
+            tinbarpercent += 125;
+            if (tinbarpercent > 500)
+            {
+            tinbarpercent = 500;    
             }
         }
     }
