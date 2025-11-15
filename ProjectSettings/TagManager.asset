@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ground
   - metal
+  - Tin
   layers:
   - Default
   - TransparentFX

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float mistpsA = 0.1f;
 
     public bool buringtin = false;
+    public bool buringpewter = false;
     public bool flaring = false;
 
     public float xSpeed;
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private int key;
 
     public int tinbarpercent=500;
+    public int pewterbarpercent=100;
 
 
 
@@ -35,6 +37,8 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         key = 0;
         StartCoroutine(DoEverySecond());
+        xSpeed = 3;
+        jumpStrength = 300;
 
     }
 
@@ -54,6 +58,17 @@ public class PlayerController : MonoBehaviour
             tinbarpercent -= 1;
             }
             }
+            if (buringpewter && pewterbarpercent>0)
+            {
+            if (flaring)
+            {
+            pewterbarpercent -= 2.5;
+            }
+            else
+            {
+            pewterbarpercent -= 1.5;
+            }
+            }
             yield return new WaitForSeconds(1f);  // wait 1 second
         }
     }
@@ -69,6 +84,21 @@ public class PlayerController : MonoBehaviour
         else{
             mistpsA = 0.015f;
             buringtin = true;
+            }
+        
+    }
+
+    if (Input.GetKeyDown(KeyCode.X))
+    {
+        if (buringpewter){
+                    xSpeed = 3;
+            jumpStrength = 300;
+            buringpewter = false;
+            }
+        else{
+            xSpeed = 6;
+            jumpStrength = 450;
+            buringpewter = true;
             }
         
     }
@@ -95,10 +125,18 @@ public class PlayerController : MonoBehaviour
         if (buringtin){
             mistpsA = 0.002f;
             }
+        if (buringpewter){
+            xSpeed = 9;
+            jumpStrength = 650;
+            }            
         }
         else{
         if (buringtin){
             mistpsA = 0.015f;
+            }
+        if (buringpewter){
+            xSpeed = 6;
+            jumpStrength = 450;
             }
         }
 

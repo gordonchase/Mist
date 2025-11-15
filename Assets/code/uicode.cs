@@ -14,9 +14,18 @@ public class uicode : MonoBehaviour
     public Image tinbarImage;
     public Sprite[] tinbarFrames;
 
+    public Image pewterImage;
+    public Sprite[] pewterFrames;
+    public int pewterframe;
+
+
+    public Image pewterbarImage;
+    public Sprite[] pewterbarFrames;
+
     void Start()
     {
         tinframe = 0;
+        pewterframe=0;
         UpdateFrame();
     }
 
@@ -29,8 +38,10 @@ public class uicode : MonoBehaviour
     {
         // Get current state from player at runtime
         bool isBurningtin = player.buringtin;
+        bool isBurningpewter = player.buringpewter;
         bool isFlaring = player.flaring;
         int tinpercent = player.tinbarpercent;
+        int pewterpercent = player.pewterbarpercent;
 
         int tinbarframe = (int)Math.Round((double)tinpercent / 50);
 
@@ -50,7 +61,28 @@ public class uicode : MonoBehaviour
             tinframe = 0;
         }
 
+        int pewterbarframe = (int)Math.Round((double)pewterpercent / 10);
+
+        if (isBurningpewter)
+        {
+            if (isFlaring)
+            {
+                pewterframe = 2;
+            }
+            else
+            {
+                pewterframe = 1;
+            }
+        }
+        else
+        {
+            pewterframe = 0;
+        }
+
         tinImage.sprite = tinFrames[tinframe];
         tinbarImage.sprite = tinbarFrames[tinbarframe];
+        
+        pewterImage.sprite = pewterFrames[pewterframe];
+        pewterbarImage.sprite = pewterbarFrames[pewterbarframe];
     }
 }
