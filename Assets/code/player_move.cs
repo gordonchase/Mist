@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         key = 0;
         StartCoroutine(DoEverySecond());
-        xSpeed = 3;
+        xSpeed = 3.5f;
         jumpStrength = 300;
 
     }
@@ -62,11 +62,11 @@ public class PlayerController : MonoBehaviour
             {
             if (flaring)
             {
-            pewterbarpercent -= 2.5;
+            pewterbarpercent -= 2;
             }
             else
             {
-            pewterbarpercent -= 1.5;
+            pewterbarpercent -= 1;
             }
             }
             yield return new WaitForSeconds(1f);  // wait 1 second
@@ -91,12 +91,12 @@ public class PlayerController : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.X))
     {
         if (buringpewter){
-                    xSpeed = 3;
+            xSpeed = 3.5f;
             jumpStrength = 300;
             buringpewter = false;
             }
         else{
-            xSpeed = 6;
+            xSpeed = 7;
             jumpStrength = 450;
             buringpewter = true;
             }
@@ -126,7 +126,7 @@ public class PlayerController : MonoBehaviour
             mistpsA = 0.002f;
             }
         if (buringpewter){
-            xSpeed = 9;
+            xSpeed = 10;
             jumpStrength = 650;
             }            
         }
@@ -135,7 +135,7 @@ public class PlayerController : MonoBehaviour
             mistpsA = 0.015f;
             }
         if (buringpewter){
-            xSpeed = 6;
+            xSpeed = 7;
             jumpStrength = 450;
             }
         }
@@ -144,7 +144,13 @@ public class PlayerController : MonoBehaviour
         {
         buringtin = false;  
         mistpsA = 0.075f; 
-        }    
+        }   
+        if (pewterbarpercent < 1)
+        {
+        buringpewter = false;  
+        xSpeed = 3.5f;
+        jumpStrength = 300;
+        }  
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -204,6 +210,19 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
         {
             Destroy(collision.gameObject);
             tinbarpercent += 250;
+            if (tinbarpercent > 500)
+            {
+            tinbarpercent = 500;    
+            }
+        }
+        if (collision.gameObject.CompareTag("Pewter"))
+        {
+            Destroy(collision.gameObject);
+            pewterbarpercent += 50;
+            if (pewterbarpercent > 100)
+            {
+            pewterbarpercent = 100;    
+            }
         }
     }
 }

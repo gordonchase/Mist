@@ -43,7 +43,7 @@ public class uicode : MonoBehaviour
         int tinpercent = player.tinbarpercent;
         int pewterpercent = player.pewterbarpercent;
 
-        int tinbarframe = (int)Math.Round((double)tinpercent / 50);
+        int tinbarframe = Mathf.RoundToInt(tinpercent / 50f);
 
         if (isBurningtin)
         {
@@ -61,7 +61,7 @@ public class uicode : MonoBehaviour
             tinframe = 0;
         }
 
-        int pewterbarframe = (int)Math.Round((double)pewterpercent / 10);
+        int pewterbarframe = Mathf.RoundToInt(pewterpercent / 10f);
 
         if (isBurningpewter)
         {

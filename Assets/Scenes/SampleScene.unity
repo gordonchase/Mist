@@ -1376,6 +1376,25 @@ MonoBehaviour:
   - {fileID: 1564813365, guid: c4e8837d6ac29494e9cb3606399d2018, type: 3}
   - {fileID: -1303729532, guid: c4e8837d6ac29494e9cb3606399d2018, type: 3}
   - {fileID: -1895507800, guid: c4e8837d6ac29494e9cb3606399d2018, type: 3}
+  pewterImage: {fileID: 2046018038}
+  pewterFrames:
+  - {fileID: -6124263521027046372, guid: e458d83f427f4d84d9662b9333863c09, type: 3}
+  - {fileID: 7229213114655427191, guid: e458d83f427f4d84d9662b9333863c09, type: 3}
+  - {fileID: -1206536357401282273, guid: e458d83f427f4d84d9662b9333863c09, type: 3}
+  pewterframe: 0
+  pewterbarImage: {fileID: 432690932}
+  pewterbarFrames:
+  - {fileID: -4317422582217555632, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 842242996128254689, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 8761761614110289610, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 7170178065376712627, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 1059868097, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: -1425214878, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: -2054585101, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 1138536248, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 75399657, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 406576599, guid: f7eb884340a1443458054f73aea386a1, type: 3}
+  - {fileID: 1876449598, guid: f7eb884340a1443458054f73aea386a1, type: 3}
 --- !u!1 &935380833
 GameObject:
   m_ObjectHideFlags: 0
@@ -4926,10 +4945,12 @@ MonoBehaviour:
   mistps: {fileID: 1762855599}
   mistpsA: 0.1
   buringtin: 0
+  buringpewter: 0
   flaring: 0
   xSpeed: 10
   jumpStrength: 650
   tinbarpercent: 100
+  pewterbarpercent: 100
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0
