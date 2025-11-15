@@ -22,13 +22,40 @@ public class PlayerController : MonoBehaviour
     public float jumpStrength;
     private int key;
 
+    public int tinbarpercent=500;
+
+
+
+
+
     void Start()
     {
         isGrounded = false;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         key = 0;
+        StartCoroutine(DoEverySecond());
 
+    }
+
+    IEnumerator DoEverySecond()
+    {
+        while (true)
+        {
+
+            if (buringtin && tinbarpercent>0)
+            {
+            if (flaring)
+            {
+            tinbarpercent -= 2;
+            }
+            else
+            {
+            tinbarpercent -= 1;
+            }
+            }
+            yield return new WaitForSeconds(1f);  // wait 1 second
+        }
     }
 
     void Update()
@@ -74,6 +101,12 @@ public class PlayerController : MonoBehaviour
             mistpsA = 0.015f;
             }
         }
+
+    if (tinbarpercent < 1)
+        {
+        buringtin = false;  
+        mistpsA = 0.075f; 
+        }    
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -129,5 +162,10 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.CompareTag("Tin"))
+        {
+            Destroy(collision.gameObject);
+            tinbarpercent += 250;
+        }
     }
 }

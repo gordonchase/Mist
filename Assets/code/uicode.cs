@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class uicode : MonoBehaviour
 {
@@ -7,11 +8,15 @@ public class uicode : MonoBehaviour
 
     public Image tinImage;
     public Sprite[] tinFrames;
-    public int currentframe;
+    public int tinframe;
+
+
+    public Image tinbarImage;
+    public Sprite[] tinbarFrames;
 
     void Start()
     {
-        currentframe = 0;
+        tinframe = 0;
         UpdateFrame();
     }
 
@@ -25,23 +30,27 @@ public class uicode : MonoBehaviour
         // Get current state from player at runtime
         bool isBurningtin = player.buringtin;
         bool isFlaring = player.flaring;
+        int tinpercent = player.tinbarpercent;
+
+        int tinbarframe = (int)Math.Round((double)tinpercent / 50);
 
         if (isBurningtin)
         {
             if (isFlaring)
             {
-                currentframe = 2;
+                tinframe = 2;
             }
             else
             {
-                currentframe = 1;
+                tinframe = 1;
             }
         }
         else
         {
-            currentframe = 0;
+            tinframe = 0;
         }
 
-        tinImage.sprite = tinFrames[currentframe];
+        tinImage.sprite = tinFrames[tinframe];
+        tinbarImage.sprite = tinbarFrames[tinbarframe];
     }
 }
