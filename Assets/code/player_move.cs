@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public bool buringtin = false;
     public bool buringpewter = false;
+    public bool buringsteel = false;
     public bool flaring = false;
 
     public float xSpeed;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     public int tinbarpercent=500;
     public int pewterbarpercent=100;
+    public int steelbarpercent=200;
 
 
 
@@ -74,6 +76,17 @@ public class PlayerController : MonoBehaviour
             pewterbarpercent -= 1;
             }
             }
+            if (buringsteel && steelbarpercent>0)
+            {
+            if (flaring)
+            {
+            steelbarpercent -= 2;
+            }
+            else
+            {
+            steelbarpercent -= 1;
+            }
+            }
             yield return new WaitForSeconds(1f);  // wait 1 second
         }
     }
@@ -109,6 +122,17 @@ public class PlayerController : MonoBehaviour
             }
         
     }
+
+    if (Input.GetKeyDown(KeyCode.C))
+    {
+        if (buringsteel){
+            buringsteel = false;
+            }
+        else{
+            buringsteel = true;
+            }
+        
+    }
         if (Input.GetKeyDown(KeyCode.F))
     {
         if (flaring){
@@ -136,7 +160,9 @@ public class PlayerController : MonoBehaviour
         if (buringpewter){
             xSpeed = 10;
             jumpStrength = 650;
-            }            
+            }  
+        if (buringsteel){
+            }               
         }
         else{
         if (buringtin){
@@ -147,6 +173,8 @@ public class PlayerController : MonoBehaviour
             xSpeed = 7;
             jumpStrength = 450;
             }
+        if (buringsteel){
+            }             
         }
 
     if (tinbarpercent < 1)
@@ -154,12 +182,16 @@ public class PlayerController : MonoBehaviour
         buringtin = false;  
         mistpsA = 0.075f; 
         }   
-        if (pewterbarpercent < 1)
+    if (pewterbarpercent < 1)
         {
         buringpewter = false;  
         xSpeed = 3.5f;
         jumpStrength = 300;
         }  
+    if (steelbarpercent < 1)
+        {
+        buringsteel = false;  
+        }          
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -237,6 +269,15 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
             pewterbarpercent = 100;    
             }
         }
+        if (collision.gameObject.CompareTag("Steel"))
+        {
+            Destroy(collision.gameObject);
+            steelbarpercent += 100;
+            if (steelbarpercent > 200)
+            {
+            steelbarpercent = 200;    
+            }
+        }        
         if (collision.gameObject.CompareTag("Aitum"))
         {
             Destroy(collision.gameObject);
@@ -249,6 +290,11 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
             if (tinbarpercent > 500)
             {
             tinbarpercent = 500;    
+            }
+            steelbarpercent += 50;
+            if (steelbarpercent > 200)
+            {
+            steelbarpercent = 200;    
             }
         }
     }
