@@ -7698,7 +7698,7 @@ MonoBehaviour:
   jumpStrength: 650
   tinbarpercent: 100
   pewterbarpercent: 20
-  steelbarpercent: 200
+  steelbarpercent: 40
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0
