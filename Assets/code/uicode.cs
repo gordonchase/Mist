@@ -30,6 +30,14 @@ public class uicode : MonoBehaviour
     public Image steelbarImage;
     public Sprite[] steelbarFrames;
 
+    public Image ironImage;
+    public Sprite[] ironFrames;
+    public int ironframe;
+
+
+    public Image ironbarImage;
+    public Sprite[] ironbarFrames;
+
     void Start()
     {
         tinframe = 0;
@@ -46,12 +54,14 @@ public class uicode : MonoBehaviour
     {
         // Get current state from player at runtime
         bool isBurningtin = player.buringtin;
+        bool isBurningiron = player.buringiron;
         bool isBurningpewter = player.buringpewter;
         bool isBurningsteel = player.buringsteel;        
         bool isFlaring = player.flaring;
         int tinpercent = player.tinbarpercent;
         int pewterpercent = player.pewterbarpercent;
         int steelpercent = player.steelbarpercent;
+        int ironpercent = player.ironbarpercent;
 
         int tinbarframe = Mathf.RoundToInt(tinpercent / 50f);
 
@@ -107,6 +117,25 @@ public class uicode : MonoBehaviour
             steelframe = 0;
         }
 
+
+        int ironbarframe = Mathf.RoundToInt(ironpercent / 20f);
+
+        if (isBurningiron)
+        {
+            if (isFlaring)
+            {
+                ironframe = 2;
+            }
+            else
+            {
+                ironframe = 1;
+            }
+        }
+        else
+        {
+            ironframe = 0;
+        }
+
         tinImage.sprite = tinFrames[tinframe];
         tinbarImage.sprite = tinbarFrames[tinbarframe];
         
@@ -115,5 +144,8 @@ public class uicode : MonoBehaviour
 
         steelImage.sprite = steelFrames[steelframe];
         steelbarImage.sprite = steelbarFrames[steelbarframe];
+
+        ironImage.sprite = ironFrames[ironframe];
+        ironbarImage.sprite = ironbarFrames[ironbarframe];
     }
 }

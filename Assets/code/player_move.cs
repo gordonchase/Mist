@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public bool buringtin = false;
     public bool buringpewter = false;
     public bool buringsteel = false;
+    public bool buringiron = false;
     public bool flaring = false;
 
     public float xSpeed;
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public int tinbarpercent=500;
     public int pewterbarpercent=100;
     public int steelbarpercent=200;
+    public int ironbarpercent=200
 
 
 
@@ -87,6 +89,17 @@ public class PlayerController : MonoBehaviour
             steelbarpercent -= 1;
             }
             }
+            if (buringiron && ironbarpercent>0)
+            {
+            if (flaring)
+            {
+            ironbarpercent -= 2;
+            }
+            else
+            {
+            ironbarpercent -= 1;
+            }
+            }
             yield return new WaitForSeconds(1f);  // wait 1 second
         }
     }
@@ -133,6 +146,16 @@ public class PlayerController : MonoBehaviour
             }
         
     }
+    if (Input.GetKeyDown(KeyCode.V))
+    {
+        if (buringiron){
+            buringiron = false;
+            }
+        else{
+            buringiron = true;
+            }
+        
+    }
         if (Input.GetKeyDown(KeyCode.F))
     {
         if (flaring){
@@ -163,6 +186,8 @@ public class PlayerController : MonoBehaviour
             }  
         if (buringsteel){
             }               
+        if (buringiron){
+            }               
         }
         else{
         if (buringtin){
@@ -174,7 +199,9 @@ public class PlayerController : MonoBehaviour
             jumpStrength = 450;
             }
         if (buringsteel){
-            }             
+            }    
+        if (buringiron){
+            }          
         }
 
     if (tinbarpercent < 1)
@@ -191,7 +218,11 @@ public class PlayerController : MonoBehaviour
     if (steelbarpercent < 1)
         {
         buringsteel = false;  
-        }          
+        }    
+    if (ironbarpercent < 1)
+        {
+        buringiron = false;  
+        }        
 
 BoxCollider2D box = GetComponent<BoxCollider2D>();
 Vector2 rayOrigin = (Vector2)transform.position + box.offset;
@@ -277,7 +308,16 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
             {
             steelbarpercent = 200;    
             }
-        }        
+        }       
+        if (collision.gameObject.CompareTag("Iron"))
+        {
+            Destroy(collision.gameObject);
+            ironbarpercent += 100;
+            if (ironbarpercent > 200)
+            {
+            ironbarpercent = 200;       
+            }
+        }  
         if (collision.gameObject.CompareTag("Aitum"))
         {
             Destroy(collision.gameObject);
@@ -295,6 +335,11 @@ isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.
             if (steelbarpercent > 200)
             {
             steelbarpercent = 200;    
+            }
+            ironbarpercent += 50;
+            if (ironbarpercent > 200)
+            {
+            ironbarpercent = 200;    
             }
         }
     }
