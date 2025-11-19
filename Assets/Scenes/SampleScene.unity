@@ -9226,6 +9226,9 @@ MonoBehaviour:
   metalLayer:
     serializedVersion: 2
     m_Bits: 128
+  pullForce: 500
+  pushForce: 500
+  slowMotionScale: 0.2
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15453,7 +15456,7 @@ Transform:
   m_GameObject: {fileID: 2055209898}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.99, y: 4.57, z: 0}
+  m_LocalPosition: {x: 5.74, y: 11.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
