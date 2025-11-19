@@ -9226,9 +9226,9 @@ MonoBehaviour:
   metalLayer:
     serializedVersion: 2
     m_Bits: 128
-  pullForce: 500
-  pushForce: 500
-  slowMotionScale: 0.2
+  pullForce: 2000
+  pushForce: 1000
+  slowMotionScale: 0.1
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0
