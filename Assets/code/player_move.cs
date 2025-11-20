@@ -79,6 +79,15 @@ public class PlayerController : MonoBehaviour
     // Optional prefab for converted physics tiles (set in Inspector). If null, created at runtime.
     public GameObject tilePhysicsPrefab;
 
+    // Line colors (configure in Inspector or here)
+    public Color32 steelLineColor = new Color32(13, 0, 120, 255);
+    public Color32 ironLineColor  = new Color32(16, 157, 192, 255);
+
+    // Shared neutral material used for LineRenderers so vertex colors show accurately
+    private Material neutralLineMaterial;
+    // If true, force line alpha to 1.0 (useful to override accidental transparency)
+    public bool forceOpaqueLines = true;
+
     void linechooser()  
     {  
         Time.timeScale = slowMotionScale;  
@@ -94,6 +103,9 @@ public class PlayerController : MonoBehaviour
         xSpeed = 3.5f;  
         jumpStrength = 300;  
         notrealA = 1.0f;  
+        // Create a single neutral material instance for line renderers (white tint)
+        neutralLineMaterial = new Material(Shader.Find("Sprites/Default"));
+        neutralLineMaterial.color = Color.white;
     }  
 
     IEnumerator DoEverySecond()  
@@ -355,10 +367,10 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance, groundLayer);  
         RaycastHit2D centerRay = Physics2D.Raycast(center, Vector2.down, rayDistance, groundLayer);  
         RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance, groundLayer);  
-
-        Debug.DrawRay(leftEdge, Vector2.down * rayDistance, Color.red);  
-        Debug.DrawRay(center, Vector2.down * rayDistance, Color.green);  
-        Debug.DrawRay(rightEdge, Vector2.down * rayDistance, Color.blue);  
+       
+        Debug.DrawRay(leftEdge, Vector2.down * rayDistance, new Color32(13, 0, 120, 255)); // steel-blue
+        Debug.DrawRay(center, Vector2.down * rayDistance, new Color32(16, 157, 192, 255));     // iron-blue
+        Debug.DrawRay(rightEdge, Vector2.down * rayDistance, new Color32(0, 128, 255, 255)); // cyan-blue
 
         isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;  
 
@@ -534,6 +546,26 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+        // Sort targets by their angle around the player so navigation cycles smoothly.
+        // We compute atan2(y, x) for each target relative to the player and sort by that angle.
+        if (metalTargets.Count > 1)
+        {
+            Vector2 center = transform.position;
+            metalTargets.Sort((a, b) => {
+                float aa = Mathf.Atan2(a.position.y - center.y, a.position.x - center.x);
+                float bb = Mathf.Atan2(b.position.y - center.y, b.position.x - center.x);
+                int cmp = aa.CompareTo(bb);
+                if (cmp == 0)
+                {
+                    // tie-breaker: closer objects first
+                    float da = (a.position - (Vector3)center).sqrMagnitude;
+                    float db = (b.position - (Vector3)center).sqrMagnitude;
+                    return da.CompareTo(db);
+                }
+                return cmp;
+            });
+        }
+
         Debug.Log($"FindMetalTargets: found {metalTargets.Count} targets (including tile cells)");
     }  
 
@@ -545,13 +577,21 @@ public class PlayerController : MonoBehaviour
             GameObject lineObj = Instantiate(linePrefab);  
             LineRenderer lr = lineObj.GetComponent<LineRenderer>();  
             lr.positionCount = 2;  
-            lr.startColor = Color.cyan;  
-            lr.endColor = Color.cyan;  
+            // Ensure chooser lines use neutral material so color gradient shows accurately
+            if (neutralLineMaterial != null)
+                lr.material = neutralLineMaterial;
+            // default chooser color (can be changed by HighlightSelectedLine)
+            Gradient g = new Gradient();
+            g.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(Color.cyan, 0f), new GradientColorKey(Color.cyan, 1f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 1f) }
+            );
+            lr.colorGradient = g;
             lr.startWidth = 0.05f;  
             lr.endWidth = 0.05f;  
             lines.Add(lr);  
         }
-            Debug.Log($"CreateLines: created {lines.Count} chooser lines");
+        Debug.Log($"CreateLines: created {lines.Count} chooser lines");
         }
 
     void UpdateLines()  
@@ -580,36 +620,42 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < lines.Count; i++)  
         {  
             if (lines[i] == null) continue;  
-            // If this metal is already assigned as steelTarget or ironTarget, color accordingly
-            if (metalTargets != null && i < metalTargets.Count && metalTargets[i] == steelTarget)  
-            {  
-                lines[i].startColor = Color.red;  
-                lines[i].endColor = Color.red;  
-                lines[i].startWidth = 0.08f;  
-                lines[i].endWidth = 0.08f;  
-            }  
-            else if (metalTargets != null && i < metalTargets.Count && metalTargets[i] == ironTarget)  
-            {  
-                lines[i].startColor = Color.green;  
-                lines[i].endColor = Color.green;  
-                lines[i].startWidth = 0.08f;  
-                lines[i].endWidth = 0.08f;  
-            }  
-            else if (i == selectedIndex)  
-            {  
-                // currently being navigated in chooser
-                lines[i].startColor = Color.blue;  
-                lines[i].endColor = Color.blue;  
-                lines[i].startWidth = 0.1f;  
-                lines[i].endWidth = 0.1f;  
-            }  
-            else  
-            {  
-                lines[i].startColor = Color.cyan;  
-                lines[i].endColor = Color.cyan;  
-                lines[i].startWidth = 0.05f;  
-                lines[i].endWidth = 0.05f;  
-            }  
+            // Determine color for this chooser line
+            Color col;
+            if (metalTargets != null && i < metalTargets.Count && metalTargets[i] == steelTarget)
+                col = steelLineColor;
+            else if (metalTargets != null && i < metalTargets.Count && metalTargets[i] == ironTarget)
+                col = ironLineColor;
+            else if (i == selectedIndex)
+                col = Color.blue;
+            else
+                col = Color.cyan;
+
+            // Ensure neutral material
+            if (neutralLineMaterial != null)
+                lines[i].material = neutralLineMaterial;
+
+            Gradient g = new Gradient();
+            float alpha = forceOpaqueLines ? 1f : col.a;
+            Color colNoAlpha = new Color(col.r, col.g, col.b, 1f);
+            g.SetKeys(
+                new GradientColorKey[] { new GradientColorKey(colNoAlpha, 0f), new GradientColorKey(colNoAlpha, 1f) },
+                new GradientAlphaKey[] { new GradientAlphaKey(alpha, 0f), new GradientAlphaKey(alpha, 1f) }
+            );
+            lines[i].colorGradient = g;
+            // Debug: log color and alpha used for chooser line
+            // (remove or comment out when satisfied)
+            Debug.Log($"ChooserLine[{i}] color={col} alpha={col.a}");
+            if (i == selectedIndex)
+            {
+                lines[i].startWidth = 0.1f;
+                lines[i].endWidth = 0.1f;
+            }
+            else
+            {
+                lines[i].startWidth = 0.05f;
+                lines[i].endWidth = 0.05f;
+            }
         }  
     }  
 
@@ -697,11 +743,20 @@ public class PlayerController : MonoBehaviour
                 go = Instantiate(linePrefab);
             persistent = go.GetComponent<LineRenderer>();
             persistent.positionCount = 2;
+            // Assign neutral material so vertex colors show correctly
+            if (neutralLineMaterial != null)
+                persistent.material = neutralLineMaterial;
             persistent.startWidth = 0.07f;
             persistent.endWidth = 0.07f;
         }
-        persistent.startColor = color;
-        persistent.endColor = color;
+        // Apply color via gradient
+        Gradient g = new Gradient();
+        g.SetKeys(
+            new GradientColorKey[] { new GradientColorKey(color, 0f), new GradientColorKey(color, 1f) },
+            new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0f), new GradientAlphaKey(color.a, 1f) }
+        );
+        persistent.colorGradient = g;
+        Debug.Log($"PersistentLine color={color} alpha={color.a} target={target?.name}");
         persistent.SetPosition(0, transform.position);
         persistent.SetPosition(1, target.position);
     }
@@ -878,7 +933,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log($"Chooser: assigning steel target index={selectedIndex} name={chosen.name}");
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 steelTarget = assigned;
-                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, Color.red, steelLinePrefab);
+                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
                 HighlightSelectedLine();
             }
         }
@@ -892,7 +947,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log($"Chooser: assigning iron target index={selectedIndex} name={chosen.name}");
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 ironTarget = assigned;
-                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, Color.green, ironLinePrefab);
+                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);
                 HighlightSelectedLine();
             }
         }
@@ -910,14 +965,14 @@ public class PlayerController : MonoBehaviour
                 Transform chosen = metalTargets[selectedIndex];
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 steelTarget = assigned;
-                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, Color.red, steelLinePrefab);
+                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
             }
             if (buringiron && ironTarget == null && metalTargets.Count > 0)
             {
                 Transform chosen = metalTargets[selectedIndex];
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 ironTarget = assigned;
-                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, Color.green, ironLinePrefab);
+                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);
             }
         }
 
