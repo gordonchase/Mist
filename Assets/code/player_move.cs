@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
     private List<LineRenderer> lines = new List<LineRenderer>();  
     private int selectedIndex = 0;  
     private bool isLineChooserActive = false;  
+    // chooserMode bitmask: 1 = steel chooser active, 2 = iron chooser active
+    private int chooserMode = 0;
     private Transform steelTarget = null; // push target  
     private Transform ironTarget = null;  // pull target  
     public float pullForce = 500f;  
@@ -190,6 +192,22 @@ public class PlayerController : MonoBehaviour
             {  
                 buringsteel = false;  
                 steelTarget = null; 
+                // If chooser is open, remove steel from chooser mode; only fully close chooser if no types remain
+                if (isLineChooserActive)
+                {
+                    chooserMode &= ~1;
+                    if (chooserMode == 0)
+                    {
+                        isLineChooserActive = false;
+                        Time.timeScale = 1f;
+                        DestroyChooserLines();
+                    }
+                    else
+                    {
+                        // still have another chooser (e.g., iron) active
+                        HighlightSelectedLine();
+                    }
+                }
             }  
             else  
             {  
@@ -204,6 +222,20 @@ public class PlayerController : MonoBehaviour
             {  
                 buringiron = false;  
                 ironTarget = null;
+                if (isLineChooserActive)
+                {
+                    chooserMode &= ~2;
+                    if (chooserMode == 0)
+                    {
+                        isLineChooserActive = false;
+                        Time.timeScale = 1f;
+                        DestroyChooserLines();
+                    }
+                    else
+                    {
+                        HighlightSelectedLine();
+                    }
+                }
             }  
             else  
             {  
@@ -241,7 +273,7 @@ public class PlayerController : MonoBehaviour
             }  
             if (buringsteel)  
             {  
-                pushForce = 3000;
+                pushForce = 3500;
             } 
             if (buringiron)  
             {  
@@ -264,7 +296,7 @@ public class PlayerController : MonoBehaviour
             }  
             if (buringsteel)  
             {  
-                pushForce = 1500;
+                pushForce = 1750;
             } 
             if (buringiron)  
             {  
@@ -289,11 +321,33 @@ public class PlayerController : MonoBehaviour
         {  
             buringsteel = false;  
             steelTarget = null;  
+            // If chooser was open for steel, remove that bit. Don't close chooser entirely if iron remains.
+            if (isLineChooserActive)
+            {
+                chooserMode &= ~1;
+                if (chooserMode == 0)
+                {
+                    isLineChooserActive = false;
+                    Time.timeScale = 1f;
+                    DestroyChooserLines();
+                }
+            }
         }  
         if (ironbarpercent < 1)  
         {  
             buringiron = false;  
             ironTarget = null;  
+            // If chooser was open for iron, remove that bit. Don't close chooser entirely if steel remains.
+            if (isLineChooserActive)
+            {
+                chooserMode &= ~2;
+                if (chooserMode == 0)
+                {
+                    isLineChooserActive = false;
+                    Time.timeScale = 1f;
+                    DestroyChooserLines();
+                }
+            }
         }  
 
         // If burning flags are false, ensure persistent lines and targets are cleared
@@ -364,6 +418,7 @@ public class PlayerController : MonoBehaviour
         if (buringiron && ironTarget != null)  
         {  
             Rigidbody2D rbMetal = ironTarget.GetComponent<Rigidbody2D>();  
+            if (rbMetal == null) Debug.Log("Pull: target has no Rigidbody2D: " + (ironTarget!=null?ironTarget.name:"null"));
             Vector2 dir = (ironTarget.position - transform.position).normalized;  
             float distance = Vector2.Distance(ironTarget.position, transform.position);  
             // Force attenuation based on actual distance (metalDetectRange still used only for detection)
@@ -379,6 +434,7 @@ public class PlayerController : MonoBehaviour
         if (buringsteel && steelTarget != null)  
         {  
             Rigidbody2D rbMetal = steelTarget.GetComponent<Rigidbody2D>();  
+            if (rbMetal == null) Debug.Log("Push: target has no Rigidbody2D: " + (steelTarget!=null?steelTarget.name:"null"));
             Vector2 dir = (steelTarget.position - transform.position).normalized;  
             float distance = Vector2.Distance(steelTarget.position, transform.position);  
             // Force attenuation based on actual distance (metalDetectRange still used only for detection)
@@ -436,9 +492,22 @@ public class PlayerController : MonoBehaviour
 
     void ActivateLineChooser()  
     {  
+        // Set chooser mode bits depending on which burn types are active
+        chooserMode = 0;
+        if (buringsteel) chooserMode |= 1;
+        if (buringiron) chooserMode |= 2;
+        if (chooserMode == 0)
+        {
+            // Nothing to choose for
+            return;
+        }
+
+        // Clear any previous chooser state, then build targets and lines
         isLineChooserActive = true;  
         Time.timeScale = slowMotionScale;  
+        DestroyChooserLines();
         FindMetalTargets();  
+        selectedIndex = 0;
         CreateLines();  
         HighlightSelectedLine();  
     }  
@@ -446,17 +515,54 @@ public class PlayerController : MonoBehaviour
     void FindMetalTargets()  
     {  
         metalTargets.Clear();  
+        DestroyTempTargets();
+
+        // Add collider-based targets (existing objects on metal layer)
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, metalDetectRange, metalLayer);  
         foreach (Collider2D col in hits)  
         {  
             if (col.isTrigger) continue;  
             metalTargets.Add(col.transform);  
         }  
+
+        // Also find Tilemap tiles that are on GameObjects with the 'metal' layer
+        int metalLayerIndex = LayerMask.NameToLayer("metal");
+        Tilemap[] allTilemaps = GameObject.FindObjectsOfType<Tilemap>();
+        foreach (Tilemap tm in allTilemaps)
+        {
+            if (tm.gameObject.layer != metalLayerIndex) continue;
+
+            // compute cell bounds to search
+            Vector3Int centerCell = tm.WorldToCell(transform.position);
+            int cellRadius = Mathf.CeilToInt(metalDetectRange / Mathf.Max(tm.cellSize.x, tm.cellSize.y));
+            for (int dx = -cellRadius; dx <= cellRadius; dx++)
+            {
+                for (int dy = -cellRadius; dy <= cellRadius; dy++)
+                {
+                    Vector3Int cell = new Vector3Int(centerCell.x + dx, centerCell.y + dy, centerCell.z);
+                    Vector3 worldCenter = tm.GetCellCenterWorld(cell);
+                    if ((worldCenter - transform.position).magnitude > metalDetectRange) continue;
+                    TileBase tb = tm.GetTile(cell);
+                    if (tb == null) continue;
+
+                    // create a temporary target GameObject at the cell center
+                    GameObject tmp = new GameObject("TileTarget");
+                    tmp.transform.position = worldCenter;
+                    tmp.transform.parent = GetOrCreateTempParent();
+                    // mark with TileTargetInfo so conversion can identify origin tilemap and cell
+                    TileTargetInfo info = tmp.AddComponent<TileTargetInfo>();
+                    info.tilemap = tm;
+                    info.cell = cell;
+                    metalTargets.Add(tmp.transform);
+                }
+            }
+        }
+        Debug.Log($"FindMetalTargets: found {metalTargets.Count} targets (including tile cells)");
     }  
 
     void CreateLines()  
     {  
-        DestroyChooserLines(); // only remove chooser temporary lines, keep persistent lines for active burns
+        // Create one chooser line per detected target. Do NOT destroy temp targets here; they were just created.
         foreach (Transform metal in metalTargets)  
         {  
             GameObject lineObj = Instantiate(linePrefab);  
@@ -467,8 +573,9 @@ public class PlayerController : MonoBehaviour
             lr.startWidth = 0.05f;  
             lr.endWidth = 0.05f;  
             lines.Add(lr);  
-        }  
-    }  
+        }
+            Debug.Log($"CreateLines: created {lines.Count} chooser lines");
+        }
 
     void UpdateLines()  
     {  
@@ -560,6 +667,35 @@ public class PlayerController : MonoBehaviour
                 Destroy(lr.gameObject);
         }
         lines.Clear();
+        DestroyTempTargets();
+        // reset chooser mode when chooser lines are removed
+        chooserMode = 0;
+    }
+
+    // Parent transform for temporary tile target objects
+    private Transform tempTargetsParent = null;
+
+    Transform GetOrCreateTempParent()
+    {
+        if (tempTargetsParent == null)
+        {
+            GameObject go = new GameObject("_TempTileTargets");
+            tempTargetsParent = go.transform;
+        }
+        return tempTargetsParent;
+    }
+
+    void DestroyTempTargets()
+    {
+        if (tempTargetsParent == null) return;
+        for (int i = tempTargetsParent.childCount - 1; i >= 0; i--)
+        {
+            var ch = tempTargetsParent.GetChild(i);
+            if (ch != null)
+                Destroy(ch.gameObject);
+        }
+        Destroy(tempTargetsParent.gameObject);
+        tempTargetsParent = null;
     }
 
     // Create or replace a persistent line renderer for a target
@@ -600,22 +736,67 @@ public class PlayerController : MonoBehaviour
     {
         if (targetTransform == null) return null;
 
-        // Try to get Tilemap on the object or parent
-        Tilemap tm = targetTransform.GetComponent<Tilemap>();
-        if (tm == null) tm = targetTransform.GetComponentInParent<Tilemap>();
-        if (tm == null) return targetTransform; // not a Tilemap target
-
-        // Find the Collider2D to get a closest point to the player
-        Collider2D col = targetTransform.GetComponent<Collider2D>();
-        if (col == null) col = targetTransform.GetComponentInParent<Collider2D>();
-
-        Vector3 closestWorld = (col != null) ? col.ClosestPoint(transform.position) : transform.position;
-        Vector3Int cell = tm.WorldToCell(closestWorld);
-        TileBase tileBase = tm.GetTile(cell);
-        if (tileBase == null) 
+        // If this target is a temporary Tile target, use its TileTargetInfo
+        TileTargetInfo tinfo = targetTransform.GetComponent<TileTargetInfo>();
+        Tilemap tm = null;
+        Vector3Int cell = Vector3Int.zero;
+        Vector3 closestWorld = transform.position;
+        if (tinfo != null)
         {
-            Debug.Log("ConvertTileToPhysicsIfNeeded: no TileBase at cell " + cell);
-            return targetTransform; // no tile at that cell
+            tm = tinfo.tilemap;
+            cell = tinfo.cell;
+            closestWorld = tm.GetCellCenterWorld(cell);
+        }
+        else
+        {
+            // Try to get Tilemap on the object or parent
+            tm = targetTransform.GetComponent<Tilemap>();
+            if (tm == null) tm = targetTransform.GetComponentInParent<Tilemap>();
+            if (tm == null) return targetTransform; // not a Tilemap target
+
+            // Find the Collider2D to get a closest point to the player
+            Collider2D col = targetTransform.GetComponent<Collider2D>();
+            if (col == null) col = targetTransform.GetComponentInParent<Collider2D>();
+
+            closestWorld = (col != null) ? col.ClosestPoint(transform.position) : transform.position;
+            cell = tm.WorldToCell(closestWorld);
+        }
+
+        // If the immediate cell has no tile, search nearby cells (radius 2) for the closest occupied cell.
+        TileBase tileBase = tm.GetTile(cell);
+        if (tileBase == null)
+        {
+            int searchRadius = 2; // search 5x5 area
+            float bestDistSqr = float.MaxValue;
+            Vector3Int bestCell = cell;
+            TileBase found = null;
+            for (int dx = -searchRadius; dx <= searchRadius; dx++)
+            {
+                for (int dy = -searchRadius; dy <= searchRadius; dy++)
+                {
+                    Vector3Int c = new Vector3Int(cell.x + dx, cell.y + dy, cell.z);
+                    TileBase tb = tm.GetTile(c);
+                    if (tb == null) continue;
+                    Vector3 center = tm.GetCellCenterWorld(c);
+                    float d2 = (center - closestWorld).sqrMagnitude;
+                    if (d2 < bestDistSqr)
+                    {
+                        bestDistSqr = d2;
+                        bestCell = c;
+                        found = tb;
+                    }
+                }
+            }
+            if (found == null)
+            {
+                Debug.Log("ConvertTileToPhysicsIfNeeded: no TileBase at cell " + cell + " or nearby cells");
+                return targetTransform; // no tile found nearby
+            }
+            // use nearest found
+            cell = bestCell;
+            tileBase = found;
+            closestWorld = tm.GetCellCenterWorld(cell);
+            Debug.Log("ConvertTileToPhysicsIfNeeded: found nearby tile at " + cell);
         }
 
         // Attempt to get a sprite: prefer Tilemap.GetSprite (handles RuleTile etc), fallback to TileBase cast
@@ -633,6 +814,20 @@ public class PlayerController : MonoBehaviour
 
         // Remove the tile from the Tilemap
         tm.SetTile(cell, null);
+        // Refresh tile and force TilemapCollider2D to rebuild so the removed cell no longer collides
+        tm.RefreshTile(cell);
+        var tcol = tm.GetComponent<TilemapCollider2D>();
+        if (tcol != null)
+        {
+            tcol.enabled = false;
+            tcol.enabled = true;
+        }
+        var comp = tm.GetComponent<CompositeCollider2D>();
+        if (comp != null)
+        {
+            comp.enabled = false;
+            comp.enabled = true;
+        }
 
         // Instantiate physics object (use prefab if set)
         GameObject go;
@@ -672,26 +867,30 @@ public class PlayerController : MonoBehaviour
         int metalLayerIndex = LayerMask.NameToLayer("metal");
         if (metalLayerIndex != -1) go.layer = metalLayerIndex;
 
+        Debug.Log($"ConvertTileToPhysicsIfNeeded: converted tile at {cell} to GameObject '{go.name}' at {spawnPos}");
+
         return go.transform;
     }
 
-    void HandleLineChooserInput()  
-    {  
-        if (!isLineChooserActive) return;  
+    void HandleLineChooserInput()
+    {
+        if (!isLineChooserActive) return;
 
-        if (Input.GetKeyDown(KeyCode.A))  
-        {  
-            selectedIndex--;  
-            if (selectedIndex < 0) selectedIndex = metalTargets.Count - 1;  
-            HighlightSelectedLine();  
-        }  
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            selectedIndex--;
+            if (selectedIndex < 0) selectedIndex = metalTargets.Count - 1;
+            HighlightSelectedLine();
+            Debug.Log($"Chooser: selectedIndex={selectedIndex}");
+        }
 
-        if (Input.GetKeyDown(KeyCode.D))  
-        {  
-            selectedIndex++;  
-            if (selectedIndex >= metalTargets.Count) selectedIndex = 0;  
-            HighlightSelectedLine();  
-        }  
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            selectedIndex++;
+            if (selectedIndex >= metalTargets.Count) selectedIndex = 0;
+            HighlightSelectedLine();
+            Debug.Log($"Chooser: selectedIndex={selectedIndex}");
+        }
 
         // Press Q to assign current selection as the Steel (push) target
         if (Input.GetKeyDown(KeyCode.Q))
@@ -699,6 +898,7 @@ public class PlayerController : MonoBehaviour
             if (buringsteel && metalTargets.Count > 0)
             {
                 Transform chosen = metalTargets[selectedIndex];
+                Debug.Log($"Chooser: assigning steel target index={selectedIndex} name={chosen.name}");
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 steelTarget = assigned;
                 CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, Color.red, steelLinePrefab);
@@ -712,6 +912,7 @@ public class PlayerController : MonoBehaviour
             if (buringiron && metalTargets.Count > 0)
             {
                 Transform chosen = metalTargets[selectedIndex];
+                Debug.Log($"Chooser: assigning iron target index={selectedIndex} name={chosen.name}");
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 ironTarget = assigned;
                 CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, Color.green, ironLinePrefab);
@@ -720,11 +921,11 @@ public class PlayerController : MonoBehaviour
         }
 
         // Confirm and exit chooser. If a burn type is active but no target assigned, assign current selection by default.
-        if (Input.GetKeyDown(KeyCode.W))  
-        {  
-            isLineChooserActive = false;  
-            Time.timeScale = 1f;  
-            DestroyChooserLines();  
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            isLineChooserActive = false;
+            Time.timeScale = 1f;
+            DestroyChooserLines();
 
             // Assign defaults if needed
             if (buringsteel && steelTarget == null && metalTargets.Count > 0)
@@ -741,20 +942,28 @@ public class PlayerController : MonoBehaviour
                 ironTarget = assigned;
                 CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, Color.green, ironLinePrefab);
             }
-        }  
+        }
 
-        if (Input.GetKeyDown(KeyCode.S))  
-        {  
+        if (Input.GetKeyDown(KeyCode.S))
+        {
             // Cancel chooser — keep any already assigned persistent lines but remove chooser lines
-            isLineChooserActive = false;  
-            Time.timeScale = 1f;  
-            DestroyChooserLines();  
-        }  
-    }  
+            isLineChooserActive = false;
+            Time.timeScale = 1f;
+            DestroyChooserLines();
+        }
+    }
 
-    void LateUpdate()  
-    {  
-        UpdateLines();  
-        HandleLineChooserInput();  
-    }  
+    void LateUpdate()
+    {
+        UpdateLines();
+        HandleLineChooserInput();
+    }
 }
+
+// Helper component attached to temporary tile target GameObjects so we know origin Tilemap and cell
+public class TileTargetInfo : MonoBehaviour
+{
+    public Tilemap tilemap;
+    public Vector3Int cell;
+}
+    
