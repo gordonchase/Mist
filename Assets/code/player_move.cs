@@ -68,6 +68,15 @@ public class PlayerController : MonoBehaviour
     public float pushForce = 500f;  
     public float slowMotionScale = 0.2f;  
 
+    // Persistent line renderers for active push/pull targets (kept while burning is active)
+    private LineRenderer steelPersistentLine = null;
+    private LineRenderer ironPersistentLine = null;
+    // Optional distinct prefabs for persistent steel/iron lines (set in Inspector)
+    public GameObject steelLinePrefab;
+    public GameObject ironLinePrefab;
+    // Optional prefab for converted physics tiles (set in Inspector). If null, created at runtime.
+    public GameObject tilePhysicsPrefab;
+
     void linechooser()  
     {  
         Time.timeScale = slowMotionScale;  
@@ -180,11 +189,12 @@ public class PlayerController : MonoBehaviour
             if (buringsteel)  
             {  
                 buringsteel = false;  
+                steelTarget = null; 
             }  
             else  
             {  
                 buringsteel = true;  
-                ActivateLineChooser();  
+                ActivateLineChooser();
             }  
         }  
 
@@ -193,6 +203,7 @@ public class PlayerController : MonoBehaviour
             if (buringiron)  
             {  
                 buringiron = false;  
+                ironTarget = null;
             }  
             else  
             {  
@@ -228,6 +239,16 @@ public class PlayerController : MonoBehaviour
                 xSpeed = 10;  
                 jumpStrength = 650;  
             }  
+            if (buringsteel)  
+            {  
+                pushForce = 3000;
+            } 
+            if (buringiron)  
+            {  
+                pullForce = 4000;
+            } 
+            metalDetectRange = 30;
+            slowMotionScale = 0.05f;
         }  
         else  
         {  
@@ -241,6 +262,16 @@ public class PlayerController : MonoBehaviour
                 xSpeed = 7;  
                 jumpStrength = 450;  
             }  
+            if (buringsteel)  
+            {  
+                pushForce = 1500;
+            } 
+            if (buringiron)  
+            {  
+                pullForce = 2000;
+            } 
+            metalDetectRange = 20;
+            slowMotionScale = 0.1f;
         }  
 
         if (tinbarpercent < 1)  
@@ -264,6 +295,20 @@ public class PlayerController : MonoBehaviour
             buringiron = false;  
             ironTarget = null;  
         }  
+
+        // If burning flags are false, ensure persistent lines and targets are cleared
+        if (!buringsteel && steelPersistentLine != null)
+        {
+            Destroy(steelPersistentLine.gameObject);
+            steelPersistentLine = null;
+            steelTarget = null;
+        }
+        if (!buringiron && ironPersistentLine != null)
+        {
+            Destroy(ironPersistentLine.gameObject);
+            ironPersistentLine = null;
+            ironTarget = null;
+        }
 
         // Ground check  
         BoxCollider2D box = GetComponent<BoxCollider2D>();  
@@ -321,7 +366,9 @@ public class PlayerController : MonoBehaviour
             Rigidbody2D rbMetal = ironTarget.GetComponent<Rigidbody2D>();  
             Vector2 dir = (ironTarget.position - transform.position).normalized;  
             float distance = Vector2.Distance(ironTarget.position, transform.position);  
-            float scaledPull = pullForce * Mathf.Clamp01(1f - (distance / metalDetectRange));  
+            // Force attenuation based on actual distance (metalDetectRange still used only for detection)
+            // Inverse-linear falloff: force decreases as distance increases, avoids divide-by-zero.
+            float scaledPull = pullForce / (distance + 1f);
 
             if (rbMetal != null)  
                 rbMetal.AddForce(-dir * scaledPull * Time.fixedDeltaTime);  
@@ -334,7 +381,9 @@ public class PlayerController : MonoBehaviour
             Rigidbody2D rbMetal = steelTarget.GetComponent<Rigidbody2D>();  
             Vector2 dir = (steelTarget.position - transform.position).normalized;  
             float distance = Vector2.Distance(steelTarget.position, transform.position);  
-            float scaledPush = pushForce * Mathf.Clamp01(1f - (distance / metalDetectRange));  
+            // Force attenuation based on actual distance (metalDetectRange still used only for detection)
+            // Inverse-linear falloff: force decreases as distance increases, avoids divide-by-zero.
+            float scaledPush = pushForce / (distance + 1f);
 
             if (rbMetal != null)  
                 rbMetal.AddForce(dir * scaledPush * Time.fixedDeltaTime);  
@@ -407,7 +456,7 @@ public class PlayerController : MonoBehaviour
 
     void CreateLines()  
     {  
-        DestroyAllLines();  
+        DestroyChooserLines(); // only remove chooser temporary lines, keep persistent lines for active burns
         foreach (Transform metal in metalTargets)  
         {  
             GameObject lineObj = Instantiate(linePrefab);  
@@ -429,6 +478,17 @@ public class PlayerController : MonoBehaviour
             lines[i].SetPosition(0, transform.position);  
             lines[i].SetPosition(1, metalTargets[i].position);  
         }  
+        // Update persistent lines for active targets (do not remove while burning)
+        if (steelTarget != null && steelPersistentLine != null)  
+        {  
+            steelPersistentLine.SetPosition(0, transform.position);  
+            steelPersistentLine.SetPosition(1, steelTarget.position);  
+        }  
+        if (ironTarget != null && ironPersistentLine != null)  
+        {  
+            ironPersistentLine.SetPosition(0, transform.position);  
+            ironPersistentLine.SetPosition(1, ironTarget.position);  
+        }  
     }  
 
     void HighlightSelectedLine()  
@@ -436,8 +496,24 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < lines.Count; i++)  
         {  
             if (lines[i] == null) continue;  
-            if (i == selectedIndex)  
+            // If this metal is already assigned as steelTarget or ironTarget, color accordingly
+            if (metalTargets != null && i < metalTargets.Count && metalTargets[i] == steelTarget)  
             {  
+                lines[i].startColor = Color.red;  
+                lines[i].endColor = Color.red;  
+                lines[i].startWidth = 0.08f;  
+                lines[i].endWidth = 0.08f;  
+            }  
+            else if (metalTargets != null && i < metalTargets.Count && metalTargets[i] == ironTarget)  
+            {  
+                lines[i].startColor = Color.green;  
+                lines[i].endColor = Color.green;  
+                lines[i].startWidth = 0.08f;  
+                lines[i].endWidth = 0.08f;  
+            }  
+            else if (i == selectedIndex)  
+            {  
+                // currently being navigated in chooser
                 lines[i].startColor = Color.blue;  
                 lines[i].endColor = Color.blue;  
                 lines[i].startWidth = 0.1f;  
@@ -455,13 +531,149 @@ public class PlayerController : MonoBehaviour
 
     void DestroyAllLines()  
     {  
+        // Remove all chooser temporary lines
         foreach (LineRenderer lr in lines)  
         {  
             if (lr != null)  
                 Destroy(lr.gameObject);  
         }  
         lines.Clear();  
+        // Also remove persistent lines if they exist (full cleanup)
+        if (steelPersistentLine != null)  
+        {  
+            Destroy(steelPersistentLine.gameObject);  
+            steelPersistentLine = null;  
+        }  
+        if (ironPersistentLine != null)  
+        {  
+            Destroy(ironPersistentLine.gameObject);  
+            ironPersistentLine = null;  
+        }  
     }  
+
+    // Destroys only the chooser temporary lines, keep persistent push/pull lines
+    void DestroyChooserLines()
+    {
+        foreach (LineRenderer lr in lines)
+        {
+            if (lr != null)
+                Destroy(lr.gameObject);
+        }
+        lines.Clear();
+    }
+
+    // Create or replace a persistent line renderer for a target
+    void CreateOrUpdatePersistentLine(ref LineRenderer persistent, Transform target, Color color, GameObject prefab)
+    {
+        if (target == null)
+        {
+            if (persistent != null)
+            {
+                Destroy(persistent.gameObject);
+                persistent = null;
+            }
+            return;
+        }
+
+        if (persistent == null)
+        {
+            GameObject go = null;
+            if (prefab != null)
+                go = Instantiate(prefab);
+            else
+                go = Instantiate(linePrefab);
+            persistent = go.GetComponent<LineRenderer>();
+            persistent.positionCount = 2;
+            persistent.startWidth = 0.07f;
+            persistent.endWidth = 0.07f;
+        }
+        persistent.startColor = color;
+        persistent.endColor = color;
+        persistent.SetPosition(0, transform.position);
+        persistent.SetPosition(1, target.position);
+    }
+
+    // Convert a tile at the closest cell to the player (on the provided transform's Tilemap) into
+    // a physics-enabled GameObject and return its transform. If the transform isn't part of a Tilemap
+    // or conversion fails, returns the original transform unchanged.
+    Transform ConvertTileToPhysicsIfNeeded(Transform targetTransform)
+    {
+        if (targetTransform == null) return null;
+
+        // Try to get Tilemap on the object or parent
+        Tilemap tm = targetTransform.GetComponent<Tilemap>();
+        if (tm == null) tm = targetTransform.GetComponentInParent<Tilemap>();
+        if (tm == null) return targetTransform; // not a Tilemap target
+
+        // Find the Collider2D to get a closest point to the player
+        Collider2D col = targetTransform.GetComponent<Collider2D>();
+        if (col == null) col = targetTransform.GetComponentInParent<Collider2D>();
+
+        Vector3 closestWorld = (col != null) ? col.ClosestPoint(transform.position) : transform.position;
+        Vector3Int cell = tm.WorldToCell(closestWorld);
+        TileBase tileBase = tm.GetTile(cell);
+        if (tileBase == null) 
+        {
+            Debug.Log("ConvertTileToPhysicsIfNeeded: no TileBase at cell " + cell);
+            return targetTransform; // no tile at that cell
+        }
+
+        // Attempt to get a sprite: prefer Tilemap.GetSprite (handles RuleTile etc), fallback to TileBase cast
+        Sprite tileSprite = tm.GetSprite(cell);
+        if (tileSprite == null)
+        {
+            Tile tileObj = tileBase as Tile;
+            if (tileObj != null) tileSprite = tileObj.sprite;
+        }
+        if (tileSprite == null)
+        {
+            Debug.Log("ConvertTileToPhysicsIfNeeded: couldn't determine sprite for tile at " + cell + ". Conversion aborted.");
+            return targetTransform; // can't convert without sprite
+        }
+
+        // Remove the tile from the Tilemap
+        tm.SetTile(cell, null);
+
+        // Instantiate physics object (use prefab if set)
+        GameObject go;
+        Vector3 spawnPos = tm.GetCellCenterWorld(cell);
+        if (tilePhysicsPrefab != null)
+        {
+            go = Instantiate(tilePhysicsPrefab, spawnPos, Quaternion.identity);
+            var sr = go.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.sprite = tileSprite;
+        }
+        else
+        {
+            go = new GameObject("PhysicsTile");
+            var sr = go.AddComponent<SpriteRenderer>();
+            sr.sprite = tileSprite;
+            go.transform.position = spawnPos;
+        }
+
+        // Ensure physics components
+        if (go.GetComponent<Rigidbody2D>() == null)
+        {
+            var rb = go.AddComponent<Rigidbody2D>();
+            rb.mass = 1f;
+            rb.gravityScale = 0f;
+        }
+        if (go.GetComponent<Collider2D>() == null)
+        {
+            var bc = go.AddComponent<BoxCollider2D>();
+            var sr = go.GetComponent<SpriteRenderer>();
+            if (sr != null && sr.sprite != null)
+            {
+                bc.size = sr.sprite.bounds.size;
+            }
+        }
+
+        // Put new object on metal layer if available
+        int metalLayerIndex = LayerMask.NameToLayer("metal");
+        if (metalLayerIndex != -1) go.layer = metalLayerIndex;
+
+        return go.transform;
+    }
 
     void HandleLineChooserInput()  
     {  
@@ -481,24 +693,62 @@ public class PlayerController : MonoBehaviour
             HighlightSelectedLine();  
         }  
 
+        // Press Q to assign current selection as the Steel (push) target
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (buringsteel && metalTargets.Count > 0)
+            {
+                Transform chosen = metalTargets[selectedIndex];
+                Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
+                steelTarget = assigned;
+                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, Color.red, steelLinePrefab);
+                HighlightSelectedLine();
+            }
+        }
+
+        // Press E to assign current selection as the Iron (pull) target
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (buringiron && metalTargets.Count > 0)
+            {
+                Transform chosen = metalTargets[selectedIndex];
+                Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
+                ironTarget = assigned;
+                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, Color.green, ironLinePrefab);
+                HighlightSelectedLine();
+            }
+        }
+
+        // Confirm and exit chooser. If a burn type is active but no target assigned, assign current selection by default.
         if (Input.GetKeyDown(KeyCode.W))  
         {  
             isLineChooserActive = false;  
             Time.timeScale = 1f;  
-            DestroyAllLines();  
+            DestroyChooserLines();  
 
-            // Assign separate targets  
-            if (buringsteel)  
-                steelTarget = metalTargets[selectedIndex];  
-            if (buringiron)  
-                ironTarget = metalTargets[selectedIndex];  
+            // Assign defaults if needed
+            if (buringsteel && steelTarget == null && metalTargets.Count > 0)
+            {
+                Transform chosen = metalTargets[selectedIndex];
+                Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
+                steelTarget = assigned;
+                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, Color.red, steelLinePrefab);
+            }
+            if (buringiron && ironTarget == null && metalTargets.Count > 0)
+            {
+                Transform chosen = metalTargets[selectedIndex];
+                Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
+                ironTarget = assigned;
+                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, Color.green, ironLinePrefab);
+            }
         }  
 
         if (Input.GetKeyDown(KeyCode.S))  
         {  
+            // Cancel chooser — keep any already assigned persistent lines but remove chooser lines
             isLineChooserActive = false;  
             Time.timeScale = 1f;  
-            DestroyAllLines();  
+            DestroyChooserLines();  
         }  
     }  
 
