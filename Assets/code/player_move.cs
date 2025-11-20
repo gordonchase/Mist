@@ -321,36 +321,13 @@ public class PlayerController : MonoBehaviour
         {  
             buringsteel = false;  
             steelTarget = null;  
-            // If chooser was open for steel, remove that bit. Don't close chooser entirely if iron remains.
-            if (isLineChooserActive)
-            {
-                chooserMode &= ~1;
-                if (chooserMode == 0)
-                {
-                    isLineChooserActive = false;
-                    Time.timeScale = 1f;
-                    DestroyChooserLines();
-                }
-            }
         }  
         if (ironbarpercent < 1)  
         {  
             buringiron = false;  
             ironTarget = null;  
-            // If chooser was open for iron, remove that bit. Don't close chooser entirely if steel remains.
-            if (isLineChooserActive)
-            {
-                chooserMode &= ~2;
-                if (chooserMode == 0)
-                {
-                    isLineChooserActive = false;
-                    Time.timeScale = 1f;
-                    DestroyChooserLines();
-                }
-            }
         }  
 
-        // If burning flags are false, ensure persistent lines and targets are cleared
         if (!buringsteel && steelPersistentLine != null)
         {
             Destroy(steelPersistentLine.gameObject);
