@@ -360,9 +360,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // Ground check  
-        BoxCollider2D box = GetComponent<BoxCollider2D>();  
-        Vector2 rayOrigin = (Vector2)transform.position + box.offset;  
-        float halfWidth = box.size.x * 0.5f * transform.localScale.x;  
+        CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();  
+        Vector2 rayOrigin = (Vector2)transform.position + capsule.offset;  
+        float halfWidth = capsule.size.x * 0.5f * transform.localScale.x;  
         float rayDistance = groundCheckDistance;  
         int groundLayer = LayerMask.GetMask("ground");  
 
@@ -904,7 +904,7 @@ public class PlayerController : MonoBehaviour
         }
         if (go.GetComponent<Collider2D>() == null)
         {
-            var bc = go.AddComponent<BoxCollider2D>();
+            var bc = go.AddComponent<CapsuleCollider2D>();
             var sr = go.GetComponent<SpriteRenderer>();
             if (sr != null && sr.sprite != null)
             {

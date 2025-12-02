@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: f7eb884340a1443458054f73aea386a1
+guid: de3110dc0a055284ab62a0e8f6e39647
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4317422582217555632
-    second: pewterbar_0
+      213: 3275028520990625885
+    second: New Piskel (8)_0
   - first:
-      213: 842242996128254689
-    second: pewterbar_1
+      213: 3150403194116108143
+    second: New Piskel (8)_1
   - first:
-      213: 8761761614110289610
-    second: pewterbar_2
-  - first:
-      213: 7170178065376712627
-    second: pewterbar_3
+      213: -4072501624859464931
+    second: New Piskel (8)_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,7 +107,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -122,145 +119,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pewterbar_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0514ca1490f6514c0800000000000000
-      internalID: -4317422582217555632
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pewterbar_1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1ea09c6ea8f30bb00800000000000000
-      internalID: 842242996128254689
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pewterbar_2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 96
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ace62b724c7089970800000000000000
-      internalID: 8761761614110289610
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pewterbar_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3b7931316f6918360800000000000000
-      internalID: 7170178065376712627
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pewterbar_4
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6d398d17a8a49a848ae37583d3c7968a
-      internalID: 1059868097
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pewterbar_5
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 64
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a4463ef5ad0a5454cb7192496d2f658e
-      internalID: -1425214878
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: pewterbar_6
+      name: flaring helth_0
       rect:
         serializedVersion: 2
         x: 0
         y: 32
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,20 +134,42 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fe3521584c720245845f15831f3abaa
-      internalID: -2054585101
+      spriteID: c410f4e9a090e034090bb4acb6564845
+      internalID: -2067185763
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pewterbar_7
+      name: flaring helth_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 825d174ac016b31409ea9d4c4d785c22
+      internalID: 120360832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flaring helth_2
       rect:
         serializedVersion: 2
         x: 32
         y: 32
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -291,20 +178,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d80f5cc71812b94cbfe842db248c17e
-      internalID: 1138536248
+      spriteID: 48c96428791154f4b952b4fecfa811b5
+      internalID: 890659280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pewterbar_8
+      name: flaring helth_3
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
-        width: 32
-        height: 32
+        x: 0
+        y: 16
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -313,20 +200,64 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fe337e60a94257499497a84651bec71
-      internalID: 75399657
+      spriteID: ae316ed3aebf6454081b6275a37bb8cd
+      internalID: 1704705522
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pewterbar_9
+      name: flaring helth_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e08428672935b846a2cdf3811f2e1a3
+      internalID: 1602118124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flaring helth_5
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a35932cab220b5c46b5579ea654ff32c
+      internalID: 718130241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flaring helth_6
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,20 +266,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 87530cffabc3c4548b8337e8d4256797
-      internalID: 406576599
+      spriteID: 8e9421f9f88e90a42ada5ea94b4c9d64
+      internalID: 263542097
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: pewterbar_10
+      name: flaring helth_7
       rect:
         serializedVersion: 2
-        x: 32
+        x: 16
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -357,8 +288,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5e518e229da8ac48867bcadfbf0478c
-      internalID: 1876449598
+      spriteID: 64af7999a7f362e4ab1f3251772b2aa8
+      internalID: 858391601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: flaring helth_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6c1b9569e4c4614a8164dff16360213
+      internalID: 403983491
       vertices: []
       indices: 
       edges: []
@@ -367,7 +320,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 9a76496969066e04b93825ab756618d0
+    spriteID: 4de05aac5eb51a344955ab3f9ba65c95
     internalID: 0
     vertices: []
     indices: 
@@ -377,17 +330,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      pewterbar_0: -4317422582217555632
-      pewterbar_1: 842242996128254689
-      pewterbar_10: 1876449598
-      pewterbar_2: 8761761614110289610
-      pewterbar_3: 7170178065376712627
-      pewterbar_4: 1059868097
-      pewterbar_5: -1425214878
-      pewterbar_6: -2054585101
-      pewterbar_7: 1138536248
-      pewterbar_8: 75399657
-      pewterbar_9: 406576599
+      flaring helth_0: -2067185763
+      flaring helth_1: 120360832
+      flaring helth_2: 890659280
+      flaring helth_3: 1704705522
+      flaring helth_4: 1602118124
+      flaring helth_5: 718130241
+      flaring helth_6: 263542097
+      flaring helth_7: 858391601
+      flaring helth_8: 403983491
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
