@@ -11,6 +11,7 @@ TagManager:
   - Aitum
   - Steel
   - Iron
+  - enemy
   layers:
   - Default
   - TransparentFX

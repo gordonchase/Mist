@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
     // pullForce = 1000f; metalDetectRange = 10f; slowMotionScale = 0.2f;
 
 
+
+    public int helth = 100;
+    private bool thymething1 = false;
+
     private bool isGrounded;  
     private Rigidbody2D rb;  
     public float groundCheckDistance = 0.1f;  
@@ -159,6 +163,8 @@ public class PlayerController : MonoBehaviour
                     ironbarpercent -= 1;  
                 }  
             }  
+
+            thymething1 = true;
 
             yield return new WaitForSeconds(1f);  
         }  
@@ -477,7 +483,18 @@ public class PlayerController : MonoBehaviour
             ironbarpercent += 50;  
             if (ironbarpercent > 200) ironbarpercent = 200;  
         }  
+
     }  
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider != null && collision.collider.CompareTag("enemy") && thymething1)
+        {
+            helth -= 3;
+            thymething1 = false;
+            Debug.Log("Damage applied via OnCollisionStay2D");
+        }
+    }
 
     void ActivateLineChooser()  
     {  
