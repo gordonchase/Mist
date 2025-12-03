@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -91,6 +93,8 @@ public class PlayerController : MonoBehaviour
     private Material neutralLineMaterial;
     // If true, force line alpha to 1.0 (useful to override accidental transparency)
     public bool forceOpaqueLines = true;
+    public Image pweterhelth;
+    private float newAlphaValue = 0.0f;
 
     void linechooser()  
     {  
@@ -440,6 +444,44 @@ public class PlayerController : MonoBehaviour
                 rbMetal.AddForce(dir * scaledPush * Time.fixedDeltaTime);  
             rb.AddForce(-dir * scaledPush * Time.fixedDeltaTime);  
         }  
+
+
+
+                if (buringpewter)
+                {
+                    if (helth>0)
+                    {
+                        newAlphaValue=1.0f;
+                    }
+                    else
+                    {
+                        newAlphaValue = (float)((helth*4) + 255) / 255;
+                    }
+                }
+                else
+                {
+                    newAlphaValue=0.0f;
+                }
+                pweterhelth.color = new Color(
+                    pweterhelth.color.r,
+                    pweterhelth.color.g,
+                    pweterhelth.color.b,
+                    newAlphaValue
+                );
+
+
+
+                if (helth<0 && !buringpewter) 
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                else if(buringpewter && !flaring && helth<-25)
+                {
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+
+
+
     }  
 
     // ---------------------------

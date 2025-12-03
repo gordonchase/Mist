@@ -10,38 +10,48 @@ public class uicode : MonoBehaviour
     public Sprite[] tinFrames;
     public int tinframe;
 
-
     public Image tinbarImage;
     public Sprite[] tinbarFrames;
+
 
     public Image pewterImage;
     public Sprite[] pewterFrames;
     public int pewterframe;
 
-
     public Image pewterbarImage;
     public Sprite[] pewterbarFrames;
+
 
     public Image steelImage;
     public Sprite[] steelFrames;
     public int steelframe;
 
-
     public Image steelbarImage;
     public Sprite[] steelbarFrames;
+
 
     public Image ironImage;
     public Sprite[] ironFrames;
     public int ironframe;
 
-
     public Image ironbarImage;
     public Sprite[] ironbarFrames;
 
+        
+
+    public Sprite[] basichelthbarFrames;
+    public int basichelthframe;
+    public Image basichelthbarImage;
+
+    public Sprite[] pewterhelthbarFrames;
+    public int pewterhelthframe;
+    public Image pewterhelthbarImage;
+    public Sprite[] flaringhelthbarFrames;
+    public int flaringhelthframe;
+    public Image flaringhelthbarImage;
+
     void Start()
     {
-        tinframe = 0;
-        pewterframe=0;
         UpdateFrame();
     }
 
@@ -62,6 +72,41 @@ public class uicode : MonoBehaviour
         int pewterpercent = player.pewterbarpercent;
         int steelpercent = player.steelbarpercent;
         int ironpercent = player.ironbarpercent;
+        int curenthelth = player.helth;
+        
+        int basichelthframe = Mathf.RoundToInt(curenthelth/3.333f);
+        int pewterhelthframe = Mathf.RoundToInt((curenthelth+50)/3.125f);
+        if (basichelthframe>30)
+        {
+            basichelthframe=30;
+        }
+        if (basichelthframe<0)
+        {
+            basichelthframe=0;
+        }
+        if (pewterhelthframe>16)
+        {
+            pewterhelthframe=16;
+        }
+        if (pewterhelthframe<0)
+        {
+           pewterhelthframe=0;
+        }
+        if (!isFlaring)
+        {
+            flaringhelthframe=0;
+        }
+        if (isBurningpewter && isFlaring && curenthelth > -25)
+        {
+            flaringhelthframe=9;
+        }
+        if (isBurningpewter && isFlaring && curenthelth<=-25)
+        {
+        int flareinghelthframe = Mathf.RoundToInt((curenthelth+25)/3.125f);
+        }
+
+
+
 
         int tinbarframe = Mathf.RoundToInt(tinpercent / 50f);
 
@@ -147,5 +192,9 @@ public class uicode : MonoBehaviour
 
         ironImage.sprite = ironFrames[ironframe];
         ironbarImage.sprite = ironbarFrames[ironbarframe];
+
+        basichelthbarImage.sprite = basichelthbarFrames[basichelthframe];
+        pewterhelthbarImage.sprite = pewterhelthbarFrames[pewterhelthframe];
+        flaringhelthbarImage.sprite = flaringhelthbarFrames[flaringhelthframe];
     }
 }
