@@ -12,6 +12,7 @@ TagManager:
   - Steel
   - Iron
   - enemy
+  - helth
   layers:
   - Default
   - TransparentFX

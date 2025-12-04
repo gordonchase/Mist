@@ -525,6 +525,12 @@ public class PlayerController : MonoBehaviour
             ironbarpercent += 50;  
             if (ironbarpercent > 200) ironbarpercent = 200;  
         }  
+        if (collision.gameObject.CompareTag("helth"))  
+        {  
+            Destroy(collision.gameObject);  
+            helth+= 50;  
+            if (helth > 100) helth = 100;  
+        }  
 
     }  
 

@@ -98,11 +98,11 @@ public class uicode : MonoBehaviour
         }
         if (isBurningpewter && isFlaring && curenthelth > -25)
         {
-            flaringhelthframe=9;
+            flaringhelthframe=8;
         }
         if (isBurningpewter && isFlaring && curenthelth<=-25)
         {
-        int flareinghelthframe = Mathf.RoundToInt((curenthelth+25)/3.125f);
+        int flareinghelthframe = Mathf.RoundToInt((curenthelth+75)/3.125f);
         }
 
 
