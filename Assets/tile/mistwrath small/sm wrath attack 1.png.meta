@@ -1,19 +1,16 @@
 fileFormatVersion: 2
-guid: ae4a0a33311e4ba4a9ff7910861ed40d
+guid: 746308f3b1a7e444287947b2eaacc1e6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4810702507026764722
-    second: New Piskel (7)_0
+      213: 3756150318338751373
+    second: sm wrath attack 1_0
   - first:
-      213: 226647019809873599
-    second: New Piskel (7)_1
+      213: -4143413967297156734
+    second: sm wrath attack 1_1
   - first:
-      213: -7198345155242531674
-    second: New Piskel (7)_2
-  - first:
-      213: 9072680028889410737
-    second: New Piskel (7)_3
+      213: 8112322189412383437
+    second: sm wrath attack 1_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -105,11 +102,24 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: New Piskel (7)_0
+      name: sm wrath attack 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +134,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2b35963217c03c240800000000000000
-      internalID: 4810702507026764722
+      spriteID: d8b3d8740d6802430800000000000000
+      internalID: 3756150318338751373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: New Piskel (7)_1
+      name: sm wrath attack 1_1
       rect:
         serializedVersion: 2
         x: 64
@@ -146,14 +156,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fbe1b218346352300800000000000000
-      internalID: 226647019809873599
+      spriteID: 2896cd113f2af76c0800000000000000
+      internalID: -4143413967297156734
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: New Piskel (7)_2
+      name: sm wrath attack 1_2
       rect:
         serializedVersion: 2
         x: 0
@@ -168,30 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6a46d1348375a1c90800000000000000
-      internalID: -7198345155242531674
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: New Piskel (7)_3
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1bcebbaca62a8ed70800000000000000
-      internalID: 9072680028889410737
+      spriteID: dcab173ec02c49070800000000000000
+      internalID: 8112322189412383437
       vertices: []
       indices: 
       edges: []
@@ -200,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a0e40d172a189d34784085659d8b4d5a
+    spriteID: 9d2cfb768899c63499262b2523139604
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      New Piskel (7)_0: 4810702507026764722
-      New Piskel (7)_1: 226647019809873599
-      New Piskel (7)_2: -7198345155242531674
-      New Piskel (7)_3: 9072680028889410737
+      sm wrath attack 1_0: 3756150318338751373
+      sm wrath attack 1_1: -4143413967297156734
+      sm wrath attack 1_2: 8112322189412383437
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
