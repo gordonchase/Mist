@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
     public Image pweterhelth;
     private float newAlphaValue = 0.0f;
 
+
     void linechooser()  
     {  
         Time.timeScale = slowMotionScale;  

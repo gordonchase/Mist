@@ -3,6 +3,8 @@ using System.Collections;
 
 public class sm_mistwrath : MonoBehaviour
 {
+
+    public PlayerController player;
     public GameObject playerobject;
     public GameObject enemyobject;
     public Rigidbody2D rb;
@@ -33,7 +35,20 @@ public class sm_mistwrath : MonoBehaviour
     Vector2 playerPos = playerobject.transform.position;
     Vector2 enemyPos = enemyobject.transform.position;
     checkdistance = Vector2.Distance(playerPos, enemyPos);
-    if (checkdistance<seedistance){
+    if (checkdistance < 2 && !attaking)
+        {
+         Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
+        if (putsomthinghere)
+            {
+            StartCoroutine(attakingco());
+            }
+
+        else
+        {
+        enemyobject.transform.Rotate(0, 0, 1f);
+        }
+        }
+    else if (checkdistance<seedistance){
         if (playerPos.x-enemyPos.x>0 && canmove && ! jumping)
         {
         rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
@@ -77,6 +92,20 @@ public class sm_mistwrath : MonoBehaviour
     rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
     anim.SetBool("jumping", false);
     jumping = false;
-    
+    }
+    IEnumerator attakingco()  
+    {
+    attaking=true;
+    anim.SetBool("attaking", true);
+    yield return new WaitForSeconds(0.5f); 
+    attaking=false;
+    anim.SetBool("attaking", false);
+    Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
+    if (reltivtorotation.y > 0 && reltivtorotation.x < 0)
+        {
+        player.helth -= 10;
+        }
+
     }
 }
+
