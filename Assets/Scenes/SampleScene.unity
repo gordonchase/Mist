@@ -7160,12 +7160,14 @@ MonoBehaviour:
   enemyobject: {fileID: 1340808198}
   rb: {fileID: 1340808202}
   checkdistance: 0
-  seedistance: 30
-  speed: 2
-  jump: 5
+  seedistance: 15
+  speed: 4
+  jump: 12
   isgrounded: 0
   canmove: 1
   speedcap: 5
+  anim: {fileID: 0}
+  jumping: 0
 --- !u!1 &1341758767
 GameObject:
   m_ObjectHideFlags: 0
@@ -12441,7 +12443,7 @@ Transform:
   m_GameObject: {fileID: 1411424641}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.15, y: 18.16, z: 0}
+  m_LocalPosition: {x: -10.28, y: 11.21, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:

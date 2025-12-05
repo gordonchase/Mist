@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class sm_mistwrath : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class sm_mistwrath : MonoBehaviour
     private float currentspeed;
     public bool canmove = true;
     public float speedcap = 5;
+    public Animator anim;
+    public bool jumping=false;
     
     void Start()
     {
@@ -23,6 +26,7 @@ public class sm_mistwrath : MonoBehaviour
     Vector2 enemyPos = enemyobject.transform.position;
     rb = enemyobject.GetComponent<Rigidbody2D>();
     checkdistance = Vector2.Distance(playerPos, enemyPos);
+    anim = GetComponent<Animator>();
     }
     void Update()
     {
@@ -30,18 +34,23 @@ public class sm_mistwrath : MonoBehaviour
     Vector2 enemyPos = enemyobject.transform.position;
     checkdistance = Vector2.Distance(playerPos, enemyPos);
     if (checkdistance<seedistance){
-        if (playerPos.x-enemyPos.x>0 && canmove)
+        if (playerPos.x-enemyPos.x>0 && canmove && ! jumping)
         {
         rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
         }
-        if (playerPos.x-enemyPos.x<0 && canmove)
+        if (playerPos.x-enemyPos.x<0 && canmove && ! jumping)
         {
         rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
         }
         if (playerPos.y-enemyPos.y>1 && isgrounded)
         {
-        rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+        enemyobject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        jumping = true;
         isgrounded = false;
+        anim.SetBool("jumping", true);
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+        StartCoroutine(jumpdelay());
         }
     }
     float currentspeed = rb.linearVelocity.x;
@@ -60,5 +69,14 @@ public class sm_mistwrath : MonoBehaviour
         {  
         isgrounded = true;
         }  
+    }
+    IEnumerator jumpdelay()  
+    {
+    yield return new WaitForSeconds(2f); 
+    rb.constraints = RigidbodyConstraints2D.None;
+    rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+    anim.SetBool("jumping", false);
+    jumping = false;
+    
     }
 }
