@@ -38,7 +38,7 @@ public class sm_mistwrath : MonoBehaviour
     if (checkdistance < 2 && !attaking)
         {
          Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
-        if (putsomthinghere)
+        if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
             {
             StartCoroutine(attakingco());
             }
@@ -101,10 +101,10 @@ public class sm_mistwrath : MonoBehaviour
     attaking=false;
     anim.SetBool("attaking", false);
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
-    if (reltivtorotation.y > 0 && reltivtorotation.x < 0)
-        {
+    // // if (reltivtorotation.y > 0 && reltivtorotation.x < 0)
+    //     {
         player.helth -= 10;
-        }
+        // }
 
     }
 }
