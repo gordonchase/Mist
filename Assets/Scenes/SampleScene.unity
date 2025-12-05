@@ -6888,7 +6888,7 @@ Transform:
   m_GameObject: {fileID: 1340808198}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 69.17, y: -22.91, z: 2.2105205}
+  m_LocalPosition: {x: 72.01, y: -21.22, z: 2.2105205}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7052,13 +7052,14 @@ MonoBehaviour:
   rb: {fileID: 1340808202}
   checkdistance: 0
   seedistance: 30
-  speed: 2
+  speed: 10
   jump: 12
   isgrounded: 0
   canmove: 1
-  speedcap: 5
+  speedcap: 2
   anim: {fileID: 0}
   jumping: 0
+  enemyhelth: 100
 --- !u!1 &1341758767
 GameObject:
   m_ObjectHideFlags: 0
@@ -12334,7 +12335,7 @@ Transform:
   m_GameObject: {fileID: 1411424641}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.15, y: 18.16, z: 0}
+  m_LocalPosition: {x: -10.21, y: 10.91, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:

@@ -21,6 +21,7 @@ public class sm_mistwrath : MonoBehaviour
     public float speedcap = 5;
     public Animator anim;
     public bool jumping=false;
+    public float enemyhelth=1000;
     
     void Start()
     {
@@ -32,8 +33,12 @@ public class sm_mistwrath : MonoBehaviour
     }
     void Update()
     {
-    Vector2 playerPos = playerobject.transform.position;
-    Vector2 enemyPos = enemyobject.transform.position;
+    if (enemyhelth<0)
+    {
+    Destroy(enemyobject);
+    }
+    playerPos = playerobject.transform.position;
+    enemyPos = enemyobject.transform.position;
     checkdistance = Vector2.Distance(playerPos, enemyPos);
     if (checkdistance < 2 && !attaking)
         {
@@ -44,9 +49,9 @@ public class sm_mistwrath : MonoBehaviour
             }
 
         else
-        {
-        enemyobject.transform.Rotate(0, 0, 1f);
-        }
+            {
+            enemyobject.transform.Rotate(0, 0, 2.5f);
+            }
         }
     else if (checkdistance<seedistance){
         if (playerPos.x-enemyPos.x>0 && canmove && ! jumping)
@@ -80,6 +85,14 @@ public class sm_mistwrath : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision) 
     {
+
+
+    Vector2 falldamage = collision.relativeVelocity;
+    float damageonimpact = falldamage.magnitude;
+    Debug.Log("tacing damage"+damageonimpact);
+    if (damageonimpact > 15f){
+        enemyhelth -= damageonimpact;
+    }
     if (collision.gameObject.CompareTag("ground"))  
         {  
         isgrounded = true;
@@ -103,8 +116,13 @@ public class sm_mistwrath : MonoBehaviour
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
     // // if (reltivtorotation.y > 0 && reltivtorotation.x < 0)
     //     {
-        player.helth -= 10;
         // }
+    // Debug.Log("finished attacing");
+    if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
+            {
+                // Debug.Log("DAMAGE!");
+            player.helth -= 10;
+            }
 
     }
 }
