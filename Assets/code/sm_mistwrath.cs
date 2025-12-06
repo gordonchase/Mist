@@ -4,6 +4,8 @@ using System.Collections;
 public class sm_mistwrath : MonoBehaviour
 {
 
+    public GameObject enemyreward;
+    public GameObject enemyreward1;
     public PlayerController player;
     public GameObject playerobject;
     public GameObject enemyobject;
@@ -22,6 +24,7 @@ public class sm_mistwrath : MonoBehaviour
     public Animator anim;
     public bool jumping=false;
     public float enemyhelth=100;
+
     
     void Start()
     {
@@ -33,6 +36,21 @@ public class sm_mistwrath : MonoBehaviour
     }
     void Update()
     {
+    Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
+    float xposthingy = enemyobject.transform.position.x - playerobject.transform.position.x;
+    float yposthingy = enemyobject.transform.position.y - playerobject.transform.position.y;
+    if (player.delingdamage)
+        {
+        if (xposthingy < 0.5f && xposthingy > -3f && !player.lastmove && yposthingy < 3f && yposthingy > -3f){
+            enemyhelth-=5;        
+            Debug.Log("damage from kell" + enemyhelth);
+            }
+        if (xposthingy > 0f && xposthingy < 3f && player.lastmove && yposthingy < 3f && yposthingy > -3f){
+            enemyhelth-=5;        
+            Debug.Log("damage from kell" + enemyhelth);
+            }
+        player.delingdamage=false;
+        }
     if (enemyhelth<0)
     {
     StartCoroutine(dethco());
@@ -42,7 +60,6 @@ public class sm_mistwrath : MonoBehaviour
     checkdistance = Vector2.Distance(playerPos, enemyPos);
     if (checkdistance < 2 && !attaking)
         {
-         Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
         if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
             {
             StartCoroutine(attakingco());
@@ -50,7 +67,7 @@ public class sm_mistwrath : MonoBehaviour
 
         else
             {
-            enemyobject.transform.Rotate(0, 0, 2.5f);
+            enemyobject.transform.Rotate(0, 0, 0.5f);
             }
         }
     else if (checkdistance<seedistance){
@@ -62,7 +79,7 @@ public class sm_mistwrath : MonoBehaviour
         {
         rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
         }
-        if (playerPos.y-enemyPos.y>1 && isgrounded)
+        if (playerPos.y-enemyPos.y>1 && isgrounded && !jumping)
         {
         enemyobject.transform.rotation = Quaternion.Euler(0, 0, 0);
         jumping = true;
@@ -89,9 +106,9 @@ public class sm_mistwrath : MonoBehaviour
     if (!collision.gameObject.CompareTag("Player")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
-    Debug.Log("tacing damage"+damageonimpact);
-    if (damageonimpact > 10f){
-        enemyhelth -= damageonimpact;
+    if (damageonimpact > 12.5f){
+        enemyhelth -= damageonimpact/2;
+        Debug.Log("damage from fall" + enemyhelth);
     }
     }
     if (collision.gameObject.CompareTag("ground"))  
@@ -132,6 +149,8 @@ public class sm_mistwrath : MonoBehaviour
     anim.SetBool("attaking", false);
     anim.SetBool("deth", true);
     yield return new WaitForSeconds(4.55f); 
+    Instantiate(enemyreward, enemyobject.transform.position, Quaternion.identity);
+    Instantiate(enemyreward1, enemyobject.transform.position, Quaternion.identity);
     Destroy(enemyobject);
     }
 }

@@ -1,19 +1,19 @@
 fileFormatVersion: 2
-guid: 25d2c1952f7784a4bbbe8d90fd285596
+guid: a3c892c5015c4034a8f289f02008ac92
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2300149608226417258
-    second: kell_right (2)_0
+      213: 1797647326534370912
+    second: slise 1_0
   - first:
-      213: -1793304657670913336
-    second: kell_right (2)_1
+      213: 5666875803076745032
+    second: slise 1_1
   - first:
-      213: -8141797913658894320
-    second: kell_right (2)_2
+      213: 7363815204808591654
+    second: slise 1_2
   - first:
-      213: -5435161823171327288
-    second: kell_right (2)_3
+      213: 5582720351826152075
+    second: slise 1_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,7 +109,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: slise_0
+      name: slise left_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ef854478be2be7941a577b5d74084171
-      internalID: 497839
+      spriteID: 850a2a76657036e4b8e3c13c532aefa3
+      internalID: -886540148
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slise_1
+      name: slise left_1
       rect:
         serializedVersion: 2
         x: 64
@@ -146,14 +146,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 68ac014d20a386044aaa869ff87a2646
-      internalID: 1532357143
+      spriteID: 1cfb4b5c4fc175541a3fbcd6375b35dc
+      internalID: -604877561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slise_2
+      name: slise left_2
       rect:
         serializedVersion: 2
         x: 0
@@ -168,14 +168,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c2677529b45ee0a4aad452a4400344b8
-      internalID: -1156044503
+      spriteID: 7c4df3af460b3ac418906610a9e07020
+      internalID: 2140301264
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: slise_3
+      name: slise left_3
       rect:
         serializedVersion: 2
         x: 64
@@ -190,8 +190,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7fb6250d785c93d43a253f5a3af6afa0
-      internalID: -465316464
+      spriteID: 5e47ef806c26c0742a3fd000c3e80ed9
+      internalID: -1653006471
       vertices: []
       indices: 
       edges: []
@@ -200,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 7f4174e620889174fa7556fdd92626a9
+    spriteID: 606591227308ad74daa0b61e6a684d23
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      slise_0: 497839
-      slise_1: 1532357143
-      slise_2: -1156044503
-      slise_3: -465316464
+      slise left_0: -886540148
+      slise left_1: -604877561
+      slise left_2: 2140301264
+      slise left_3: -1653006471
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -96,6 +96,11 @@ public class PlayerController : MonoBehaviour
     public Image pweterhelth;
     private float newAlphaValue = 0.0f;
 
+    public bool canattk=true;
+    public bool lastmove=true;
+    public bool delingdamage=false;
+
+
 
     void linechooser()  
     {  
@@ -116,6 +121,17 @@ public class PlayerController : MonoBehaviour
         neutralLineMaterial = new Material(Shader.Find("Sprites/Default"));
         neutralLineMaterial.color = Color.white;
     }  
+
+
+    IEnumerator attaking()
+    {
+    anim.SetBool("slicing", true);
+    delingdamage=true;
+    yield return new WaitForSeconds(0.4f);  
+    anim.SetBool("slicing", false);
+    yield return new WaitForSeconds(0.2f);
+    canattk = true;
+    }
 
     IEnumerator DoEverySecond()  
     {  
@@ -191,6 +207,11 @@ public class PlayerController : MonoBehaviour
                 buringtin = true;  
                 notrealA = 1.0f;  
             }  
+        } 
+        if (Input.GetKeyDown(KeyCode.S) && canattk)  
+        {  
+            canattk = false;
+            StartCoroutine(attaking());
         }  
 
         if (Input.GetKeyDown(KeyCode.X))  
@@ -401,6 +422,16 @@ public class PlayerController : MonoBehaviour
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
         anim.SetFloat("xSpeed", rb.linearVelocity.x);  
+        if (rb.linearVelocity.x > 0.1)
+        {
+            lastmove = true;
+            anim.SetBool("lastmove", true);
+        }
+        if (rb.linearVelocity.x < -0.1)
+        {
+            lastmove = false;
+            anim.SetBool("lastmove", false);
+        }
 
         var main = mistps.main;  
         Color c = main.startColor.color;  
@@ -418,7 +449,7 @@ public class PlayerController : MonoBehaviour
         if (buringiron && ironTarget != null)  
         {  
             Rigidbody2D rbMetal = ironTarget.GetComponent<Rigidbody2D>();  
-            if (rbMetal == null) Debug.Log("Pull: target has no Rigidbody2D: " + (ironTarget!=null?ironTarget.name:"null"));
+            // if (rbMetal == null) Debug.Log("Pull: target has no Rigidbody2D: " + (ironTarget!=null?ironTarget.name:"null"));
             Vector2 dir = (ironTarget.position - transform.position).normalized;  
             float distance = Vector2.Distance(ironTarget.position, transform.position);  
             // Force attenuation based on actual distance (metalDetectRange still used only for detection)
@@ -434,7 +465,7 @@ public class PlayerController : MonoBehaviour
         if (buringsteel && steelTarget != null)  
         {  
             Rigidbody2D rbMetal = steelTarget.GetComponent<Rigidbody2D>();  
-            if (rbMetal == null) Debug.Log("Push: target has no Rigidbody2D: " + (steelTarget!=null?steelTarget.name:"null"));
+            // if (rbMetal == null) Debug.Log("Push: target has no Rigidbody2D: " + (steelTarget!=null?steelTarget.name:"null"));
             Vector2 dir = (steelTarget.position - transform.position).normalized;  
             float distance = Vector2.Distance(steelTarget.position, transform.position);  
             // Force attenuation based on actual distance (metalDetectRange still used only for detection)
@@ -541,7 +572,7 @@ public class PlayerController : MonoBehaviour
         {
             helth -= 3;
             thymething1 = false;
-            Debug.Log("Damage applied via OnCollisionStay2D");
+            // Debug.Log("Damage applied via OnCollisionStay2D");
         }
     }
 
@@ -632,7 +663,7 @@ public class PlayerController : MonoBehaviour
             });
         }
 
-        Debug.Log($"FindMetalTargets: found {metalTargets.Count} targets (including tile cells)");
+        // Debug.Log($"FindMetalTargets: found {metalTargets.Count} targets (including tile cells)");
     }  
 
     void CreateLines()  
@@ -657,7 +688,7 @@ public class PlayerController : MonoBehaviour
             lr.endWidth = 0.05f;  
             lines.Add(lr);  
         }
-        Debug.Log($"CreateLines: created {lines.Count} chooser lines");
+        // Debug.Log($"CreateLines: created {lines.Count} chooser lines");
         }
 
     void UpdateLines()  
@@ -711,7 +742,7 @@ public class PlayerController : MonoBehaviour
             lines[i].colorGradient = g;
             // Debug: log color and alpha used for chooser line
             // (remove or comment out when satisfied)
-            Debug.Log($"ChooserLine[{i}] color={col} alpha={col.a}");
+            // Debug.Log($"ChooserLine[{i}] color={col} alpha={col.a}");
             if (i == selectedIndex)
             {
                 lines[i].startWidth = 0.1f;
@@ -822,7 +853,7 @@ public class PlayerController : MonoBehaviour
             new GradientAlphaKey[] { new GradientAlphaKey(color.a, 0f), new GradientAlphaKey(color.a, 1f) }
         );
         persistent.colorGradient = g;
-        Debug.Log($"PersistentLine color={color} alpha={color.a} target={target?.name}");
+        // Debug.Log($"PersistentLine color={color} alpha={color.a} target={target?.name}");
         persistent.SetPosition(0, transform.position);
         persistent.SetPosition(1, target.position);
     }
@@ -887,14 +918,14 @@ public class PlayerController : MonoBehaviour
             }
             if (found == null)
             {
-                Debug.Log("ConvertTileToPhysicsIfNeeded: no TileBase at cell " + cell + " or nearby cells");
+                // Debug.Log("ConvertTileToPhysicsIfNeeded: no TileBase at cell " + cell + " or nearby cells");
                 return targetTransform; // no tile found nearby
             }
             // use nearest found
             cell = bestCell;
             tileBase = found;
             closestWorld = tm.GetCellCenterWorld(cell);
-            Debug.Log("ConvertTileToPhysicsIfNeeded: found nearby tile at " + cell);
+            // Debug.Log("ConvertTileToPhysicsIfNeeded: found nearby tile at " + cell);
         }
 
         // Attempt to get a sprite: prefer Tilemap.GetSprite (handles RuleTile etc), fallback to TileBase cast
@@ -906,7 +937,7 @@ public class PlayerController : MonoBehaviour
         }
         if (tileSprite == null)
         {
-            Debug.Log("ConvertTileToPhysicsIfNeeded: couldn't determine sprite for tile at " + cell + ". Conversion aborted.");
+            // Debug.Log("ConvertTileToPhysicsIfNeeded: couldn't determine sprite for tile at " + cell + ". Conversion aborted.");
             return targetTransform; // can't convert without sprite
         }
 
@@ -965,7 +996,7 @@ public class PlayerController : MonoBehaviour
         int metalLayerIndex = LayerMask.NameToLayer("metal");
         if (metalLayerIndex != -1) go.layer = metalLayerIndex;
 
-        Debug.Log($"ConvertTileToPhysicsIfNeeded: converted tile at {cell} to GameObject '{go.name}' at {spawnPos}");
+        // Debug.Log($"ConvertTileToPhysicsIfNeeded: converted tile at {cell} to GameObject '{go.name}' at {spawnPos}");
 
         return go.transform;
     }
@@ -979,7 +1010,7 @@ public class PlayerController : MonoBehaviour
             selectedIndex--;
             if (selectedIndex < 0) selectedIndex = metalTargets.Count - 1;
             HighlightSelectedLine();
-            Debug.Log($"Chooser: selectedIndex={selectedIndex}");
+            // Debug.Log($"Chooser: selectedIndex={selectedIndex}");
         }
 
         if (Input.GetKeyDown(KeyCode.D))
@@ -987,7 +1018,7 @@ public class PlayerController : MonoBehaviour
             selectedIndex++;
             if (selectedIndex >= metalTargets.Count) selectedIndex = 0;
             HighlightSelectedLine();
-            Debug.Log($"Chooser: selectedIndex={selectedIndex}");
+            // Debug.Log($"Chooser: selectedIndex={selectedIndex}");
         }
 
         // Press Q to assign current selection as the Steel (push) target
@@ -996,7 +1027,7 @@ public class PlayerController : MonoBehaviour
             if (buringsteel && metalTargets.Count > 0)
             {
                 Transform chosen = metalTargets[selectedIndex];
-                Debug.Log($"Chooser: assigning steel target index={selectedIndex} name={chosen.name}");
+                // Debug.Log($"Chooser: assigning steel target index={selectedIndex} name={chosen.name}");
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 steelTarget = assigned;
                 CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
@@ -1010,7 +1041,7 @@ public class PlayerController : MonoBehaviour
             if (buringiron && metalTargets.Count > 0)
             {
                 Transform chosen = metalTargets[selectedIndex];
-                Debug.Log($"Chooser: assigning iron target index={selectedIndex} name={chosen.name}");
+                // Debug.Log($"Chooser: assigning iron target index={selectedIndex} name={chosen.name}");
                 Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
                 ironTarget = assigned;
                 CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);
