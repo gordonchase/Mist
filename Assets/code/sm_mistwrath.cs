@@ -21,7 +21,7 @@ public class sm_mistwrath : MonoBehaviour
     public float speedcap = 5;
     public Animator anim;
     public bool jumping=false;
-    public float enemyhelth=1000;
+    public float enemyhelth=100;
     
     void Start()
     {
@@ -35,7 +35,7 @@ public class sm_mistwrath : MonoBehaviour
     {
     if (enemyhelth<0)
     {
-    Destroy(enemyobject);
+    StartCoroutine(dethco());
     }
     playerPos = playerobject.transform.position;
     enemyPos = enemyobject.transform.position;
@@ -86,12 +86,13 @@ public class sm_mistwrath : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) 
     {
 
-
+    if (!collision.gameObject.CompareTag("Player")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     Debug.Log("tacing damage"+damageonimpact);
-    if (damageonimpact > 15f){
+    if (damageonimpact > 10f){
         enemyhelth -= damageonimpact;
+    }
     }
     if (collision.gameObject.CompareTag("ground"))  
         {  
@@ -114,9 +115,6 @@ public class sm_mistwrath : MonoBehaviour
     attaking=false;
     anim.SetBool("attaking", false);
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
-    // // if (reltivtorotation.y > 0 && reltivtorotation.x < 0)
-    //     {
-        // }
     // Debug.Log("finished attacing");
     if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
             {
@@ -124,6 +122,17 @@ public class sm_mistwrath : MonoBehaviour
             player.helth -= 10;
             }
 
+    }
+    IEnumerator dethco()  
+    {
+    rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+    rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+    anim.SetBool("jumping", false);
+    anim.SetBool("attaking", false);
+    anim.SetBool("deth", true);
+    yield return new WaitForSeconds(4.55f); 
+    Destroy(enemyobject);
     }
 }
 

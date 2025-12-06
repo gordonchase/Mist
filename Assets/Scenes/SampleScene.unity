@@ -6874,7 +6874,7 @@ GameObject:
   - component: {fileID: 1340808204}
   m_Layer: 7
   m_Name: sm wrath1
-  m_TagString: Untagged
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6889,7 +6889,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 72.01, y: -21.22, z: 2.2105205}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1976801691}
@@ -6964,10 +6964,10 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1.5
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.9
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -7052,7 +7052,7 @@ MonoBehaviour:
   rb: {fileID: 1340808202}
   checkdistance: 0
   seedistance: 30
-  speed: 10
+  speed: 5
   jump: 12
   isgrounded: 0
   canmove: 1
@@ -12191,7 +12191,7 @@ GameObject:
   - component: {fileID: 1411424648}
   m_Layer: 6
   m_Name: kell
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
