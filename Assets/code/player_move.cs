@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -99,6 +100,8 @@ public class PlayerController : MonoBehaviour
     public bool canattk=true;
     public bool lastmove=true;
     public bool delingdamage=false;
+
+    public int pewterdivby = 1;
 
 
 
@@ -218,6 +221,7 @@ public class PlayerController : MonoBehaviour
         {  
             if (buringpewter)  
             {  
+                pewterdivby =1;
                 xSpeed = 3.5f;  
                 jumpStrength = 300;  
                 buringpewter = false;  
@@ -303,6 +307,9 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()  
     {  
+
+        if (helth>100){helth=100;}
+
         if (flaring)  
         {  
             if (buringtin)  
@@ -312,6 +319,7 @@ public class PlayerController : MonoBehaviour
             }  
             if (buringpewter)  
             {  
+                pewterdivby =3;
                 xSpeed = 10;  
                 jumpStrength = 650;  
             }  
@@ -335,6 +343,7 @@ public class PlayerController : MonoBehaviour
             }  
             if (buringpewter)  
             {  
+                pewterdivby=2;
                 xSpeed = 7;  
                 jumpStrength = 450;  
             }  
@@ -357,7 +366,8 @@ public class PlayerController : MonoBehaviour
         }  
         if (pewterbarpercent < 1)  
         {  
-            buringpewter = false;  
+            buringpewter = false;
+            pewterdivby = 1;  
             xSpeed = 3.5f;  
             jumpStrength = 300;  
         }  
@@ -521,6 +531,12 @@ public class PlayerController : MonoBehaviour
     // ---------------------------
     void OnCollisionEnter2D(Collision2D collision)  
     {  
+    Vector2 falldamage = collision.relativeVelocity;
+    float damageonimpact = falldamage.magnitude;
+    if (damageonimpact > 15f){
+        helth -= (int)Math.Round(damageonimpact/2);
+        Debug.Log("damage from fall" + helth);
+    }
         if (collision.gameObject.CompareTag("Tin"))  
         {  
             Destroy(collision.gameObject);  
@@ -570,7 +586,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider != null && collision.collider.CompareTag("enemy") && thymething1)
         {
-            helth -= 3;
+            helth -= 4-pewterdivby;
             thymething1 = false;
             // Debug.Log("Damage applied via OnCollisionStay2D");
         }

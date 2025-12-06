@@ -24,6 +24,7 @@ public class sm_mistwrath : MonoBehaviour
     public Animator anim;
     public bool jumping=false;
     public float enemyhelth=100;
+    private bool takiningdamage = true;
 
     
     void Start()
@@ -39,17 +40,18 @@ public class sm_mistwrath : MonoBehaviour
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
     float xposthingy = enemyobject.transform.position.x - playerobject.transform.position.x;
     float yposthingy = enemyobject.transform.position.y - playerobject.transform.position.y;
-    if (player.delingdamage)
+    if (player.delingdamage && takiningdamage)
         {
         if (xposthingy < 0.5f && xposthingy > -3f && !player.lastmove && yposthingy < 3f && yposthingy > -3f){
-            enemyhelth-=5;        
+            enemyhelth -= player.pewterdivby * 5;    
             Debug.Log("damage from kell" + enemyhelth);
             }
         if (xposthingy > 0f && xposthingy < 3f && player.lastmove && yposthingy < 3f && yposthingy > -3f){
-            enemyhelth-=5;        
+            enemyhelth -= player.pewterdivby * 5;   
             Debug.Log("damage from kell" + enemyhelth);
             }
-        player.delingdamage=false;
+        takiningdamage = false;
+        StartCoroutine(interferance());
         }
     if (enemyhelth<0)
     {
@@ -116,6 +118,13 @@ public class sm_mistwrath : MonoBehaviour
         isgrounded = true;
         }  
     }
+
+    IEnumerator interferance()
+    {
+    yield return new WaitForSeconds(0.1f);
+    player.delingdamage=false;
+    takiningdamage = true;
+    }
     IEnumerator jumpdelay()  
     {
     yield return new WaitForSeconds(2f); 
@@ -136,7 +145,7 @@ public class sm_mistwrath : MonoBehaviour
     if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
             {
                 // Debug.Log("DAMAGE!");
-            player.helth -= 10;
+            player.helth -= 10-player.pewterdivby;
             }
 
     }
