@@ -109,7 +109,15 @@ public class sm_mistwrath : MonoBehaviour
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 12.5f){
-        enemyhelth -= damageonimpact/2;
+        enemyhelth -= damageonimpact;
+        Debug.Log("damage from fall" + enemyhelth);
+    }
+    }
+    if (collision.gameObject.CompareTag("boxing")){
+    Vector2 falldamage = collision.relativeVelocity;
+    float damageonimpact = falldamage.magnitude;
+    if (damageonimpact > 7.7f){
+        enemyhelth -= damageonimpact*2;
         Debug.Log("damage from fall" + enemyhelth);
     }
     }
@@ -163,4 +171,5 @@ public class sm_mistwrath : MonoBehaviour
     Destroy(enemyobject);
     }
 }
+
 

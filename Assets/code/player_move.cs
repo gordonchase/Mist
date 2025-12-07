@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
 public class PlayerController : MonoBehaviour
 {
     // ===============================
@@ -102,6 +103,9 @@ public class PlayerController : MonoBehaviour
     public bool delingdamage=false;
 
     public int pewterdivby = 1;
+    public int numboxings=0;
+    public GameObject boxingfab;
+    private float xOffsetAmount=0f;
 
 
 
@@ -303,7 +307,19 @@ public class PlayerController : MonoBehaviour
                 flaring = true;  
             }  
         }  
+
+        if (Input.GetKeyDown(KeyCode.E))  
+        {  
+            if (numboxings>0)  
+            {  
+            numboxings-=1;
+                if (lastmove){xOffsetAmount=1f;}
+                else{xOffsetAmount=-1f;}
+            Instantiate(boxingfab, transform.position + new Vector3(xOffsetAmount, 0, 0), Quaternion.identity);
+            }
+        }  
     }  
+
 
     void FixedUpdate()  
     {  
@@ -531,11 +547,13 @@ public class PlayerController : MonoBehaviour
     // ---------------------------
     void OnCollisionEnter2D(Collision2D collision)  
     {  
+    if (!collision.gameObject.CompareTag("boxing")) {
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 15f){
-        helth -= (int)Math.Round(damageonimpact/2);
+        helth -= (int)Math.Round(damageonimpact/pewterdivby);
         Debug.Log("damage from fall" + helth);
+    }
     }
         if (collision.gameObject.CompareTag("Tin"))  
         {  
@@ -578,6 +596,11 @@ public class PlayerController : MonoBehaviour
             Destroy(collision.gameObject);  
             helth+= 50;  
             if (helth > 100) helth = 100;  
+        }  
+        if (collision.gameObject.CompareTag("boxing"))  
+        {  
+            Destroy(collision.gameObject);  
+            numboxings += 1; 
         }  
 
     }  

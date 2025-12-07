@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using TMPro;
 
 public class uicode : MonoBehaviour
 {
@@ -50,6 +51,8 @@ public class uicode : MonoBehaviour
     public int flaringhelthframe;
     public Image flaringhelthbarImage;
 
+    public TMP_Text boxings;
+
     void Start()
     {
         UpdateFrame();
@@ -76,6 +79,10 @@ public class uicode : MonoBehaviour
         
         int basichelthframe = Mathf.RoundToInt(curenthelth/3.333f);
         int pewterhelthframe = Mathf.RoundToInt((curenthelth+50)/3.125f);
+
+        boxings.text = player.numboxings.ToString();
+
+
         if (basichelthframe>30)
         {
             basichelthframe=30;
