@@ -49,7 +49,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,7 +63,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +87,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -108,115 +108,128 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gard (3)_0
+      name: right_0
       rect:
         serializedVersion: 2
-        x: 28
-        y: 146
-        width: 20
-        height: 46
+        x: 0
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 51278594606791760800000000000000
-      internalID: 7429098829696758293
+      spriteID: 41cc5e1bd43731c49bd622bd8bfa58a5
+      internalID: -1389210972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (3)_1
+      name: right_1
       rect:
         serializedVersion: 2
-        x: 89
-        y: 146
-        width: 23
-        height: 46
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 426288ea770f61810800000000000000
-      internalID: 1735839103217837604
+      spriteID: 387fcb951e48d0e4aa74303639793a67
+      internalID: -760100921
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (3)_2
+      name: right_2
       rect:
         serializedVersion: 2
-        x: 25
-        y: 83
-        width: 27
-        height: 46
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b17247fd24491a520800000000000000
-      internalID: 2711611465591432987
+      spriteID: 6a57a0d6683d9804a96db3f625b09d9e
+      internalID: 499995256
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (3)_3
+      name: right_3
       rect:
         serializedVersion: 2
-        x: 92
-        y: 83
-        width: 20
-        height: 46
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e8cad36af36645a10800000000000000
-      internalID: 1897253766587853966
+      spriteID: 4ea6d496ecb93ea48b84da02d02f7623
+      internalID: 633365039
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (3)_4
+      name: right_4
       rect:
         serializedVersion: 2
-        x: 28
-        y: 19
-        width: 24
-        height: 46
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 43dfc68d52d504340800000000000000
-      internalID: 4845975616176848180
+      spriteID: 121229f3d5739e24ba64ce22dccd89d2
+      internalID: 1177269010
       vertices: []
       indices: 
       edges: []
@@ -225,7 +238,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: e62d4df223d6b3a48a4a31382912c448
     internalID: 0
     vertices: []
     indices: 
@@ -235,11 +248,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gard (3)_0: 7429098829696758293
-      gard (3)_1: 1735839103217837604
-      gard (3)_2: 2711611465591432987
-      gard (3)_3: 1897253766587853966
-      gard (3)_4: 4845975616176848180
+      right_0: -1389210972
+      right_1: -760100921
+      right_2: 499995256
+      right_3: 633365039
+      right_4: 1177269010
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

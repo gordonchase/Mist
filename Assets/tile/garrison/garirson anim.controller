@@ -9,9 +9,6 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 3
-    m_ConditionEvent: horazontal
-    m_EventTreshold: 0
-  - m_ConditionMode: 3
     m_ConditionEvent: hor
     m_EventTreshold: -0.1
   m_DstStateMachine: {fileID: 0}
@@ -61,7 +58,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: left
-  m_Speed: 0.25
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -7728300099428052654}
@@ -222,7 +219,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: right
-  m_Speed: 1
+  m_Speed: 0.8
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -6952140316606803937}
@@ -235,7 +232,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 1d79a65a127e9ca4386f087e67797c3a, type: 2}
+  m_Motion: {fileID: 7400000, guid: e44613dee09c5cf4f8ef47ed31d2257c, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
