@@ -25,6 +25,7 @@ public class sm_mistwrath : MonoBehaviour
     public bool jumping=false;
     public float enemyhelth=100;
     private bool takiningdamage = true;
+    private bool dead=false;
 
     
     void Start()
@@ -42,13 +43,17 @@ public class sm_mistwrath : MonoBehaviour
     float yposthingy = enemyobject.transform.position.y - playerobject.transform.position.y;
     if (player.delingdamage && takiningdamage)
         {
-        if (xposthingy < 0.5f && xposthingy > -3f && !player.lastmove && yposthingy < 3f && yposthingy > -3f){
+        if (xposthingy < 0.5f && xposthingy > -1.5f && !player.lastmove && yposthingy < 1.5f && yposthingy > -3f){
             enemyhelth -= player.pewterdivby * 5;    
             Debug.Log("damage from kell" + enemyhelth);
+            byte randothingy=(byte)(255-(player.pewterdivby * 50));
+            StartCoroutine(takingdamage(randothingy));
             }
-        if (xposthingy > 0f && xposthingy < 3f && player.lastmove && yposthingy < 3f && yposthingy > -3f){
+        if (xposthingy > 0f && xposthingy < 1.5f && player.lastmove && yposthingy < 1.5f && yposthingy > -3f){
             enemyhelth -= player.pewterdivby * 5;   
             Debug.Log("damage from kell" + enemyhelth);
+            byte randothingy=(byte)(255-(player.pewterdivby *50));
+            StartCoroutine(takingdamage(randothingy));
             }
         takiningdamage = false;
         StartCoroutine(interferance());
@@ -60,7 +65,7 @@ public class sm_mistwrath : MonoBehaviour
     playerPos = playerobject.transform.position;
     enemyPos = enemyobject.transform.position;
     checkdistance = Vector2.Distance(playerPos, enemyPos);
-    if (checkdistance < 2 && !attaking)
+    if (checkdistance < 2 && !attaking && !dead)
         {
         if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
             {
@@ -111,6 +116,8 @@ public class sm_mistwrath : MonoBehaviour
     if (damageonimpact > 12.5f){
         enemyhelth -= damageonimpact;
         Debug.Log("damage from fall" + enemyhelth);
+        byte randothingy=(byte)(225-(damageonimpact*5));
+        StartCoroutine(takingdamage(randothingy));
     }
     }
     if (collision.gameObject.CompareTag("boxing")){
@@ -119,12 +126,20 @@ public class sm_mistwrath : MonoBehaviour
     if (damageonimpact > 7.7f){
         enemyhelth -= damageonimpact*2;
         Debug.Log("damage from fall" + enemyhelth);
+        byte randothingy=(byte)(255-(damageonimpact*5));
+        StartCoroutine(takingdamage(randothingy));
     }
     }
     if (collision.gameObject.CompareTag("ground"))  
         {  
         isgrounded = true;
         }  
+    }
+    IEnumerator takingdamage(byte red)
+    {
+        enemyobject.GetComponent<SpriteRenderer>().color = new Color32(255, red, red, 255);
+        yield return new WaitForSeconds(0.2f);
+        enemyobject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 255);
     }
 
     IEnumerator interferance()
@@ -159,6 +174,7 @@ public class sm_mistwrath : MonoBehaviour
     }
     IEnumerator dethco()  
     {
+    dead=true;
     rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     rb.constraints = RigidbodyConstraints2D.FreezePositionY;
     rb.constraints = RigidbodyConstraints2D.FreezeRotation;
