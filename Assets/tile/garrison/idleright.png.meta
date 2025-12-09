@@ -46,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -60,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -84,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -105,93 +105,106 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: gard (1) (1)_0
+      name: idleright_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 82
-        width: 31
-        height: 37
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 7d020fb592188d290800000000000000
-      internalID: -7865394734566465321
+      spriteID: 3c63dfbec28aa034d914f625a7e9f2a2
+      internalID: -1455831856
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (1) (1)_1
+      name: idleright_1
       rect:
         serializedVersion: 2
-        x: 78
-        y: 82
-        width: 31
-        height: 36
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: c50bae1a078196f90800000000000000
-      internalID: -6960004877092474788
+      spriteID: d80f97698a9dbc643a91b6d05b67dddf
+      internalID: -743767325
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (1) (1)_2
+      name: idleright_2
       rect:
         serializedVersion: 2
-        x: 14
-        y: 18
-        width: 31
-        height: 36
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4caa6f9ab963b56d0800000000000000
-      internalID: -3000744684512957756
+      spriteID: 9969d10a2efc73a48b32eeb691a4e28c
+      internalID: -1300532482
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: gard (1) (1)_3
+      name: idleright_3
       rect:
         serializedVersion: 2
-        x: 78
-        y: 18
-        width: 31
-        height: 36
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 108926b8bc7ca14d0800000000000000
-      internalID: -3162996111243569151
+      spriteID: 69c7df589ebad9848aa90468cd3e8d4e
+      internalID: 469151899
       vertices: []
       indices: 
       edges: []
@@ -200,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 162d0eadd0d2a614d98ddd581760c3d7
     internalID: 0
     vertices: []
     indices: 
@@ -210,10 +223,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      gard (1) (1)_0: -7865394734566465321
-      gard (1) (1)_1: -6960004877092474788
-      gard (1) (1)_2: -3000744684512957756
-      gard (1) (1)_3: -3162996111243569151
+      idleright_0: -1455831856
+      idleright_1: -743767325
+      idleright_2: -1300532482
+      idleright_3: 469151899
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

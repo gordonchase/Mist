@@ -318,6 +318,18 @@ public class PlayerController : MonoBehaviour
             Instantiate(boxingfab, transform.position + new Vector3(xOffsetAmount, 0, 0), Quaternion.identity);
             }
         }  
+        if (Input.GetKeyDown(KeyCode.Q))  
+        {  
+            if (numboxings>0)  
+            {  
+            numboxings-=1;
+                if (lastmove){xOffsetAmount=1f;}
+                else{xOffsetAmount=-1f;}
+            buringsteel = true;
+            steelTarget=Instantiate(boxingfab, transform.position + new Vector3(xOffsetAmount, 0, 0), Quaternion.identity).transform;
+            CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
+            }
+        } 
     }  
 
 
@@ -1060,34 +1072,6 @@ public class PlayerController : MonoBehaviour
             // Debug.Log($"Chooser: selectedIndex={selectedIndex}");
         }
 
-        // Press Q to assign current selection as the Steel (push) target
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (buringsteel && metalTargets.Count > 0)
-            {
-                Transform chosen = metalTargets[selectedIndex];
-                // Debug.Log($"Chooser: assigning steel target index={selectedIndex} name={chosen.name}");
-                Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
-                steelTarget = assigned;
-                CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
-                HighlightSelectedLine();
-            }
-        }
-
-        // Press E to assign current selection as the Iron (pull) target
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (buringiron && metalTargets.Count > 0)
-            {
-                Transform chosen = metalTargets[selectedIndex];
-                // Debug.Log($"Chooser: assigning iron target index={selectedIndex} name={chosen.name}");
-                Transform assigned = ConvertTileToPhysicsIfNeeded(chosen);
-                ironTarget = assigned;
-                CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);
-                HighlightSelectedLine();
-            }
-        }
-
         // Confirm and exit chooser. If a burn type is active but no target assigned, assign current selection by default.
         if (Input.GetKeyDown(KeyCode.W))
         {
@@ -1110,14 +1094,6 @@ public class PlayerController : MonoBehaviour
                 ironTarget = assigned;
                 CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);
             }
-        }
-
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            // Cancel chooser — keep any already assigned persistent lines but remove chooser lines
-            isLineChooserActive = false;
-            Time.timeScale = 1f;
-            DestroyChooserLines();
         }
     }
 

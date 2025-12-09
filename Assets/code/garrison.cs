@@ -26,6 +26,7 @@ public class garrison : MonoBehaviour
     public float enemyhelth=100;
     private bool takiningdamage = true;
     private bool dead=false;
+    public bool last = false;
 
     
     void Start()
@@ -82,17 +83,18 @@ public class garrison : MonoBehaviour
         if (playerPos.x-enemyPos.x>0 && canmove && ! jumping)
         {
         rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
+        last=true;
         }
         if (playerPos.x-enemyPos.x<0 && canmove && ! jumping)
         {
         rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
+        last=false;
         }
         if (playerPos.y-enemyPos.y>1 && isgrounded && !jumping)
         {
         enemyobject.transform.rotation = Quaternion.Euler(0, 0, 0);
         jumping = true;
         isgrounded = false;
-        anim.SetBool("jumping", true);
         StartCoroutine(jumpdelay());
         }
     }
@@ -104,6 +106,7 @@ public class garrison : MonoBehaviour
         canmove = true;
     }
     anim.SetFloat("hor", rb.linearVelocity.x);
+    anim.SetBool("last", last);
     }
 
 
@@ -130,7 +133,7 @@ public class garrison : MonoBehaviour
         StartCoroutine(takingdamage(randothingy));
     }
     }
-    if (collision.gameObject.CompareTag("ground"))  
+    if (collision.gameObject.CompareTag("ground")&& !jumping)  
         {  
         isgrounded = true;
         }  
@@ -152,7 +155,6 @@ public class garrison : MonoBehaviour
     {
     yield return new WaitForSeconds(0.5f); 
     rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
-    anim.SetBool("jumping", false);
     jumping = false;
     }
     IEnumerator attakingco()  
