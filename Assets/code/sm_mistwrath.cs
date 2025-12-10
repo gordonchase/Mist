@@ -116,7 +116,7 @@ public class sm_mistwrath : MonoBehaviour
     if (damageonimpact > 12.5f){
         enemyhelth -= damageonimpact;
         Debug.Log("damage from fall" + enemyhelth);
-        byte randothingy=(byte)(225-(damageonimpact*5));
+        byte randothingy=(byte)(225-(damageonimpact*1));
         StartCoroutine(takingdamage(randothingy));
     }
     }

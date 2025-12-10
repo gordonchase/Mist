@@ -1530,11 +1530,11 @@ MonoBehaviour:
   rb: {fileID: 328087734}
   checkdistance: 0
   seedistance: 25
-  speed: 5
+  speed: 2
   jump: 20
   isgrounded: 0
   canmove: 1
-  speedcap: 1000
+  speedcap: 2
   anim: {fileID: 0}
   jumping: 0
   enemyhelth: 250
@@ -15385,6 +15385,7 @@ MonoBehaviour:
   pewterdivby: 1
   numboxings: 0
   boxingfab: {fileID: 1935880653}
+  superanoyingjumpthing: 0
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0

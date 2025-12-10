@@ -67,6 +67,7 @@ public class garrison : MonoBehaviour
     enemyPos = enemyobject.transform.position;
     checkdistance = Vector2.Distance(playerPos, enemyPos);
     // TODO : fix! :
+    float currentspeed = rb.linearVelocity.x;
     if (checkdistance < 2 && !attaking && !dead)
         {
         if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
@@ -80,12 +81,12 @@ public class garrison : MonoBehaviour
             }
         }
     else if (checkdistance<seedistance){
-        if (playerPos.x-enemyPos.x>0 && canmove && ! jumping)
+        if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && ! jumping)
         {
         rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
         last=true;
         }
-        if (playerPos.x-enemyPos.x<0 && canmove && ! jumping)
+        if (playerPos.x-enemyPos.x<0 && currentspeed>-1*speedcap && ! jumping)
         {
         rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
         last=false;
@@ -97,13 +98,6 @@ public class garrison : MonoBehaviour
         isgrounded = false;
         StartCoroutine(jumpdelay());
         }
-    }
-    float currentspeed = rb.linearVelocity.x;
-    if (Mathf.Abs(currentspeed)>speedcap){
-        canmove = false;
-    }
-        else{
-        canmove = true;
     }
     anim.SetFloat("hor", rb.linearVelocity.x);
     anim.SetBool("last", last);
@@ -129,7 +123,7 @@ public class garrison : MonoBehaviour
     if (damageonimpact > 7.7f){
         enemyhelth -= damageonimpact*2;
         Debug.Log("damage from fall" + enemyhelth);
-        byte randothingy=(byte)(255-(damageonimpact*5));
+        byte randothingy=(byte)(255-(damageonimpact*2));
         StartCoroutine(takingdamage(randothingy));
     }
     }

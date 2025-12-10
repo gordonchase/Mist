@@ -106,6 +106,7 @@ public class PlayerController : MonoBehaviour
     public int numboxings=0;
     public GameObject boxingfab;
     private float xOffsetAmount=0f;
+    public bool superanoyingjumpthing = false;
 
 
 
@@ -122,7 +123,7 @@ public class PlayerController : MonoBehaviour
         key = 0;  
         StartCoroutine(DoEverySecond());  
         xSpeed = 3.5f;  
-        jumpStrength = 300;  
+        jumpStrength = 6.1f;  
         notrealA = 1.0f;  
         // Create a single neutral material instance for line renderers (white tint)
         neutralLineMaterial = new Material(Shader.Find("Sprites/Default"));
@@ -227,13 +228,13 @@ public class PlayerController : MonoBehaviour
             {  
                 pewterdivby =1;
                 xSpeed = 3.5f;  
-                jumpStrength = 300;  
+                jumpStrength = 6.1f;  
                 buringpewter = false;  
             }  
             else  
             {  
                 xSpeed = 7;  
-                jumpStrength = 450;  
+                jumpStrength = 10;  
                 buringpewter = true;  
             }  
         }  
@@ -253,6 +254,7 @@ public class PlayerController : MonoBehaviour
                         isLineChooserActive = false;
                         Time.timeScale = 1f;
                         DestroyChooserLines();
+                        superanoyingjumpthing = false;
                     }
                     else
                     {
@@ -264,6 +266,7 @@ public class PlayerController : MonoBehaviour
             else  
             {  
                 buringsteel = true;  
+                superanoyingjumpthing = true;
                 ActivateLineChooser();
             }  
         }  
@@ -282,6 +285,7 @@ public class PlayerController : MonoBehaviour
                         isLineChooserActive = false;
                         Time.timeScale = 1f;
                         DestroyChooserLines();
+                        superanoyingjumpthing = false;
                     }
                     else
                     {
@@ -292,6 +296,7 @@ public class PlayerController : MonoBehaviour
             else  
             {  
                 buringiron = true;  
+                superanoyingjumpthing = true;
                 ActivateLineChooser();  
             }  
         }  
@@ -330,11 +335,17 @@ public class PlayerController : MonoBehaviour
             CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
             }
         } 
+        if (Input.GetKeyUp(KeyCode.W)){superanoyingjumpthing = false;}
+        if (Input.GetKeyDown(KeyCode.W)&&isGrounded&&!superanoyingjumpthing)
+        {
+        rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+        }
     }  
 
 
     void FixedUpdate()  
     {  
+
 
         if (helth>100){helth=100;}
 
@@ -349,7 +360,7 @@ public class PlayerController : MonoBehaviour
             {  
                 pewterdivby =3;
                 xSpeed = 10;  
-                jumpStrength = 650;  
+                jumpStrength = 13;  
             }  
             if (buringsteel)  
             {  
@@ -373,7 +384,7 @@ public class PlayerController : MonoBehaviour
             {  
                 pewterdivby=2;
                 xSpeed = 7;  
-                jumpStrength = 450;  
+                jumpStrength = 10;  
             }  
             if (buringsteel)  
             {  
@@ -397,7 +408,7 @@ public class PlayerController : MonoBehaviour
             buringpewter = false;
             pewterdivby = 1;  
             xSpeed = 3.5f;  
-            jumpStrength = 300;  
+            jumpStrength = 6.1f;  
         }  
         if (steelbarpercent < 1)  
         {  
@@ -450,12 +461,12 @@ public class PlayerController : MonoBehaviour
             float vx = xHat * xSpeed;  
             rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);  
 
-            float yHat = new Vector2(0, Input.GetAxis("Vertical")).normalized.y;  
-            if (isGrounded && yHat == 1)  
-            {  
-                float vy = yHat * jumpStrength;  
-                rb.AddForce(transform.up * vy);  
-            }  
+            // float yHat = new Vector2(0, Input.GetAxis("Vertical")).normalized.y;  
+            // if (isGrounded && yHat == 1 && !superanoyingjumpthing)  
+            // {  
+            //     float vy = yHat * jumpStrength;  
+            //     rb.AddForce(transform.up * vy);
+            // }  
         }  
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
@@ -554,9 +565,6 @@ public class PlayerController : MonoBehaviour
 
     }  
 
-    // ---------------------------
-    // Collision Logic
-    // ---------------------------
     void OnCollisionEnter2D(Collision2D collision)  
     {  
     if (!collision.gameObject.CompareTag("boxing")) {
@@ -1110,4 +1118,5 @@ public class TileTargetInfo : MonoBehaviour
     public Tilemap tilemap;
     public Vector3Int cell;
 }
+
     
