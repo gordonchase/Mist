@@ -1,0 +1,556 @@
+fileFormatVersion: 2
+guid: a497eca6fe848f544b2cf2370d2207e3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8400590173299791467
+    second: gard (1)_0
+  - first:
+      213: -91866257160607138
+    second: gard (1)_1
+  - first:
+      213: -4912132608382078651
+    second: gard (1)_2
+  - first:
+      213: -6144399377891557363
+    second: gard (1)_3
+  - first:
+      213: 8341767469834116500
+    second: gard (1)_4
+  - first:
+      213: -6833662802095395902
+    second: gard (1)_5
+  - first:
+      213: -5184200820615066693
+    second: gard (1)_6
+  - first:
+      213: 6052837698149417618
+    second: gard (1)_7
+  - first:
+      213: 5174541735331200775
+    second: gard (1)_8
+  - first:
+      213: -6716973929661312176
+    second: gard (1)_9
+  - first:
+      213: -6169149716925492248
+    second: gard (1)_10
+  - first:
+      213: 4925446833278135407
+    second: gard (1)_11
+  - first:
+      213: -3143944983345252660
+    second: gard (1)_12
+  - first:
+      213: 1613117274986742710
+    second: gard (1)_13
+  - first:
+      213: -8010649220288563054
+    second: gard (1)_14
+  - first:
+      213: -5649615788982713620
+    second: gard (1)_15
+  - first:
+      213: 4389769272690649064
+    second: gard (1)_16
+  - first:
+      213: 1329951993162943746
+    second: gard (1)_17
+  - first:
+      213: -6527925854768943493
+    second: gard (1)_18
+  - first:
+      213: 4333979572358506682
+    second: gard (1)_19
+  - first:
+      213: 6175510136710701169
+    second: gard (1)_20
+  - first:
+      213: -6800153858924518469
+    second: gard (1)_21
+  - first:
+      213: -693840343111503922
+    second: gard (1)_22
+  - first:
+      213: -8167791467179382658
+    second: gard (1)_23
+  - first:
+      213: 2562548295583093694
+    second: gard (1)_24
+  - first:
+      213: 1719082185801264769
+    second: gard (1)_25
+  - first:
+      213: 73847230660955063
+    second: gard (1)_26
+  - first:
+      213: 8175566838514689514
+    second: gard (1)_27
+  - first:
+      213: 6391745282334096100
+    second: gard (1)_28
+  - first:
+      213: 480172844191585082
+    second: gard (1)_29
+  - first:
+      213: -2299423087151807053
+    second: gard (1)_30
+  - first:
+      213: 2176311873134718239
+    second: gard (1)_31
+  - first:
+      213: -6756362915579572344
+    second: gard (1)_32
+  - first:
+      213: -6502101871048017556
+    second: gard (1)_33
+  - first:
+      213: 5098299943122376389
+    second: gard (1)_34
+  - first:
+      213: 1886693940656970803
+    second: gard (1)_35
+  - first:
+      213: 3865396182439916386
+    second: gard (1)_36
+  - first:
+      213: 6274213078363170959
+    second: gard (1)_37
+  - first:
+      213: 338961286626592363
+    second: gard (1)_38
+  - first:
+      213: 5557330532795484259
+    second: gard (1)_39
+  - first:
+      213: 2430993701934064801
+    second: gard (1)_40
+  - first:
+      213: 461794665710155326
+    second: gard (1)_41
+  - first:
+      213: 2981115546005803781
+    second: gard (1)_42
+  - first:
+      213: 8187586381942355168
+    second: gard (1)_43
+  - first:
+      213: -3273737504365875855
+    second: gard (1)_44
+  - first:
+      213: -442196182516984482
+    second: gard (1)_45
+  - first:
+      213: 6157815818103950573
+    second: gard (1)_46
+  - first:
+      213: 2423259411899746971
+    second: gard (1)_47
+  - first:
+      213: 7063375617311448106
+    second: gard (1)_48
+  - first:
+      213: -3405634535635984919
+    second: gard (1)_49
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: gard (1)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59924d0eebb1b6b80800000000000000
+      internalID: -8400590173299791467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5ae8173020a9bef0800000000000000
+      internalID: -91866257160607138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 541f5c31b6994dbb0800000000000000
+      internalID: -4912132608382078651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0084aaf155babaa0800000000000000
+      internalID: -6144399377891557363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49d1f563159e3c370800000000000000
+      internalID: 8341767469834116500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cbad4643e3f921a0800000000000000
+      internalID: -6833662802095395902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbb43fa12d40e08b0800000000000000
+      internalID: -5184200820615066693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2920a4131dffff350800000000000000
+      internalID: 6052837698149417618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70f79d9da4aafc740800000000000000
+      internalID: 5174541735331200775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0535afc8cc388c2a0800000000000000
+      internalID: -6716973929661312176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e3547c9407c26aa0800000000000000
+      internalID: -6169149716925492248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gard (1)_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6cad997cc3ba5440800000000000000
+      internalID: 4925446833278135407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ed649e087d9962a4ea3dc36f0ad13700
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      gard (1)_0: -8400590173299791467
+      gard (1)_1: -91866257160607138
+      gard (1)_10: -6169149716925492248
+      gard (1)_11: 4925446833278135407
+      gard (1)_2: -4912132608382078651
+      gard (1)_3: -6144399377891557363
+      gard (1)_4: 8341767469834116500
+      gard (1)_5: -6833662802095395902
+      gard (1)_6: -5184200820615066693
+      gard (1)_7: 6052837698149417618
+      gard (1)_8: 5174541735331200775
+      gard (1)_9: -6716973929661312176
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

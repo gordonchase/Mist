@@ -99,7 +99,7 @@ public class garrison : MonoBehaviour
         StartCoroutine(jumpdelay());
         }
     }
-    anim.SetFloat("hor", rb.linearVelocity.x);
+    anim.SetFloat("hor", Mathf.Abs(rb.linearVelocity.x));
     anim.SetBool("last", last);
     }
 
@@ -107,7 +107,7 @@ public class garrison : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) 
     {
 
-    if (!collision.gameObject.CompareTag("Player")){
+    if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("boxing")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 12.5f){
@@ -120,12 +120,13 @@ public class garrison : MonoBehaviour
     if (collision.gameObject.CompareTag("boxing")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
-    if (damageonimpact > 7.7f){
+    if (damageonimpact > 7.7f  && (collision.gameObject.transform.position.x-enemyPos.x>0==!last)){
         enemyhelth -= damageonimpact*2;
         Debug.Log("damage from fall" + enemyhelth);
         byte randothingy=(byte)(255-(damageonimpact*2));
         StartCoroutine(takingdamage(randothingy));
     }
+    else if (damageonimpact > 7.7f){Debug.Log("blooced boxing with sheild " + enemyhelth);}
     }
     if (collision.gameObject.CompareTag("ground")&& !jumping)  
         {  
@@ -172,9 +173,10 @@ public class garrison : MonoBehaviour
     dead=true;
     rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     rb.constraints = RigidbodyConstraints2D.FreezePositionY;
-    anim.SetBool("jumping", false);
-    anim.SetBool("attaking", false);
-    anim.SetBool("deth", true);
+    anim.SetFloat("hor", 0f);
+    anim.SetBool("last", false);
+    anim.SetBool("attacking", false);
+    anim.SetBool("death", true);
     yield return new WaitForSeconds(4.55f); 
     Instantiate(enemyreward, enemyobject.transform.position, Quaternion.identity);
     Instantiate(enemyreward1, enemyobject.transform.position, Quaternion.identity);
