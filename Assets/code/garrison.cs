@@ -122,9 +122,9 @@ public class garrison : MonoBehaviour
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 7.7f  && (collision.gameObject.transform.position.x-enemyPos.x>0==!last)){
-        enemyhelth -= damageonimpact*2;
+        enemyhelth -= damageonimpact*3;
         Debug.Log("damage from fall" + enemyhelth);
-        byte randothingy=(byte)(255-(damageonimpact*2));
+        byte randothingy=(byte)(255-(damageonimpact*3));
         StartCoroutine(takingdamage(randothingy));
     }
     else if (damageonimpact > 7.7f){Debug.Log("blooced boxing with sheild " + enemyhelth);}
@@ -157,7 +157,7 @@ public class garrison : MonoBehaviour
     {
     attaking=true;
     anim.SetBool("attaking", true);
-    yield return new WaitForSeconds(0.5f); 
+    yield return new WaitForSeconds(0.02f); 
     anim.SetBool("attaking", false);
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos);
     if (yes && playerPos.x-enemyPos.x>0)
