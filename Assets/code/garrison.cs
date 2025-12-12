@@ -70,15 +70,14 @@ public class garrison : MonoBehaviour
     float currentspeed = rb.linearVelocity.x;
     if (checkdistance < 2 && !attaking && !dead)
         {
-        if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
-            {
-            // StartCoroutine(attakingco());
-            }
-
-        else
-            {
-            // enemyobject.transform.Rotate(0, 0, 0.5f);
-            }
+        if (playerPos.x-enemyPos.x>0)
+        {
+        StartCoroutine(attakingco(true));
+        }
+        if (playerPos.x-enemyPos.x<0 && currentspeed<speedcap)
+        {
+        StartCoroutine(attakingco(false));
+        }
         }
     else if (checkdistance<seedistance){
         if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && ! jumping)
@@ -99,8 +98,10 @@ public class garrison : MonoBehaviour
         StartCoroutine(jumpdelay());
         }
     }
+    if (!dead){
     anim.SetFloat("hor", Mathf.Abs(rb.linearVelocity.x));
     anim.SetBool("last", last);
+    }
     }
 
 
@@ -152,20 +153,23 @@ public class garrison : MonoBehaviour
     rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
     jumping = false;
     }
-    IEnumerator attakingco()  
+    IEnumerator attakingco(bool yes)  
     {
     attaking=true;
     anim.SetBool("attaking", true);
     yield return new WaitForSeconds(0.5f); 
-    attaking=false;
     anim.SetBool("attaking", false);
-    Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
-    // Debug.Log("finished attacing");
-    if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
+    Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos);
+    if (yes && playerPos.x-enemyPos.x>0)
             {
-                // Debug.Log("DAMAGE!");
-            player.helth -= 10-player.pewterdivby;
+            player.helth -= 20-player.pewterdivby;
             }
+    if (!yes && playerPos.x-enemyPos.x<0)
+            {
+            player.helth -= 20-player.pewterdivby;
+            }
+    yield return new WaitForSeconds(2f); 
+    attaking=false;
 
     }
     IEnumerator dethco()  
@@ -173,11 +177,12 @@ public class garrison : MonoBehaviour
     dead=true;
     rb.constraints = RigidbodyConstraints2D.FreezePositionX;
     rb.constraints = RigidbodyConstraints2D.FreezePositionY;
+    rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     anim.SetFloat("hor", 0f);
     anim.SetBool("last", false);
     anim.SetBool("attacking", false);
     anim.SetBool("death", true);
-    yield return new WaitForSeconds(4.55f); 
+    yield return new WaitForSeconds(2.25f); 
     Instantiate(enemyreward, enemyobject.transform.position, Quaternion.identity);
     Instantiate(enemyreward1, enemyobject.transform.position, Quaternion.identity);
     Destroy(enemyobject);
