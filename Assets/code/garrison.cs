@@ -27,6 +27,7 @@ public class garrison : MonoBehaviour
     private bool takiningdamage = true;
     private bool dead=false;
     public bool last = false;
+    public bool canattack = false;
 
     
     void Start()
@@ -44,14 +45,14 @@ public class garrison : MonoBehaviour
     float yposthingy = enemyobject.transform.position.y - playerobject.transform.position.y;
     if (player.delingdamage && takiningdamage)
         {
-        if (xposthingy < 0.5f && xposthingy > -1.5f && !player.lastmove && yposthingy < 1.5f && yposthingy > -3f){
-            enemyhelth -= player.pewterdivby * 5;    
+        if (xposthingy < 0.5f && xposthingy > -2f && !player.lastmove && yposthingy < 1.5f && yposthingy > -3f && anim.GetBool("attaking")){
+            enemyhelth -= player.pewterdivby * 20;    
             Debug.Log("damage from kell" + enemyhelth);
             byte randothingy=(byte)(255-(player.pewterdivby * 50));
             StartCoroutine(takingdamage(randothingy));
             }
-        if (xposthingy > 0f && xposthingy < 1.5f && player.lastmove && yposthingy < 1.5f && yposthingy > -3f){
-            enemyhelth -= player.pewterdivby * 5;   
+        if (xposthingy > 0f && xposthingy < 2.5f && player.lastmove && yposthingy < 1.5f && yposthingy > -3f && anim.GetBool("attaking")){
+            enemyhelth -= player.pewterdivby * 20;   
             Debug.Log("damage from kell" + enemyhelth);
             byte randothingy=(byte)(255-(player.pewterdivby *50));
             StartCoroutine(takingdamage(randothingy));
@@ -111,8 +112,8 @@ public class garrison : MonoBehaviour
     if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("boxing")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
-    if (damageonimpact > 12.5f){
-        enemyhelth -= damageonimpact;
+    if (damageonimpact > 10f){
+        enemyhelth -= damageonimpact*5;
         Debug.Log("damage from fall" + enemyhelth);
         byte randothingy=(byte)(225-(damageonimpact*5));
         StartCoroutine(takingdamage(randothingy));
@@ -121,10 +122,10 @@ public class garrison : MonoBehaviour
     if (collision.gameObject.CompareTag("boxing")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
-    if (damageonimpact > 7.7f  && (collision.gameObject.transform.position.x-enemyPos.x>0==!last)){
-        enemyhelth -= damageonimpact*3;
+    if (damageonimpact > 7.7f  && (collision.gameObject.transform.position.x-enemyPos.x>0==!last) || anim.GetBool("attaking")){
+        enemyhelth -= damageonimpact*5;
         Debug.Log("damage from fall" + enemyhelth);
-        byte randothingy=(byte)(255-(damageonimpact*3));
+        byte randothingy=(byte)(255-(damageonimpact*5));
         StartCoroutine(takingdamage(randothingy));
     }
     else if (damageonimpact > 7.7f){Debug.Log("blooced boxing with sheild " + enemyhelth);}
@@ -153,18 +154,24 @@ public class garrison : MonoBehaviour
     rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
     jumping = false;
     }
+
+    IEnumerator stopkill()  
+    {
+    yield return new WaitForSeconds(0.5f); 
+    jumping = false;
+    }
     IEnumerator attakingco(bool yes)  
     {
     attaking=true;
     anim.SetBool("attaking", true);
-    yield return new WaitForSeconds(0.02f); 
+    yield return new WaitForSeconds(0.3f); 
     anim.SetBool("attaking", false);
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos);
-    if (yes && playerPos.x-enemyPos.x>0)
+    if (yes && playerPos.x-enemyPos.x>0 && playerPos.x-enemyPos.x<3)
             {
             player.helth -= 20-player.pewterdivby;
             }
-    if (!yes && playerPos.x-enemyPos.x<0)
+    if (!yes && playerPos.x-enemyPos.x<0 && playerPos.x-enemyPos.x>-3)
             {
             player.helth -= 20-player.pewterdivby;
             }
