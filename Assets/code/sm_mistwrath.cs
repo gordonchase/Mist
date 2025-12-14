@@ -43,13 +43,13 @@ public class sm_mistwrath : MonoBehaviour
     float yposthingy = enemyobject.transform.position.y - playerobject.transform.position.y;
     if (player.delingdamage && takiningdamage)
         {
-        if (xposthingy < 0.5f && xposthingy > -1.5f && !player.lastmove && yposthingy < 1.5f && yposthingy > -3f){
+        if (xposthingy < 0.5f && xposthingy > -1.5f && !player.lastmove && yposthingy < 1.5f && yposthingy > -3f && !dead){
             enemyhelth -= player.pewterdivby * 5;    
             Debug.Log("damage from kell" + enemyhelth);
             byte randothingy=(byte)(255-(player.pewterdivby * 50));
             StartCoroutine(takingdamage(randothingy));
             }
-        if (xposthingy > 0f && xposthingy < 1.5f && player.lastmove && yposthingy < 1.5f && yposthingy > -3f){
+        if (xposthingy > 0f && xposthingy < 1.5f && player.lastmove && yposthingy < 1.5f && yposthingy > -3f && !dead){
             enemyhelth -= player.pewterdivby * 5;   
             Debug.Log("damage from kell" + enemyhelth);
             byte randothingy=(byte)(255-(player.pewterdivby *50));
@@ -110,7 +110,7 @@ public class sm_mistwrath : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision) 
     {
 
-    if (!collision.gameObject.CompareTag("Player")){
+    if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("boxing") && !dead){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 12.5f){
@@ -120,13 +120,13 @@ public class sm_mistwrath : MonoBehaviour
         StartCoroutine(takingdamage(randothingy));
     }
     }
-    if (collision.gameObject.CompareTag("boxing")){
+    if (collision.gameObject.CompareTag("boxing") && !dead){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 7.7f){
-        enemyhelth -= damageonimpact*2;
-        Debug.Log("damage from fall" + enemyhelth);
-        byte randothingy=(byte)(255-(damageonimpact*5));
+        enemyhelth -= damageonimpact*1.5f;
+        Debug.Log("damage from coin" + enemyhelth);
+        byte randothingy=(byte)(255-(damageonimpact*1.5f));
         StartCoroutine(takingdamage(randothingy));
     }
     }
@@ -165,7 +165,7 @@ public class sm_mistwrath : MonoBehaviour
     anim.SetBool("attaking", false);
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
     // Debug.Log("finished attacing");
-    if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f)
+    if (reltivtorotation.y > 0 && reltivtorotation.x < 0.2f && reltivtorotation.x > 0f && !dead)
             {
                 // Debug.Log("DAMAGE!");
             player.helth -= 10-player.pewterdivby;

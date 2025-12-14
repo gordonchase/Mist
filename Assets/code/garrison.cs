@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class garrison : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class garrison : MonoBehaviour
     private bool dead=false;
     public bool last = false;
     public bool canattack = false;
+    public System.Random randosando = new System.Random();
+    public byte randothingy;
 
     
     void Start()
@@ -123,9 +126,12 @@ public class garrison : MonoBehaviour
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 7.7f  && (collision.gameObject.transform.position.x-enemyPos.x>0==!last) || anim.GetBool("attaking")){
-        enemyhelth -= damageonimpact*5;
-        Debug.Log("damage from fall" + enemyhelth);
-        byte randothingy=(byte)(255-(damageonimpact*5));
+        int chink = randosando.Next(1,3);
+        if (chink == 2){enemyhelth -= damageonimpact*10;}
+        else{enemyhelth -= damageonimpact*2;}
+        Debug.Log("damage from coin" + enemyhelth);
+        if (chink == 2){randothingy=(byte)(255-(damageonimpact*10));}
+        else{randothingy=(byte)(255-(damageonimpact*2));}
         StartCoroutine(takingdamage(randothingy));
     }
     else if (damageonimpact > 7.7f){Debug.Log("blooced boxing with sheild " + enemyhelth);}
