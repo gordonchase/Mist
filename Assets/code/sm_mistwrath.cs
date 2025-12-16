@@ -26,6 +26,7 @@ public class sm_mistwrath : MonoBehaviour
     public float enemyhelth=100;
     private bool takiningdamage = true;
     private bool dead=false;
+    public bool canspawn = true;
 
     
     void Start()
@@ -182,8 +183,11 @@ public class sm_mistwrath : MonoBehaviour
     anim.SetBool("attaking", false);
     anim.SetBool("deth", true);
     yield return new WaitForSeconds(4.55f); 
+    if (canspawn){
     Instantiate(enemyreward, enemyobject.transform.position, Quaternion.identity);
     Instantiate(enemyreward1, enemyobject.transform.position, Quaternion.identity);
+    canspawn = false;
+    }
     Destroy(enemyobject);
     }
 }

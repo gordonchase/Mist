@@ -72,7 +72,8 @@ public class PlayerController : MonoBehaviour
     private bool isLineChooserActive = false;  
     // chooserMode bitmask: 1 = steel chooser active, 2 = iron chooser active
     private int chooserMode = 0;
-    private Transform steelTarget = null; // push target  
+    private Transform steelTarget = null; // push target 
+    private Transform placeholder = null; 
     private Transform ironTarget = null;  // pull target  
     public float pullForce = 500f;  
     public float pushForce = 500f;  
@@ -340,12 +341,27 @@ public class PlayerController : MonoBehaviour
         {
         rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
         }
+        if (Input.GetKeyDown(KeyCode.R))  
+        {  
+            if(!(steelTarget == null)){buringiron = true;}
+            if(!(ironTarget == null)){buringsteel = true;}
+            placeholder=steelTarget;
+            steelTarget=ironTarget;
+            ironTarget=placeholder; 
+            if(!(steelTarget == null)){CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);}
+            if(!(ironTarget == null)){CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);} 
+        }
     }  
 
 
     void FixedUpdate()  
     {  
 
+
+
+
+        if(ironTarget == null && !isLineChooserActive){buringiron = false;}
+        if(steelTarget == null && !isLineChooserActive){buringsteel = false;}
 
         if (helth>100){helth=100;}
 

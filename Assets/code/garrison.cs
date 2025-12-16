@@ -30,7 +30,7 @@ public class garrison : MonoBehaviour
     public bool last = false;
     public bool canattack = false;
     public System.Random randosando = new System.Random();
-    public byte randothingy;
+    private byte randothingy;
 
     
     void Start()
@@ -96,7 +96,6 @@ public class garrison : MonoBehaviour
         }
         if (playerPos.y-enemyPos.y>1 && isgrounded && !jumping)
         {
-        enemyobject.transform.rotation = Quaternion.Euler(0, 0, 0);
         jumping = true;
         isgrounded = false;
         StartCoroutine(jumpdelay());
@@ -158,6 +157,7 @@ public class garrison : MonoBehaviour
     {
     yield return new WaitForSeconds(0.5f); 
     rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+    yield return new WaitForSeconds(0.5f);
     jumping = false;
     }
 
