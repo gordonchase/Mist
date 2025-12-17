@@ -31,6 +31,7 @@ public class garrison : MonoBehaviour
     public bool canattack = false;
     public System.Random randosando = new System.Random();
     private byte randothingy;
+    private bool canspawn=true;
 
     
     void Start()
@@ -196,8 +197,11 @@ public class garrison : MonoBehaviour
     anim.SetBool("attacking", false);
     anim.SetBool("death", true);
     yield return new WaitForSeconds(2.25f); 
+        if (canspawn){
     Instantiate(enemyreward, enemyobject.transform.position, Quaternion.identity);
     Instantiate(enemyreward1, enemyobject.transform.position, Quaternion.identity);
+    canspawn = false;
+    }
     Destroy(enemyobject);
     }
 }
