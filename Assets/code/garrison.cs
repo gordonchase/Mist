@@ -126,10 +126,10 @@ public class garrison : MonoBehaviour
     float damageonimpact = falldamage.magnitude;
     if (damageonimpact > 7.7f  && (collision.gameObject.transform.position.x-enemyPos.x>0==!last) || anim.GetBool("attaking")){
         int chink = randosando.Next(1,3);
-        if (chink == 2){enemyhelth -= damageonimpact*10;}
+        if (chink == 2){enemyhelth -= damageonimpact*4;}
         else{enemyhelth -= damageonimpact*2;}
         Debug.Log("damage from coin" + enemyhelth);
-        if (chink == 2){randothingy=(byte)(255-(damageonimpact*10));}
+        if (chink == 2){randothingy=(byte)(255-(damageonimpact*4));}
         else{randothingy=(byte)(255-(damageonimpact*2));}
         StartCoroutine(takingdamage(randothingy));
     }
