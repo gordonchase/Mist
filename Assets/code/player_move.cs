@@ -9,26 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    // ===============================
-    // CONFIGURABLE VARIABLES
-    // ===============================
-    // These are variables you can freely change in your code:
-    //
-    // linePrefab          -> Prefab for the LineRenderer used when selecting metals.
-    // metalDetectRange    -> The radius around the player to detect metal objects.
-    // metalLayer          -> LayerMask for metals that can be selected.
-    // pullForce           -> Force applied when pulling a selected metal toward you.
-    // pushForce           -> Force applied when pushing a selected metal away.
-    // slowMotionScale     -> The timescale when line selector is active (slows game).
-    //
-    // You can also modify these burn/flare variables as you like:
-    // flaring, buringtin, buringpewter, buringsteel, buringiron
-    // xSpeed, jumpStrength, mistpsA, notrealA
-    //
-    // Example usage:
-    // pullForce = 1000f; metalDetectRange = 10f; slowMotionScale = 0.2f;
-
-
 
     public int helth = 100;
     private bool thymething1 = false;
@@ -62,40 +42,6 @@ public class PlayerController : MonoBehaviour
     public int steelbarpercent=200;  
     public int ironbarpercent=200;  
 
-    // ===== Line Selector Variables =====  
-    public GameObject linePrefab; // prefab with LineRenderer  
-    public float metalDetectRange = 8f;  
-    public LayerMask metalLayer;  
-    private List<Transform> metalTargets = new List<Transform>();  
-    private List<LineRenderer> lines = new List<LineRenderer>();  
-    private int selectedIndex = 0;  
-    private bool isLineChooserActive = false;  
-    // chooserMode bitmask: 1 = steel chooser active, 2 = iron chooser active
-    private int chooserMode = 0;
-    private Transform steelTarget = null; // push target 
-    private Transform placeholder = null; 
-    private Transform ironTarget = null;  // pull target  
-    public float pullForce = 500f;  
-    public float pushForce = 500f;  
-    public float slowMotionScale = 0.2f;  
-
-    // Persistent line renderers for active push/pull targets (kept while burning is active)
-    private LineRenderer steelPersistentLine = null;
-    private LineRenderer ironPersistentLine = null;
-    // Optional distinct prefabs for persistent steel/iron lines (set in Inspector)
-    public GameObject steelLinePrefab;
-    public GameObject ironLinePrefab;
-    // Optional prefab for converted physics tiles (set in Inspector). If null, created at runtime.
-    public GameObject tilePhysicsPrefab;
-
-    // Line colors (configure in Inspector or here)
-    public Color32 steelLineColor = new Color32(13, 0, 120, 255);
-    public Color32 ironLineColor  = new Color32(16, 157, 192, 255);
-
-    // Shared neutral material used for LineRenderers so vertex colors show accurately
-    private Material neutralLineMaterial;
-    // If true, force line alpha to 1.0 (useful to override accidental transparency)
-    public bool forceOpaqueLines = true;
     public Image pweterhelth;
     private float newAlphaValue = 0.0f;
 
@@ -109,12 +55,13 @@ public class PlayerController : MonoBehaviour
     private float xOffsetAmount=0f;
     public bool superanoyingjumpthing = false;
 
+    public int pullForce = 0;
+    public int pushForce = 0;
+    public float slowMotionScale = 1;
+    public float metalDetectRange = 30;
 
 
-    void linechooser()  
-    {  
-        Time.timeScale = slowMotionScale;  
-    }  
+
 
     void Start()  
     {  
@@ -126,9 +73,6 @@ public class PlayerController : MonoBehaviour
         xSpeed = 3.5f;  
         jumpStrength = 6.1f;  
         notrealA = 1.0f;  
-        // Create a single neutral material instance for line renderers (white tint)
-        neutralLineMaterial = new Material(Shader.Find("Sprites/Default"));
-        neutralLineMaterial.color = Color.white;
     }  
 
 
@@ -244,31 +188,11 @@ public class PlayerController : MonoBehaviour
         {  
             if (buringsteel)  
             {  
-                buringsteel = false;  
-                steelTarget = null; 
-                // If chooser is open, remove steel from chooser mode; only fully close chooser if no types remain
-                if (isLineChooserActive)
-                {
-                    chooserMode &= ~1;
-                    if (chooserMode == 0)
-                    {
-                        isLineChooserActive = false;
-                        Time.timeScale = 1f;
-                        DestroyChooserLines();
-                        superanoyingjumpthing = false;
-                    }
-                    else
-                    {
-                        // still have another chooser (e.g., iron) active
-                        HighlightSelectedLine();
-                    }
-                }
+                buringsteel = false;   
             }  
             else  
             {  
                 buringsteel = true;  
-                superanoyingjumpthing = true;
-                ActivateLineChooser();
             }  
         }  
 
@@ -277,28 +201,10 @@ public class PlayerController : MonoBehaviour
             if (buringiron)  
             {  
                 buringiron = false;  
-                ironTarget = null;
-                if (isLineChooserActive)
-                {
-                    chooserMode &= ~2;
-                    if (chooserMode == 0)
-                    {
-                        isLineChooserActive = false;
-                        Time.timeScale = 1f;
-                        DestroyChooserLines();
-                        superanoyingjumpthing = false;
-                    }
-                    else
-                    {
-                        HighlightSelectedLine();
-                    }
-                }
             }  
             else  
             {  
-                buringiron = true;  
-                superanoyingjumpthing = true;
-                ActivateLineChooser();  
+                buringiron = true;    
             }  
         }  
 
@@ -332,24 +238,15 @@ public class PlayerController : MonoBehaviour
                 if (lastmove){xOffsetAmount=1f;}
                 else{xOffsetAmount=-1f;}
             buringsteel = true;
-            steelTarget=Instantiate(boxingfab, transform.position + new Vector3(xOffsetAmount, 0, 0), Quaternion.identity).transform;
-            CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);
             }
         } 
         if (Input.GetKeyUp(KeyCode.W)){superanoyingjumpthing = false;}
-        if (Input.GetKeyDown(KeyCode.W)&&isGrounded&&!superanoyingjumpthing)
+        if (Input.GetKeyDown(KeyCode.W)&&isGrounded)
         {
         rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
         }
         if (Input.GetKeyDown(KeyCode.R))  
         {  
-            if(!(steelTarget == null)){buringiron = true;}
-            if(!(ironTarget == null)){buringsteel = true;}
-            placeholder=steelTarget;
-            steelTarget=ironTarget;
-            ironTarget=placeholder; 
-            if(!(steelTarget == null)){CreateOrUpdatePersistentLine(ref steelPersistentLine, steelTarget, steelLineColor, steelLinePrefab);}
-            if(!(ironTarget == null)){CreateOrUpdatePersistentLine(ref ironPersistentLine, ironTarget, ironLineColor, ironLinePrefab);} 
         }
     }  
 
@@ -357,11 +254,6 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()  
     {  
 
-
-
-
-        if(ironTarget == null && !isLineChooserActive){buringiron = false;}
-        if(steelTarget == null && !isLineChooserActive){buringsteel = false;}
 
         if (helth>100){helth=100;}
 
@@ -429,26 +321,11 @@ public class PlayerController : MonoBehaviour
         if (steelbarpercent < 1)  
         {  
             buringsteel = false;  
-            steelTarget = null;  
         }  
         if (ironbarpercent < 1)  
         {  
-            buringiron = false;  
-            ironTarget = null;  
+            buringiron = false; 
         }  
-
-        if (!buringsteel && steelPersistentLine != null)
-        {
-            Destroy(steelPersistentLine.gameObject);
-            steelPersistentLine = null;
-            steelTarget = null;
-        }
-        if (!buringiron && ironPersistentLine != null)
-        {
-            Destroy(ironPersistentLine.gameObject);
-            ironPersistentLine = null;
-            ironTarget = null;
-        }
 
         // Ground check  
         CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();  
@@ -471,19 +348,10 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;  
 
-        if (!isLineChooserActive)  
-        {  
             float xHat = Input.GetAxisRaw("Horizontal");  
             float vx = xHat * xSpeed;  
             rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);  
 
-            // float yHat = new Vector2(0, Input.GetAxis("Vertical")).normalized.y;  
-            // if (isGrounded && yHat == 1 && !superanoyingjumpthing)  
-            // {  
-            //     float vy = yHat * jumpStrength;  
-            //     rb.AddForce(transform.up * vy);
-            // }  
-        }  
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
         anim.SetFloat("xSpeed", rb.linearVelocity.x);  
@@ -507,40 +375,8 @@ public class PlayerController : MonoBehaviour
         tileColor.a = notrealA;  
         notreal.color = tileColor;  
 
-        // ---------------------------  
-        // Push & Pull Logic  
-        // ---------------------------  
-        // Pull iron  
-        if (buringiron && ironTarget != null)  
-        {  
-            Rigidbody2D rbMetal = ironTarget.GetComponent<Rigidbody2D>();  
-            // if (rbMetal == null) Debug.Log("Pull: target has no Rigidbody2D: " + (ironTarget!=null?ironTarget.name:"null"));
-            Vector2 dir = (ironTarget.position - transform.position).normalized;  
-            float distance = Vector2.Distance(ironTarget.position, transform.position);  
-            // Force attenuation based on actual distance (metalDetectRange still used only for detection)
-            // Inverse-linear falloff: force decreases as distance increases, avoids divide-by-zero.
-            float scaledPull = pullForce / (distance + 1f);
 
-            if (rbMetal != null)  
-                rbMetal.AddForce(-dir * scaledPull * Time.fixedDeltaTime);  
-            rb.AddForce(dir * scaledPull * Time.fixedDeltaTime);  
-        }  
 
-        // Push steel  
-        if (buringsteel && steelTarget != null)  
-        {  
-            Rigidbody2D rbMetal = steelTarget.GetComponent<Rigidbody2D>();  
-            // if (rbMetal == null) Debug.Log("Push: target has no Rigidbody2D: " + (steelTarget!=null?steelTarget.name:"null"));
-            Vector2 dir = (steelTarget.position - transform.position).normalized;  
-            float distance = Vector2.Distance(steelTarget.position, transform.position);  
-            // Force attenuation based on actual distance (metalDetectRange still used only for detection)
-            // Inverse-linear falloff: force decreases as distance increases, avoids divide-by-zero.
-            float scaledPush = pushForce / (distance + 1f);
-
-            if (rbMetal != null)  
-                rbMetal.AddForce(dir * scaledPush * Time.fixedDeltaTime);  
-            rb.AddForce(-dir * scaledPush * Time.fixedDeltaTime);  
-        }  
 
 
 
@@ -647,12 +483,15 @@ public class PlayerController : MonoBehaviour
         {
             helth -= 4-pewterdivby;
             thymething1 = false;
-            // Debug.Log("Damage applied via OnCollisionStay2D");
         }
     }
 }
 
-// Helper component attached to temporary tile target GameObjects so we know origin Tilemap and cell
+public class pushpull : MonoBehaviour
+{
+
+}
+
 public class TileTargetInfo : MonoBehaviour
 {
     public Tilemap tilemap;
