@@ -59,7 +59,10 @@ public class PlayerController : MonoBehaviour
     public int pushForce = 0;
     public float slowMotionScale = 1;
     public float metalDetectRange = 30;
-
+    public LayerMask meatelayer;
+    private Collider2D[] metalsinarea = null;
+    public bool spacetoogle=false;
+    private Dictionary<GameObject, Vector2[]> objectLineMap = new Dictionary<GameObject, Vector2[]>();
 
 
 
@@ -219,6 +222,12 @@ public class PlayerController : MonoBehaviour
                 flaring = true;  
             }  
         }  
+        if (Input.GetKeyDown(KeyCode.Space))  
+        {  
+        spacetoogle = !spacetoogle;
+            if (spacetoogle){Time.timeScale = slowMotionScale;}
+            else{Time.timeScale = 1.0f;}
+        }  
 
         if (Input.GetKeyDown(KeyCode.E))  
         {  
@@ -252,7 +261,7 @@ public class PlayerController : MonoBehaviour
 
 
     void FixedUpdate()  
-    {  
+    {
 
 
         if (helth>100){helth=100;}
@@ -415,10 +424,33 @@ public class PlayerController : MonoBehaviour
 
 
 
-    }  
 
-    void OnCollisionEnter2D(Collision2D collision)  
-    {  
+
+
+
+
+
+
+
+
+        metalsinarea = Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer);
+        if (spacetoogle && metalsinarea.Length > 0)
+        {
+        Debug.Log("Hits found: " + metalsinarea.Length);
+        objectLineMap.Clear();
+        foreach (Collider2D col in metalsinarea)
+        {
+        Debug.DrawLine(transform.position, col.transform.position, Color.red);
+        Debug.Log("line");
+        }
+        }
+
+
+
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
     if (!collision.gameObject.CompareTag("boxing")) {
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
@@ -427,12 +459,12 @@ public class PlayerController : MonoBehaviour
         Debug.Log("damage from fall" + helth);
     }
     }
-        if (collision.gameObject.CompareTag("Tin"))  
-        {  
-            Destroy(collision.gameObject);  
-            tinbarpercent += 250;  
-            if (tinbarpercent > 500) tinbarpercent = 500;  
-        }  
+        if (collision.gameObject.CompareTag("Tin"))
+        {
+            Destroy(collision.gameObject);
+            tinbarpercent += 250;
+            if (tinbarpercent > 500) tinbarpercent = 500;
+        }
         if (collision.gameObject.CompareTag("Pewter"))  
         {  
             Destroy(collision.gameObject);  
@@ -485,12 +517,11 @@ public class PlayerController : MonoBehaviour
             thymething1 = false;
         }
     }
-}
 
-public class pushpull : MonoBehaviour
-{
+
 
 }
+
 
 public class TileTargetInfo : MonoBehaviour
 {

@@ -802,7 +802,7 @@ Transform:
   m_GameObject: {fileID: 142635213}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 128.81, y: -27.11, z: 2.2105205}
+  m_LocalPosition: {x: 128.81, y: -5, z: 2.2105205}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7562,7 +7562,7 @@ GameObject:
   - component: {fileID: 1228592407}
   - component: {fileID: 1228592410}
   - component: {fileID: 1228592411}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: metal
   m_TagString: metal
   m_Icon: {fileID: 0}
@@ -15266,6 +15266,10 @@ MonoBehaviour:
   pushForce: 1000
   slowMotionScale: 0.05
   metalDetectRange: 8
+  meatelayer:
+    serializedVersion: 2
+    m_Bits: 128
+  spacetoogle: 0
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15330,7 +15334,7 @@ Transform:
   m_GameObject: {fileID: 1411424641}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.96, y: 4.42, z: 0.22750472}
+  m_LocalPosition: {x: 70.6, y: 26.76, z: 0.22750472}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
