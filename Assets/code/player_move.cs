@@ -62,9 +62,20 @@ public class PlayerController : MonoBehaviour
     public LayerMask meatelayer;
     private Collider2D[] metalsinarea = null;
     public bool spacetoogle=false;
-    private Dictionary<GameObject, Vector2[]> objectLineMap = new Dictionary<GameObject, Vector2[]>();
+    public LineRenderer lr;
+    public int numthingy17 = 0;
 
 
+
+
+    void Awake()
+    {
+    lr = gameObject.AddComponent<LineRenderer>();
+    lr.positionCount = 2;
+    lr.startWidth = lr.endWidth = 0.05f;
+    lr.material = new Material(Shader.Find("Sprites/Default"));
+    lr.startColor = lr.endColor = Color.red;
+    }
 
     void Start()  
     {  
@@ -252,7 +263,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.W)){superanoyingjumpthing = false;}
         if (Input.GetKeyDown(KeyCode.W)&&isGrounded)
         {
-        rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
         }
         if (Input.GetKeyDown(KeyCode.R))  
         {  
@@ -433,21 +444,56 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+
         metalsinarea = Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer);
         if (spacetoogle && metalsinarea.Length > 0)
         {
-        Debug.Log("Hits found: " + metalsinarea.Length);
-        objectLineMap.Clear();
+        lr.enabled = true;
+        lr.positionCount = 2*metalsinarea.Length;
+        numthingy17 = 0;
         foreach (Collider2D col in metalsinarea)
-        {
-        Debug.DrawLine(transform.position, col.transform.position, Color.red);
-        Debug.Log("line");
+            {
+            lr.SetPosition(numthingy17, transform.position);
+            numthingy17++;    
+            lr.SetPosition(numthingy17, col.bounds.center);
+            numthingy17++;
+            }
         }
+        else{lr.enabled = false;}
+        
         }
 
 
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     void OnCollisionEnter2D(Collision2D collision)
     {
