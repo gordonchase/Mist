@@ -1763,7 +1763,7 @@ MonoBehaviour:
   checkdistance: 0
   seedistance: 25
   speed: 5
-  jump: 20
+  jump: 12
   isgrounded: 0
   canmove: 1
   speedcap: 2
@@ -16185,6 +16185,11 @@ MonoBehaviour:
     m_Bits: 128
   spacetoogle: 0
   lr: {fileID: 0}
+  lrr: {fileID: 0}
+  flaringtin: 0
+  flaringiron: 0
+  flaringsteel: 0
+  flaringpewter: 0
 --- !u!212 &1411424645
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
     private Collider2D[] metalsinarea = null;
     public bool spacetoogle=false;
     public LineRenderer lr;
+    public LineRenderer lrr;
     private int numthingy17 = 0;
 
     public bool flaringtin = false;
@@ -81,7 +82,15 @@ public class PlayerController : MonoBehaviour
     lr.positionCount = 2;
     lr.startWidth = lr.endWidth = 0.05f;
     lr.material = new Material(Shader.Find("Sprites/Default"));
-    lr.startColor = lr.endColor = Color.red;
+    lr.startColor = lr.endColor =  new Color32(255, 0, 0, 255);;
+
+    GameObject line2 = new GameObject("LineRenderer2");
+    line2.transform.SetParent(gameObject.transform);
+    lrr = line2.AddComponent<LineRenderer>();
+    lrr.positionCount = 2;
+    lrr.startWidth = lrr.endWidth = 0.1f;
+    lrr.material = new Material(Shader.Find("Sprites/Default"));
+    lrr.startColor = lrr.endColor =  new Color32(0, 255, 181, 255);;
     }
 
     void Start()  
@@ -454,6 +463,7 @@ public class PlayerController : MonoBehaviour
         metalsinarea = Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer);
         if (spacetoogle && metalsinarea.Length > 0)
         {
+        lrr.enabled=true;
         lr.enabled = true;
         lr.positionCount = 2*metalsinarea.Length;
         numthingy17 = 0;
@@ -464,8 +474,10 @@ public class PlayerController : MonoBehaviour
             lr.SetPosition(numthingy17, col.bounds.center);
             numthingy17++;
             }
+        lrr.SetPosition(0, transform.position);
+        lrr.SetPosition(1, metalsinarea[0].bounds.center);
         }
-        else{lr.enabled = false;}
+        else{lr.enabled = false;lrr.enabled=false;}
         
         }
 
