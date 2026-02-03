@@ -70,7 +70,6 @@ public class uicode : MonoBehaviour
         bool isBurningiron = player.buringiron;
         bool isBurningpewter = player.buringpewter;
         bool isBurningsteel = player.buringsteel;        
-        bool isFlaring = player.flaring;
         int tinpercent = player.tinbarpercent;
         int pewterpercent = player.pewterbarpercent;
         int steelpercent = player.steelbarpercent;
@@ -99,15 +98,15 @@ public class uicode : MonoBehaviour
         {
            pewterhelthframe=0;
         }
-        if (!isFlaring)
+        if (!player.flaringpewter)
         {
             flaringhelthframe=0;
         }
-        if (isBurningpewter && isFlaring && curenthelth > -25)
+        if (isBurningpewter && player.flaringpewter && curenthelth > -25)
         {
             flaringhelthframe=8;
         }
-        if (isBurningpewter && isFlaring && curenthelth<=-25)
+        if (isBurningpewter && player.flaringpewter && curenthelth<=-25)
         {
         int flareinghelthframe = Mathf.RoundToInt((curenthelth+75)/3.125f);
         }
@@ -119,7 +118,7 @@ public class uicode : MonoBehaviour
 
         if (isBurningtin)
         {
-            if (isFlaring)
+            if (player.flaringtin)
             {
                 tinframe = 2;
             }
@@ -137,7 +136,7 @@ public class uicode : MonoBehaviour
 
         if (isBurningpewter)
         {
-            if (isFlaring)
+            if (player.flaringpewter)
             {
                 pewterframe = 2;
             }
@@ -155,7 +154,7 @@ public class uicode : MonoBehaviour
 
         if (isBurningsteel)
         {
-            if (isFlaring)
+            if (player.flaringsteel)
             {
                 steelframe = 2;
             }
@@ -174,7 +173,7 @@ public class uicode : MonoBehaviour
 
         if (isBurningiron)
         {
-            if (isFlaring)
+            if (player.flaringiron)
             {
                 ironframe = 2;
             }

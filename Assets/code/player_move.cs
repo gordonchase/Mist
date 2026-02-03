@@ -65,6 +65,11 @@ public class PlayerController : MonoBehaviour
     public LineRenderer lr;
     private int numthingy17 = 0;
 
+    public bool flaringtin = false;
+    public bool flaringiron = false;
+    public bool flaringsteel = false;
+    public bool flaringpewter = false;
+
 
 
 
@@ -100,6 +105,7 @@ public class PlayerController : MonoBehaviour
     anim.SetBool("slicing", false);
     yield return new WaitForSeconds(0.2f);
     canattk = true;
+    
     }
 
     IEnumerator DoEverySecond()  
@@ -108,7 +114,7 @@ public class PlayerController : MonoBehaviour
         {  
             if (buringtin && tinbarpercent > 0)  
             {  
-                if (flaring)  
+                if (flaringtin)  
                 {  
                     tinbarpercent -= 2;  
                 }  
@@ -120,7 +126,7 @@ public class PlayerController : MonoBehaviour
 
             if (buringpewter && pewterbarpercent > 0)  
             {  
-                if (flaring)  
+                if (flaringpewter)  
                 {  
                     pewterbarpercent -= 2;  
                 }  
@@ -132,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
             if (buringsteel && steelbarpercent > 0)  
             {  
-                if (flaring)  
+                if (flaringsteel)  
                 {  
                     steelbarpercent -= 2;  
                 }  
@@ -144,7 +150,7 @@ public class PlayerController : MonoBehaviour
 
             if (buringiron && ironbarpercent > 0)  
             {  
-                if (flaring)  
+                if (flaringiron)  
                 {  
                     ironbarpercent -= 2;  
                 }  
@@ -164,18 +170,8 @@ public class PlayerController : MonoBehaviour
     {  
         if (Input.GetKeyDown(KeyCode.Z))  
         {  
-            if (buringtin)  
-            {  
-                mistpsA = 0.075f;  
-                buringtin = false;  
-                notrealA = 1.0f;  
-            }  
-            else  
-            {  
-                mistpsA = 0.015f;  
-                buringtin = true;  
-                notrealA = 1.0f;  
-            }  
+            if (buringtin){buringtin = false;}
+            else{buringtin = true;}  
         } 
         if (Input.GetKeyDown(KeyCode.S) && canattk)  
         {  
@@ -222,19 +218,7 @@ public class PlayerController : MonoBehaviour
             {  
                 buringiron = true;    
             }  
-        }  
-
-        if (Input.GetKeyDown(KeyCode.F))  
-        {  
-            if (flaring)  
-            {  
-                flaring = false;  
-            }  
-            else  
-            {  
-                flaring = true;  
-            }  
-        }  
+        }   
         if (Input.GetKeyDown(KeyCode.Space))  
         {  
         spacetoogle = !spacetoogle;
@@ -280,54 +264,65 @@ public class PlayerController : MonoBehaviour
 
         if (helth>100){helth=100;}
 
-        if (flaring)  
+        if (buringtin && flaringtin)  
         {  
-            if (buringtin)  
-            {  
-                mistpsA = 0.002f;  
-                notrealA = 0.3f;  
-            }  
-            if (buringpewter)  
-            {  
-                pewterdivby =3;
-                xSpeed = 10;  
-                jumpStrength = 13;  
-            }  
-            if (buringsteel)  
-            {  
-                pushForce = 3500;
-            } 
-            if (buringiron)  
-            {  
-                pullForce = 4000;
-            } 
-            metalDetectRange = 30;
-            slowMotionScale = 0.05f;
+            mistpsA = 0.002f;  
+            notrealA = 0.3f;  
         }  
-        else  
+        else if (buringtin)
+        {
+        mistpsA = 0.015f;  
+        notrealA = 1.0f; 
+        }
+        else
+        {
+        mistpsA = 0.075f;  
+        notrealA = 1.0f; 
+        }
+        if (buringpewter&&flaringpewter)  
         {  
-            if (buringtin)  
-            {  
-                mistpsA = 0.015f;  
-                notrealA = 1.0f;  
-            }  
-            if (buringpewter)  
-            {  
-                pewterdivby=2;
-                xSpeed = 7;  
-                jumpStrength = 10;  
-            }  
-            if (buringsteel)  
-            {  
-                pushForce = 1750;
-            } 
-            if (buringiron)  
-            {  
-                pullForce = 2000;
-            } 
-            metalDetectRange = 20;
-            slowMotionScale = 0.1f;
-        }  
+        pewterdivby =3;
+        xSpeed = 10;  
+        jumpStrength = 13;  
+        } 
+        else if (buringpewter)
+        {
+        pewterdivby=2;
+        xSpeed = 7;  
+        jumpStrength = 10;  
+        }
+        else
+        {
+        pewterdivby =1;
+        xSpeed = 3.5f;  
+        jumpStrength = 6.1f; 
+        }
+        if (buringsteel&&flaringsteel)  
+        {  
+        pushForce = 3500;
+        } 
+        else if (buringsteel)
+        {
+        pushForce = 1750;
+        }
+        if (buringiron&&flaringiron)  
+        {  
+        pullForce = 4000;
+        } 
+        else if (buringiron)
+        {
+        pullForce = 2000;    
+        }
+        if (flaringiron||flaringsteel){
+        metalDetectRange = 30;
+        slowMotionScale = 0.05f; 
+        }
+        else
+        {
+        metalDetectRange = 20;
+        slowMotionScale = 0.1f;
+        }
+        
 
         if (tinbarpercent < 1)  
         {  
@@ -431,7 +426,7 @@ public class PlayerController : MonoBehaviour
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
-                else if(buringpewter && !flaring && helth<-25)
+                else if(buringpewter && !flaringpewter && helth<-25)
                 {
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
@@ -570,12 +565,3 @@ public class PlayerController : MonoBehaviour
 
 
 }
-
-
-public class TileTargetInfo : MonoBehaviour
-{
-    public Tilemap tilemap;
-    public Vector3Int cell;
-}
-
-    

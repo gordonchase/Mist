@@ -14,7 +14,7 @@ public class pewtertoogle : MonoBehaviour, IPointerClickHandler
         }
 
         if (eventData.button == PointerEventData.InputButton.Right){
-        player.flaring = !player.flaring;
+        player.flaringpewter = !player.flaringpewter;
         }
     }
 }

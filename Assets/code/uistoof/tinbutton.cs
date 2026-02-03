@@ -14,7 +14,7 @@ public class tintoogle : MonoBehaviour, IPointerClickHandler
         }
 
         if (eventData.button == PointerEventData.InputButton.Right){
-        player.flaring = !player.flaring;
+        player.flaringtin = !player.flaringtin;
         }
     }
 }

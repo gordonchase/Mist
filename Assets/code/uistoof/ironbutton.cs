@@ -1,21 +1,21 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class steeltoogle : MonoBehaviour, IPointerClickHandler
+public class irontoogle : MonoBehaviour, IPointerClickHandler
 {
     public PlayerController player;
     public bool flaring;
-    public bool burningsteel;
+    public bool burningiron;
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left){
-            player.buringsteel = !player.buringsteel;
+            player.buringiron = !player.buringiron;
+
         }
 
         if (eventData.button == PointerEventData.InputButton.Right){
-        player.flaring = !player.flaring;
-
+        player.flaringiron = !player.flaringiron;
         }
     }
 }
