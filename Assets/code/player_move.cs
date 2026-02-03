@@ -63,7 +63,9 @@ public class PlayerController : MonoBehaviour
     private Collider2D[] metalsinarea = null;
     public bool spacetoogle=false;
     public LineRenderer lr;
-    public int numthingy17 = 0;
+    private int numthingy17 = 0;
+
+
 
 
 
@@ -269,6 +271,7 @@ public class PlayerController : MonoBehaviour
         {  
         }
     }  
+
 
 
     void FixedUpdate()  
