@@ -18,8 +18,7 @@ namespace TMPro
         [Serializable]
         public class WordSelectionEvent : UnityEvent<string, int, int> { }
 
-        [Serializable]
-        public class LineSelectionEvent : UnityEvent<string, int, int> { }
+        
 
         [Serializable]
         public class LinkSelectionEvent : UnityEvent<string, string, int> { }
@@ -61,16 +60,7 @@ namespace TMPro
         private WordSelectionEvent m_OnWordSelection = new WordSelectionEvent();
 
 
-        /// <summary>
-        /// Event delegate triggered when pointer is over a line.
-        /// </summary>
-        public LineSelectionEvent onLineSelection
-        {
-            get { return m_OnLineSelection; }
-            set { m_OnLineSelection = value; }
-        }
-        [SerializeField]
-        private LineSelectionEvent m_OnLineSelection = new LineSelectionEvent();
+        
 
 
         /// <summary>
@@ -166,27 +156,7 @@ namespace TMPro
                 #endregion
 
 
-                #region Example of Line Selection
-                // Check if Mouse intersects any words and if so assign a random color to that word.
-                int lineIndex = TMP_TextUtilities.FindIntersectingLine(m_TextComponent, Input.mousePosition, m_Camera);
-                if (lineIndex != -1 && lineIndex != m_lastLineIndex)
-                {
-                    m_lastLineIndex = lineIndex;
-
-                    // Get the information about the selected word.
-                    TMP_LineInfo lineInfo = m_TextComponent.textInfo.lineInfo[lineIndex];
-
-                    // Send the event to any listeners.
-                    char[] buffer = new char[lineInfo.characterCount];
-                    for (int i = 0; i < lineInfo.characterCount && i < m_TextComponent.textInfo.characterInfo.Length; i++)
-                    {
-                        buffer[i] = m_TextComponent.textInfo.characterInfo[i + lineInfo.firstCharacterIndex].character;
-                    }
-
-                    string lineText = new string(buffer);
-                    SendOnLineSelection(lineText, lineInfo.firstCharacterIndex, lineInfo.characterCount);
-                }
-                #endregion
+                
 
 
                 #region Example of Link Handling
@@ -247,11 +217,7 @@ namespace TMPro
                 onWordSelection.Invoke(word, charIndex, length);
         }
 
-        private void SendOnLineSelection(string line, int charIndex, int length)
-        {
-            if (onLineSelection != null)
-                onLineSelection.Invoke(line, charIndex, length);
-        }
+        
 
         private void SendOnLinkSelection(string linkID, string linkText, int linkIndex)
         {
