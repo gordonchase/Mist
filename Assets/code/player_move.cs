@@ -60,11 +60,14 @@ public class PlayerController : MonoBehaviour
     public float slowMotionScale = 1;
     public float metalDetectRange = 30;
     public LayerMask meatelayer;
-    private Collider2D[] metalsinarea = null;
+    public List<Collider2D> metalsinarea = null;
+    public List<Collider2D> pushmetals = null;
+    public List<Collider2D> pullmetals = null;
     public bool spacetoogle=false;
     public LineRenderer lr;
     public LineRenderer lrr;
     private int numthingy17 = 0;
+    public int highlightnumthing12 = 0;
 
     public bool flaringtin = false;
     public bool flaringiron = false;
@@ -325,11 +328,13 @@ public class PlayerController : MonoBehaviour
         if (flaringiron||flaringsteel){
         metalDetectRange = 30;
         slowMotionScale = 0.05f; 
+        if (spacetoogle){Time.timeScale = slowMotionScale;}
         }
         else
         {
         metalDetectRange = 20;
         slowMotionScale = 0.1f;
+        if (spacetoogle){Time.timeScale = slowMotionScale;}
         }
         
 
@@ -458,14 +463,16 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
-        metalsinarea = Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer);
-        if (spacetoogle && metalsinarea.Length > 0)
+        Vector3 mouseScreen = Input.mousePosition;
+        Vector3 mouseWorld3 = Camera.main.ScreenToWorldPoint(mouseScreen);
+        Vector2 mousePos = new Vector2(mouseWorld3.x, mouseWorld3.y);
+        float lagestAngle = 0;
+        metalsinarea = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer));
+        if (spacetoogle && metalsinarea.Count > 0)
         {
         lrr.enabled=true;
         lr.enabled = true;
-        lr.positionCount = 2*metalsinarea.Length;
+        lr.positionCount = 2*metalsinarea.Count;
         numthingy17 = 0;
         foreach (Collider2D col in metalsinarea)
             {
@@ -474,8 +481,20 @@ public class PlayerController : MonoBehaviour
             lr.SetPosition(numthingy17, col.bounds.center);
             numthingy17++;
             }
+
+        for (int ix = 0; ix < metalsinarea.Count; ix++)
+            {
+            Vector2 playerpos = transform.position;
+            Vector2 obpos = metalsinarea[ix].bounds.center;
+            float angle = Vector2.Angle((playerpos - mousePos).normalized, (obpos - mousePos).normalized);
+            if (lagestAngle < angle)
+                {
+                lagestAngle = angle;
+                highlightnumthing12=ix;
+                }
+            }
         lrr.SetPosition(0, transform.position);
-        lrr.SetPosition(1, metalsinarea[0].bounds.center);
+        lrr.SetPosition(1, metalsinarea[highlightnumthing12].bounds.center);
         }
         else{lr.enabled = false;lrr.enabled=false;}
         
