@@ -60,11 +60,18 @@ public class PlayerController : MonoBehaviour
     public float slowMotionScale = 1;
     public float metalDetectRange = 30;
     public LayerMask meatelayer;
-    private Collider2D[] metalsinarea = null;
+    public List<Collider2D> metalsinarea = null;
+    public List<Collider2D> pushmetals = null;
+    public List<Collider2D> pullmetals = null;
     public bool spacetoogle=false;
     public LineRenderer lr;
     public LineRenderer lrr;
+    public LineRenderer lrrr;
+    public LineRenderer lrrrr;
     private int numthingy17 = 0;
+    private int numthingy18 = 0;
+    private int numthingy19 = 0;
+    public int highlightnumthing12 = 0;
 
     public bool flaringtin = false;
     public bool flaringiron = false;
@@ -91,6 +98,22 @@ public class PlayerController : MonoBehaviour
     lrr.startWidth = lrr.endWidth = 0.1f;
     lrr.material = new Material(Shader.Find("Sprites/Default"));
     lrr.startColor = lrr.endColor =  new Color32(0, 255, 181, 255);;
+
+    GameObject line3 = new GameObject("LineRenderer3");
+    line3.transform.SetParent(gameObject.transform);
+    lrrr = line3.AddComponent<LineRenderer>();
+    lrrr.positionCount = 2;
+    lrrr.startWidth = lrrr.endWidth = 0.05f;
+    lrrr.material = new Material(Shader.Find("Sprites/Default"));
+    lrrr.startColor = lrrr.endColor =  new Color32(0, 255, 0, 255);;
+
+    GameObject line4 = new GameObject("LineRenderer4");
+    line4.transform.SetParent(gameObject.transform);
+    lrrrr = line4.AddComponent<LineRenderer>();
+    lrrrr.positionCount = 2;
+    lrrrr.startWidth = lrrrr.endWidth = 0.05f;
+    lrrrr.material = new Material(Shader.Find("Sprites/Default"));
+    lrrrr.startColor = lrrrr.endColor =  new Color32(0, 0, 255, 255);;
     }
 
     void Start()  
@@ -103,6 +126,8 @@ public class PlayerController : MonoBehaviour
         xSpeed = 3.5f;  
         jumpStrength = 6.1f;  
         notrealA = 1.0f;  
+        pushForce = 35;
+        pullForce = 35;
     }  
 
 
@@ -253,6 +278,8 @@ public class PlayerController : MonoBehaviour
                 if (lastmove){xOffsetAmount=1f;}
                 else{xOffsetAmount=-1f;}
             buringsteel = true;
+            GameObject newcoin = Instantiate(boxingfab, transform.position + new Vector3(xOffsetAmount, 0, 0), Quaternion.identity);
+            pushmetals.Add(newcoin.GetComponent<Collider2D>());
             }
         } 
         if (Input.GetKeyUp(KeyCode.W)){superanoyingjumpthing = false;}
@@ -260,8 +287,16 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
         }
-        if (Input.GetKeyDown(KeyCode.R))  
-        {  
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+        List<Collider2D> temp = pushmetals;
+        pushmetals = pullmetals;
+        pullmetals = temp;
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+        pullmetals.Clear();
+        pushmetals.Clear();
         }
     }  
 
@@ -308,28 +343,30 @@ public class PlayerController : MonoBehaviour
         }
         if (buringsteel&&flaringsteel)  
         {  
-        pushForce = 3500;
+        pushForce = 50;
         } 
         else if (buringsteel)
         {
-        pushForce = 1750;
+        pushForce = 30;
         }
         if (buringiron&&flaringiron)  
         {  
-        pullForce = 4000;
+        pullForce = 50;
         } 
         else if (buringiron)
         {
-        pullForce = 2000;    
+        pullForce = 30;    
         }
         if (flaringiron||flaringsteel){
         metalDetectRange = 30;
         slowMotionScale = 0.05f; 
+        if (spacetoogle){Time.timeScale = slowMotionScale;}
         }
         else
         {
         metalDetectRange = 20;
         slowMotionScale = 0.1f;
+        if (spacetoogle){Time.timeScale = slowMotionScale;}
         }
         
 
@@ -448,6 +485,8 @@ public class PlayerController : MonoBehaviour
 
 
 
+        pullmetals.RemoveAll(c => c == null);
+        pushmetals.RemoveAll(c => c == null);
 
 
 
@@ -457,15 +496,16 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
-
-        metalsinarea = Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer);
-        if (spacetoogle && metalsinarea.Length > 0)
+        Vector3 mouseScreen = Input.mousePosition;
+        Vector3 mouseWorld3 = Camera.main.ScreenToWorldPoint(mouseScreen);
+        Vector2 mousePos = new Vector2(mouseWorld3.x, mouseWorld3.y);
+        float lagestAngle = 0;
+        metalsinarea = new List<Collider2D>(Physics2D.OverlapCircleAll(transform.position, metalDetectRange, meatelayer));
+        if (spacetoogle && metalsinarea.Count > 0)
         {
         lrr.enabled=true;
         lr.enabled = true;
-        lr.positionCount = 2*metalsinarea.Length;
+        lr.positionCount = 2*metalsinarea.Count;
         numthingy17 = 0;
         foreach (Collider2D col in metalsinarea)
             {
@@ -474,12 +514,108 @@ public class PlayerController : MonoBehaviour
             lr.SetPosition(numthingy17, col.bounds.center);
             numthingy17++;
             }
+
+        for (int ix = 0; ix < metalsinarea.Count; ix++)
+            {
+            Vector2 playerpos = transform.position;
+            Vector2 obpos = metalsinarea[ix].bounds.center;
+            float angle = Vector2.Angle((playerpos - mousePos).normalized, (obpos - mousePos).normalized);
+            if (lagestAngle < angle)
+                {
+                lagestAngle = angle;
+                highlightnumthing12=ix;
+                }
+            }
         lrr.SetPosition(0, transform.position);
-        lrr.SetPosition(1, metalsinarea[0].bounds.center);
+        lrr.SetPosition(1, metalsinarea[highlightnumthing12].bounds.center);
         }
         else{lr.enabled = false;lrr.enabled=false;}
         
+
+        if (buringsteel){
+        foreach (Collider2D col in pushmetals)
+        {
+            if (col==null){continue;}
+            Rigidbody2D pushrb = col.attachedRigidbody;
+
+            if (pushrb != null)
+            {
+                Vector2 dierec_to_player = pushrb.position - (Vector2)transform.position;
+
+                pushrb.AddForce(dierec_to_player.normalized * pushForce / dierec_to_player.magnitude, ForceMode2D.Force);
+            }
+            Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
+
+            rb.AddForce(dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, ForceMode2D.Force);
+
         }
+        }
+        if(buringiron){
+        foreach (Collider2D col in pullmetals)
+        {
+            if (col==null){continue;}
+            Rigidbody2D pullrb = col.attachedRigidbody;
+
+            if (pullrb != null)
+            {
+                Vector2 dierec_to_player = pullrb.position - (Vector2)transform.position;
+
+                pullrb.AddForce(-dierec_to_player.normalized * pushForce / dierec_to_player.magnitude, ForceMode2D.Force);
+            }
+            Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
+
+            rb.AddForce(-dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, ForceMode2D.Force);
+
+        }
+        }
+
+
+
+
+
+
+        pushmetals.RemoveAll(c => c == null);
+        lrrr.enabled = true;
+        lrrr.positionCount = 2*pushmetals.Count;
+        numthingy18 = 0;
+        foreach (Collider2D col in pushmetals)
+            {
+            lrrr.SetPosition(numthingy18, transform.position);
+            numthingy18++;    
+            lrrr.SetPosition(numthingy18, col.bounds.center);
+            numthingy18++;
+            }
+
+        lrrrr.enabled = true;
+        lrrrr.positionCount = 2*pullmetals.Count;
+        numthingy19 = 0;
+        foreach (Collider2D col in pullmetals)
+            {
+            lrrrr.SetPosition(numthingy19, transform.position);
+            numthingy19++;    
+            lrrrr.SetPosition(numthingy19, col.bounds.center);
+            numthingy19++;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 
@@ -576,4 +712,4 @@ public class PlayerController : MonoBehaviour
 
 
 
-}
+    }
