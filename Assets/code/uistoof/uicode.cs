@@ -150,7 +150,7 @@ public class uicode : MonoBehaviour
             pewterframe = 0;
         }
 
-        int steelbarframe = Mathf.RoundToInt(steelpercent / 20f);
+        int steelbarframe = Mathf.RoundToInt(steelpercent / 41f);
 
         if (isBurningsteel)
         {
@@ -169,7 +169,7 @@ public class uicode : MonoBehaviour
         }
 
 
-        int ironbarframe = Mathf.RoundToInt(ironpercent / 20f);
+        int ironbarframe = Mathf.RoundToInt(ironpercent / 41f);
 
         if (isBurningiron)
         {

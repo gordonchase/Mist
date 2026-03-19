@@ -39,8 +39,8 @@ public class PlayerController : MonoBehaviour
 
     public int tinbarpercent=500;  
     public int pewterbarpercent=100;  
-    public int steelbarpercent=200;  
-    public int ironbarpercent=200;  
+    public int steelbarpercent=400;  
+    public int ironbarpercent=400;  
 
     public Image pweterhelth;
     private float newAlphaValue = 0.0f;
@@ -174,11 +174,11 @@ public class PlayerController : MonoBehaviour
             {  
                 if (flaringsteel)  
                 {  
-                    steelbarpercent -= 2;  
+                    steelbarpercent -= pushmetals.Count*2;  
                 }  
                 else  
                 {  
-                    steelbarpercent -= 1;  
+                    steelbarpercent -= pushmetals.Count;  
                 }  
             }  
 
@@ -186,11 +186,11 @@ public class PlayerController : MonoBehaviour
             {  
                 if (flaringiron)  
                 {  
-                    ironbarpercent -= 2;  
+                    ironbarpercent -= pullmetals.Count*2;  
                 }  
                 else  
                 {  
-                    ironbarpercent -= 1;  
+                    ironbarpercent -= pullmetals.Count;  
                 }  
             }  
 
@@ -666,14 +666,14 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Steel"))  
         {  
             Destroy(collision.gameObject);  
-            steelbarpercent += 100;  
-            if (steelbarpercent > 200) steelbarpercent = 200;  
+            steelbarpercent += 200;  
+            if (steelbarpercent > 400) steelbarpercent = 400;  
         }  
         if (collision.gameObject.CompareTag("Iron"))  
         {  
             Destroy(collision.gameObject);  
-            ironbarpercent += 100;  
-            if (ironbarpercent > 200) ironbarpercent = 200;  
+            ironbarpercent += 200;  
+            if (ironbarpercent > 400) ironbarpercent = 400;  
         }  
         if (collision.gameObject.CompareTag("Aitum"))  
         {  
@@ -682,10 +682,10 @@ public class PlayerController : MonoBehaviour
             if (pewterbarpercent > 100) pewterbarpercent = 100;  
             tinbarpercent += 125;  
             if (tinbarpercent > 500) tinbarpercent = 500;  
-            steelbarpercent += 50;  
-            if (steelbarpercent > 200) steelbarpercent = 200;  
-            ironbarpercent += 50;  
-            if (ironbarpercent > 200) ironbarpercent = 200;  
+            steelbarpercent += 100;  
+            if (steelbarpercent > 400) steelbarpercent = 400;  
+            ironbarpercent += 100;  
+            if (ironbarpercent > 400) ironbarpercent = 400;  
         }  
         if (collision.gameObject.CompareTag("helth"))  
         {  
