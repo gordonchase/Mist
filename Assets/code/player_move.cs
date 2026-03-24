@@ -126,8 +126,8 @@ public class PlayerController : MonoBehaviour
         xSpeed = 3.5f;  
         jumpStrength = 6.1f;  
         notrealA = 1.0f;  
-        pushForce = 35;
-        pullForce = 35;
+        pushForce = 30;
+        pullForce = 30;
     }  
 
 
@@ -414,8 +414,11 @@ public class PlayerController : MonoBehaviour
 
             float xHat = Input.GetAxisRaw("Horizontal");  
             float vx = xHat * xSpeed;  
-            rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);  
-
+            // rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
+            if (Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
+            {
+            rb.AddForce(new Vector2(vx, 0),ForceMode2D.Impulse);  
+            }
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
         anim.SetFloat("xSpeed", rb.linearVelocity.x);  
@@ -547,6 +550,10 @@ public class PlayerController : MonoBehaviour
             Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
 
             rb.AddForce(dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, ForceMode2D.Force);
+            Debug.DrawRay(transform.position, dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, Color.green);
+            // dierec_to_pushob.y=0;
+            // rb.AddForce(dierec_to_pushob.normalized * pushForce *1/ (dierec_to_pushob.magnitude/10), ForceMode2D.Force);
+
 
         }
         }
