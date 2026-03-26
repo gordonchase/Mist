@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;  
     public float groundCheckDistance = 0.1f;  
 
-    private float maxVelX = 10;  
+    private float maxVelX;  
 
     private Animator anim;  
 
@@ -79,6 +79,10 @@ public class PlayerController : MonoBehaviour
     public bool flaringpewter = false;
 
 
+    private bool goright = false;
+    private bool goleft = false;
+
+
 
 
 
@@ -89,7 +93,7 @@ public class PlayerController : MonoBehaviour
     lr.positionCount = 2;
     lr.startWidth = lr.endWidth = 0.05f;
     lr.material = new Material(Shader.Find("Sprites/Default"));
-    lr.startColor = lr.endColor =  new Color32(255, 0, 0, 255);;
+    lr.startColor = lr.endColor =  new Color32(0, 0, 255, 200);;
 
     GameObject line2 = new GameObject("LineRenderer2");
     line2.transform.SetParent(gameObject.transform);
@@ -105,7 +109,7 @@ public class PlayerController : MonoBehaviour
     lrrr.positionCount = 2;
     lrrr.startWidth = lrrr.endWidth = 0.05f;
     lrrr.material = new Material(Shader.Find("Sprites/Default"));
-    lrrr.startColor = lrrr.endColor =  new Color32(0, 255, 0, 255);;
+    lrrr.startColor = lrrr.endColor =  new Color32(13, 0, 120, 255);;
 
     GameObject line4 = new GameObject("LineRenderer4");
     line4.transform.SetParent(gameObject.transform);
@@ -113,7 +117,7 @@ public class PlayerController : MonoBehaviour
     lrrrr.positionCount = 2;
     lrrrr.startWidth = lrrrr.endWidth = 0.05f;
     lrrrr.material = new Material(Shader.Find("Sprites/Default"));
-    lrrrr.startColor = lrrrr.endColor =  new Color32(0, 0, 255, 255);;
+    lrrrr.startColor = lrrrr.endColor =  new Color32(16, 157, 192, 255);;
     }
 
     void Start()  
@@ -124,6 +128,7 @@ public class PlayerController : MonoBehaviour
         key = 0;  
         StartCoroutine(DoEverySecond());  
         xSpeed = 3.5f;  
+        maxVelX = 3.5f;
         jumpStrength = 6.1f;  
         notrealA = 1.0f;  
         pushForce = 30;
@@ -298,6 +303,40 @@ public class PlayerController : MonoBehaviour
         pullmetals.Clear();
         pushmetals.Clear();
         }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            goright=true;
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            goleft = true;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            goright=false;
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            goleft = false;
+        }
+        maxVelX = xSpeed;
+        // if (goright && Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
+        // {
+        //     rb.AddForce(new Vector2 (xSpeed/1,0),ForceMode2D.Impulse);
+        // }
+        // if (goleft && Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
+        // {
+        //     rb.AddForce(new Vector2 (xSpeed/-1,0),ForceMode2D.Impulse);
+        // }
+        if (goright && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX > 0)))
+        {
+            rb.AddForce(new Vector2 ((maxVelX-Math.Abs(rb.linearVelocityX))/1,0),ForceMode2D.Impulse);
+        }
+        if (goleft && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX > 0)))
+        {
+            rb.AddForce(new Vector2 ((maxVelX-Math.Abs(rb.linearVelocityX))/-1,0),ForceMode2D.Impulse);
+        }
+
     }  
 
 
@@ -326,7 +365,7 @@ public class PlayerController : MonoBehaviour
         if (buringpewter&&flaringpewter)  
         {  
         pewterdivby =3;
-        xSpeed = 10;  
+        xSpeed = 10; 
         jumpStrength = 13;  
         } 
         else if (buringpewter)
@@ -412,13 +451,13 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;  
 
-            float xHat = Input.GetAxisRaw("Horizontal");  
-            float vx = xHat * xSpeed;  
-            // rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
-            if (Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
-            {
-            rb.AddForce(new Vector2(vx, 0),ForceMode2D.Impulse);  
-            }
+            // float xHat = Input.GetAxisRaw("Horizontal");  
+            // float vx = xHat * xSpeed;  
+            // // rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
+            // if (Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
+            // {
+            // rb.AddForce(new Vector2(vx, 0),ForceMode2D.Impulse);  
+            // }
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
         anim.SetFloat("xSpeed", rb.linearVelocity.x);  
