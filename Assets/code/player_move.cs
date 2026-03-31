@@ -445,9 +445,9 @@ public class PlayerController : MonoBehaviour
         Vector2 center = rayOrigin;  
         Vector2 rightEdge = rayOrigin + Vector2.right * halfWidth;  
 
-        RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance);  
-        RaycastHit2D centerRay = Physics2D.Raycast(center, Vector2.down, rayDistance);  
-        RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance);  
+        RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance, groundLayer);  
+        RaycastHit2D centerRay = Physics2D.Raycast(center, Vector2.down, rayDistance, groundLayer);  
+        RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance, groundLayer);  
        
         Debug.DrawRay(leftEdge, Vector2.down * rayDistance, new Color32(13, 0, 120, 255)); // steel-blue
         Debug.DrawRay(center, Vector2.down * rayDistance, new Color32(16, 157, 192, 255));     // iron-blue
