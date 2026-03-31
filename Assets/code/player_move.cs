@@ -287,7 +287,6 @@ public class PlayerController : MonoBehaviour
             pushmetals.Add(newcoin.GetComponent<Collider2D>());
             }
         } 
-        if (Input.GetKeyUp(KeyCode.W)){superanoyingjumpthing = false;}
         if (Input.GetKeyDown(KeyCode.W)&&isGrounded)
         {
             rb.AddForce(Vector2.up * jumpStrength, ForceMode2D.Impulse);
@@ -320,21 +319,26 @@ public class PlayerController : MonoBehaviour
             goleft = false;
         }
         maxVelX = xSpeed;
-        // if (goright && Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
-        // {
-        //     rb.AddForce(new Vector2 (xSpeed/1,0),ForceMode2D.Impulse);
-        // }
-        // if (goleft && Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
-        // {
-        //     rb.AddForce(new Vector2 (xSpeed/-1,0),ForceMode2D.Impulse);
-        // }
-        if (goright && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX > 0)))
+        if (goright && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX < 0)))
         {
-            rb.AddForce(new Vector2 ((maxVelX-Math.Abs(rb.linearVelocityX))/1,0),ForceMode2D.Impulse);
+            float thingy5=maxVelX-Math.Abs(rb.linearVelocityX);
+            if (thingy5>xSpeed){thingy5=xSpeed;}
+            rb.AddForce(new Vector2 (thingy5/1,0),ForceMode2D.Impulse);
+            if (rb.linearVelocityX < 0)
+            {
+                rb.AddForce(new Vector2 (1,0),ForceMode2D.Impulse);
+            }
         }
         if (goleft && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX > 0)))
         {
-            rb.AddForce(new Vector2 ((maxVelX-Math.Abs(rb.linearVelocityX))/-1,0),ForceMode2D.Impulse);
+            float thingy6=maxVelX-Math.Abs(rb.linearVelocityX);
+            if (thingy6>xSpeed){thingy6=xSpeed;}
+            rb.AddForce(new Vector2 (thingy6/-1,0),ForceMode2D.Impulse);
+            if (rb.linearVelocityX > 0)
+            {
+                rb.AddForce(new Vector2 (-1,0),ForceMode2D.Impulse);
+            }
+        
         }
 
     }  
@@ -441,9 +445,9 @@ public class PlayerController : MonoBehaviour
         Vector2 center = rayOrigin;  
         Vector2 rightEdge = rayOrigin + Vector2.right * halfWidth;  
 
-        RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance, groundLayer);  
-        RaycastHit2D centerRay = Physics2D.Raycast(center, Vector2.down, rayDistance, groundLayer);  
-        RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance, groundLayer);  
+        RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance);  
+        RaycastHit2D centerRay = Physics2D.Raycast(center, Vector2.down, rayDistance);  
+        RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance);  
        
         Debug.DrawRay(leftEdge, Vector2.down * rayDistance, new Color32(13, 0, 120, 255)); // steel-blue
         Debug.DrawRay(center, Vector2.down * rayDistance, new Color32(16, 157, 192, 255));     // iron-blue
@@ -451,13 +455,6 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;  
 
-            // float xHat = Input.GetAxisRaw("Horizontal");  
-            // float vx = xHat * xSpeed;  
-            // // rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
-            // if (Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
-            // {
-            // rb.AddForce(new Vector2(vx, 0),ForceMode2D.Impulse);  
-            // }
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
         anim.SetFloat("xSpeed", rb.linearVelocity.x);  
@@ -587,12 +584,8 @@ public class PlayerController : MonoBehaviour
                 pushrb.AddForce(dierec_to_player.normalized * pushForce / dierec_to_player.magnitude, ForceMode2D.Force);
             }
             Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
-
+            
             rb.AddForce(dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, ForceMode2D.Force);
-            Debug.DrawRay(transform.position, dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, Color.green);
-            // dierec_to_pushob.y=0;
-            // rb.AddForce(dierec_to_pushob.normalized * pushForce *1/ (dierec_to_pushob.magnitude/10), ForceMode2D.Force);
-
 
         }
         }
@@ -608,9 +601,9 @@ public class PlayerController : MonoBehaviour
 
                 pullrb.AddForce(-dierec_to_player.normalized * pushForce / dierec_to_player.magnitude, ForceMode2D.Force);
             }
-            Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
+            Vector2 dierec_to_pullob = (Vector2)transform.position - (Vector2)col.transform.position;
 
-            rb.AddForce(-dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, ForceMode2D.Force);
+            rb.AddForce(-dierec_to_pullob.normalized * pushForce / dierec_to_pullob.magnitude, ForceMode2D.Force);
 
         }
         }
@@ -692,8 +685,8 @@ public class PlayerController : MonoBehaviour
     if (!collision.gameObject.CompareTag("boxing")) {
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
-    if (damageonimpact > 15f){
-        helth -= (int)Math.Round(damageonimpact/pewterdivby);
+    if (damageonimpact > 5*pewterdivby+10){
+        helth -= ((int)Math.Round(damageonimpact/pewterdivby))-5*pewterdivby+10;
         Debug.Log("damage from fall" + helth);
     }
     }
