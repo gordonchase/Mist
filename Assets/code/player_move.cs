@@ -209,8 +209,14 @@ public class PlayerController : MonoBehaviour
     {  
         if (Input.GetKeyDown(KeyCode.Z))  
         {  
-            if (buringtin){buringtin = false;}
-            else{buringtin = true;}  
+            if (numboxings>0)  
+            {  
+            numboxings-=1;
+
+            buringsteel = true;
+            GameObject newcoin = Instantiate(boxingfab, transform.position + new Vector3(0, -2.5f, 0), Quaternion.identity);
+            pushmetals.Add(newcoin.GetComponent<Collider2D>());
+            }  
         } 
         if (Input.GetKeyDown(KeyCode.S) && canattk)  
         {  
