@@ -115,8 +115,8 @@ public class garrison : MonoBehaviour
     if (!collision.gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("boxing")){
     Vector2 falldamage = collision.relativeVelocity;
     float damageonimpact = falldamage.magnitude;
-    if (damageonimpact > 10f){
-        enemyhelth -= damageonimpact*5;
+    if (damageonimpact > 7f){
+        enemyhelth -= damageonimpact*7;
         Debug.Log("damage from fall" + enemyhelth);
         byte randothingy=(byte)(225-(damageonimpact*5));
         StartCoroutine(takingdamage(randothingy));

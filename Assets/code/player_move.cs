@@ -93,7 +93,7 @@ public class PlayerController : MonoBehaviour
     lr.positionCount = 2;
     lr.startWidth = lr.endWidth = 0.05f;
     lr.material = new Material(Shader.Find("Sprites/Default"));
-    lr.startColor = lr.endColor =  new Color32(0, 0, 255, 200);;
+    lr.startColor = lr.endColor =  new Color32(0, 0, 255, 100);;
 
     GameObject line2 = new GameObject("LineRenderer2");
     line2.transform.SetParent(gameObject.transform);
@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
     lrr.positionCount = 2;
     lrr.startWidth = lrr.endWidth = 0.1f;
     lrr.material = new Material(Shader.Find("Sprites/Default"));
-    lrr.startColor = lrr.endColor =  new Color32(0, 255, 181, 255);;
+    lrr.startColor = lrr.endColor =  new Color32(0, 255, 181, 200);;
 
     GameObject line3 = new GameObject("LineRenderer3");
     line3.transform.SetParent(gameObject.transform);
