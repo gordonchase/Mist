@@ -32,6 +32,9 @@ public class garrison : MonoBehaviour
     public System.Random randosando = new System.Random();
     private byte randothingy;
     private bool canspawn=true;
+    private float groundCheckDistance = 1.6f; 
+    private bool waytomove = true; 
+
 
     
     void Start()
@@ -44,6 +47,24 @@ public class garrison : MonoBehaviour
     }
     void Update()
     {
+
+
+    CapsuleCollider2D capsule = GetComponent<CapsuleCollider2D>();  
+    Vector2 rayOrigin = (Vector2)transform.position + capsule.offset;  
+    float halfWidth = capsule.size.x * 0.6f * transform.localScale.x;  
+    float rayDistance = groundCheckDistance;  
+    int groundLayer = LayerMask.GetMask("ground");  
+
+    Vector2 leftEdge = rayOrigin + Vector2.left * halfWidth;    
+    Vector2 rightEdge = rayOrigin + Vector2.right * halfWidth;  
+
+    RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance, groundLayer);    
+    RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance, groundLayer);   
+
+    RaycastHit2D wallray1 = Physics2D.Raycast(leftEdge, Vector2.left, 0.3f, groundLayer);    
+    RaycastHit2D wallray2 = Physics2D.Raycast(rightEdge, Vector2.right, 0.3f, groundLayer); 
+
+    
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
     float xposthingy = enemyobject.transform.position.x - playerobject.transform.position.x;
     float yposthingy = enemyobject.transform.position.y - playerobject.transform.position.y;
@@ -71,7 +92,7 @@ public class garrison : MonoBehaviour
     playerPos = playerobject.transform.position;
     enemyPos = enemyobject.transform.position;
     checkdistance = Vector2.Distance(playerPos, enemyPos);
-    // TODO : fix! :
+
     float currentspeed = rb.linearVelocity.x;
     if (checkdistance < 2 && !attaking && !dead)
         {
@@ -85,23 +106,63 @@ public class garrison : MonoBehaviour
         }
         }
     else if (checkdistance<seedistance){
-        if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && ! jumping)
+        if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && ! jumping && !wallray1)
         {
-        rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
-        last=true;
+        if (rightRay){
+            rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
+            last=true;
         }
-        if (playerPos.x-enemyPos.x<0 && currentspeed>-1*speedcap && ! jumping)
+        if (!rightRay)
+            {
+            rb.AddForce(Vector2.left * 1.5f, ForceMode2D.Force);       
+            }
+        }
+        if (playerPos.x-enemyPos.x<0 && currentspeed>-1*speedcap && ! jumping && !wallray2)
         {
-        rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
-        last=false;
+        if (leftRay){
+            rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
+            last=false;
         }
-        if (playerPos.y-enemyPos.y>1 && isgrounded && !jumping)
+        if (!leftRay)
+            {
+            rb.AddForce(Vector2.right * 1.5f, ForceMode2D.Force);       
+            }
+        }
+        if ((playerPos.y-enemyPos.y>1 || (wallray1 || wallray2)) && isgrounded && !jumping )
         {
         jumping = true;
         isgrounded = false;
         StartCoroutine(jumpdelay());
         }
     }
+
+    if (checkdistance>seedistance){ 
+
+       
+        if (!rightRay || wallray1)
+            {
+                waytomove=false;
+            }
+        if (!leftRay || wallray2)
+            {
+                waytomove=true;
+            }
+        if (waytomove && currentspeed<speedcap )
+            {
+        rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
+        last=true;
+            }
+        else if (!waytomove && currentspeed>-1*speedcap)
+            {
+            rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
+            last=false;
+            }
+
+
+    }
+
+
+
     if (!dead){
     anim.SetFloat("hor", Mathf.Abs(rb.linearVelocity.x));
     anim.SetBool("last", last);
