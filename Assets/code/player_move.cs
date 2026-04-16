@@ -80,7 +80,11 @@ public class PlayerController : MonoBehaviour
 
 
     private bool goright = false;
+<<<<<<< Updated upstream
     private bool goleft = false;
+=======
+    private bool goleft  = false;
+>>>>>>> Stashed changes
 
 
 
@@ -308,6 +312,7 @@ public class PlayerController : MonoBehaviour
         pullmetals.Clear();
         pushmetals.Clear();
         }
+<<<<<<< Updated upstream
         if (Input.GetKeyDown(KeyCode.D))
         {
             goright=true;
@@ -348,6 +353,33 @@ public class PlayerController : MonoBehaviour
         
         }
 
+=======
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+        goleft=true;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+        goright=true;
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+        goleft=false;
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+        goright=false;
+        }
+        maxVelX=xSpeed;
+        if (goleft&&((Math.Abs(rb.linearVelocity.x)<maxVelX)||(rb.linearVelocity.x>0)))
+        {    
+            rb.AddForce(new Vector2(xSpeed*-1,0), ForceMode2D.Impulse);
+        }  
+        if (goright&&((Math.Abs(rb.linearVelocity.x)<maxVelX)||(rb.linearVelocity.x<0)))
+        {    
+            rb.AddForce(new Vector2(xSpeed,0), ForceMode2D.Impulse);
+        } 
+>>>>>>> Stashed changes
     }  
 
 
@@ -462,6 +494,16 @@ public class PlayerController : MonoBehaviour
 
         isGrounded = leftRay.collider != null || centerRay.collider != null || rightRay.collider != null;  
 
+<<<<<<< Updated upstream
+=======
+            // float xHat = Input.GetAxisRaw("Horizontal");  
+            // float vx = xHat * xSpeed;  
+            // // // rb.linearVelocity = new Vector2(vx, rb.linearVelocity.y);
+            // // if (Math.Abs(rb.linearVelocity.magnitude)<maxVelX)
+            // // {
+            // // rb.AddForce(new Vector2(vx, 0),ForceMode2D.Impulse);  
+            // // }
+>>>>>>> Stashed changes
 
         anim.SetFloat("ySpeed", rb.linearVelocity.y);  
         anim.SetFloat("xSpeed", rb.linearVelocity.x);  
