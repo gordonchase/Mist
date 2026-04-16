@@ -71,6 +71,19 @@ public class garrison : MonoBehaviour
     RaycastHit2D wallray2 = Physics2D.Raycast(lowerRight, Vector2.right, 0.3f, groundLayer); 
 
 
+
+        if (playerPos.x-enemyPos.x>0)
+        {
+            last=true;
+        }
+        else if (playerPos.x-enemyPos.x<0)
+        {
+            last=false;
+        }
+
+
+
+
     
     Vector2 reltivtorotation = enemyobject.transform.InverseTransformPoint(playerPos); 
     float xposthingy = enemyobject.transform.position.x - playerobject.transform.position.x;
@@ -117,7 +130,6 @@ public class garrison : MonoBehaviour
         {
         if (rightRay){
             rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
-            last=true;
         }
         if (!rightRay)
             {
@@ -128,7 +140,6 @@ public class garrison : MonoBehaviour
         {
         if (leftRay){
             rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
-            last=false;
         }
         if (!leftRay)
             {
