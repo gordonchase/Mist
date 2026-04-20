@@ -45,7 +45,7 @@ public class sm_mistwrath : MonoBehaviour
     if (player.delingdamage && takiningdamage)
         {
         if (xposthingy < 0.5f && xposthingy > -1.5f && !player.lastmove && yposthingy < 1.5f && yposthingy > -3f && !dead){
-            enemyhelth -= player.pewterdivby * 5;    
+            enemyhelth -= player.pewterdivby * 20;    
             Debug.Log("damage from kell" + enemyhelth);
             byte randothingy=(byte)(255-(player.pewterdivby * 50));
             StartCoroutine(takingdamage(randothingy));
