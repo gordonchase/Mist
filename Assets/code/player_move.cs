@@ -324,6 +324,19 @@ public class PlayerController : MonoBehaviour
         {
             goleft = false;
         }
+
+    }  
+
+
+
+    void FixedUpdate()  
+    {
+
+
+
+
+
+
         float xsub = xSpeed*1.5f;
         maxVelX = xsub;
         if (goright && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX < 0)))
@@ -347,12 +360,6 @@ public class PlayerController : MonoBehaviour
             }
         
         } 
-    }  
-
-
-
-    void FixedUpdate()  
-    {
 
 
         if (helth>100){helth=100;}

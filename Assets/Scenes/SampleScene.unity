@@ -15945,7 +15945,7 @@ Rigidbody2D:
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ccd18bab2c6cabd4e8f9f1c2c26141f7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -15966,7 +15966,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: ccd18bab2c6cabd4e8f9f1c2c26141f7, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -16066,12 +16066,12 @@ MonoBehaviour:
   playerobject: {fileID: 1411424641}
   enemyobject: {fileID: 1540931286}
   rb: {fileID: 1540931289}
-  seedistance: 5
-  speed: 2
+  seedistance: 10
+  speed: 4
   jump: 6
   isgrounded: 1
   canmove: 1
-  speedcap: 1
+  speedcap: 4
   anim: {fileID: 1540931288}
   jumping: 0
   enemyhelth: 20

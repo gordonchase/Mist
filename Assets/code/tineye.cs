@@ -34,6 +34,10 @@ public class tineye : MonoBehaviour
     private bool canspawn=true; 
     private bool waytomove = true; 
     public bool emmiter=false;
+    private bool leftRay;
+    private bool rightRay;
+    private bool wallray1;
+    private bool wallray2;
 
 
     
@@ -116,6 +120,18 @@ public class tineye : MonoBehaviour
         }
     else if (checkdistance<seedistance && !dead){
         emmiter = true;
+    }
+
+    if (checkdistance>seedistance && !dead){ 
+    }
+    
+    
+    }
+
+
+    void FixedUpdate()
+    {
+        if (checkdistance<seedistance && !dead){
         if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && !wallray1)
         {
         if (leftRay){
@@ -163,11 +179,6 @@ public class tineye : MonoBehaviour
                 }
         }
     }
-
-    if (checkdistance>seedistance && !dead){ 
-    }
-    
-    
     }
 
 
