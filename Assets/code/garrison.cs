@@ -129,21 +129,21 @@ public class garrison : MonoBehaviour
         if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && ! jumping && !wallray2)
         {
         if (rightRay){
-            rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
+            rb.AddForce(Vector2.right * speed* Time.deltaTime *100 , ForceMode2D.Force);
         }
         if (!rightRay)
             {
-            rb.AddForce(Vector2.left * 1.5f, ForceMode2D.Force);       
+            rb.AddForce(Vector2.left * 1.5f* Time.deltaTime *100 , ForceMode2D.Force);       
             }
         }
         if (playerPos.x-enemyPos.x<0 && currentspeed>-1*speedcap && ! jumping && !wallray1)
         {
         if (leftRay){
-            rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
+            rb.AddForce(Vector2.left * speed* Time.deltaTime *100 , ForceMode2D.Force);
         }
         if (!leftRay)
             {
-            rb.AddForce(Vector2.right * 1.5f, ForceMode2D.Force);       
+            rb.AddForce(Vector2.right * 1.5f* Time.deltaTime *100 , ForceMode2D.Force);       
             }
         }
         if (wallray1 && isgrounded && !jumping && playerPos.x-enemyPos.x<0)
@@ -173,12 +173,12 @@ public class garrison : MonoBehaviour
             }
         if (waytomove && currentspeed<speedcap )
             {
-        rb.AddForce(Vector2.right * speed, ForceMode2D.Force);
+        rb.AddForce(Vector2.right * speed* Time.deltaTime *100 , ForceMode2D.Force);
         last=true;
             }
         else if (!waytomove && currentspeed>-1*speedcap)
             {
-            rb.AddForce(Vector2.left * speed, ForceMode2D.Force);
+            rb.AddForce(Vector2.left * speed* Time.deltaTime *100 , ForceMode2D.Force);
             last=false;
             }
 
@@ -248,11 +248,11 @@ public class garrison : MonoBehaviour
         {
         if (playerPos.x - enemyPos.x > 0)
             {
-            rb.AddForce(Vector2.right * 1f, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.right * 1f* Time.deltaTime *100 , ForceMode2D.Impulse);
             }
         if (playerPos.x - enemyPos.x < 0)
             {
-            rb.AddForce(Vector2.left * 1f, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.left * 1f* Time.deltaTime *100 , ForceMode2D.Impulse);
             }
         }
     }

@@ -343,20 +343,20 @@ public class PlayerController : MonoBehaviour
         {
             float thingy5=maxVelX-Math.Abs(rb.linearVelocityX);
             if (thingy5>xsub){thingy5=xsub;}
-            rb.AddForce(new Vector2 (thingy5/1,0),ForceMode2D.Force);
+            rb.AddForce(new Vector2 (thingy5/1* Time.deltaTime *100,0),ForceMode2D.Force);
             if (rb.linearVelocityX < 0)
             {
-                rb.AddForce(new Vector2 (1f,0),ForceMode2D.Impulse);
+                rb.AddForce(new Vector2 (1f* Time.deltaTime *100,0),ForceMode2D.Impulse);
             }
         }
         if (goleft && ((Math.Abs(rb.linearVelocityX)<maxVelX) || (rb.linearVelocityX > 0)))
         {
             float thingy6=maxVelX-Math.Abs(rb.linearVelocityX);
             if (thingy6>xsub){thingy6=xsub;}
-            rb.AddForce(new Vector2 (thingy6/-1,0),ForceMode2D.Force);
+            rb.AddForce(new Vector2 (thingy6/-1* Time.deltaTime *100,0),ForceMode2D.Force);
             if (rb.linearVelocityX > 0)
             {
-                rb.AddForce(new Vector2 (-1f,0),ForceMode2D.Impulse);
+                rb.AddForce(new Vector2 (-1f* Time.deltaTime *100,0),ForceMode2D.Impulse);
             }
         
         } 
@@ -593,11 +593,11 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 dierec_to_player = pushrb.position - (Vector2)transform.position;
 
-                pushrb.AddForce(dierec_to_player.normalized * pushForce / dierec_to_player.magnitude, ForceMode2D.Force);
+                pushrb.AddForce(dierec_to_player.normalized * pushForce* Time.deltaTime *50 / dierec_to_player.magnitude, ForceMode2D.Force);
             }
             Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
             
-            rb.AddForce(dierec_to_pushob.normalized * pushForce / dierec_to_pushob.magnitude, ForceMode2D.Force);
+            rb.AddForce(dierec_to_pushob.normalized * pushForce* Time.deltaTime *50 / dierec_to_pushob.magnitude, ForceMode2D.Force);
 
         }
         }
@@ -611,11 +611,11 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 dierec_to_player = pullrb.position - (Vector2)transform.position;
 
-                pullrb.AddForce(-dierec_to_player.normalized * pullForce / dierec_to_player.magnitude, ForceMode2D.Force);
+                pullrb.AddForce(-dierec_to_player.normalized * pullForce * Time.deltaTime *50 / dierec_to_player.magnitude, ForceMode2D.Force);
             }
             Vector2 dierec_to_pullob = (Vector2)transform.position - (Vector2)col.transform.position;
 
-            rb.AddForce(-dierec_to_pullob.normalized * pullForce / dierec_to_pullob.magnitude, ForceMode2D.Force);
+            rb.AddForce(-dierec_to_pullob.normalized * pullForce * Time.deltaTime *50/ dierec_to_pullob.magnitude, ForceMode2D.Force);
 
         }
         }
