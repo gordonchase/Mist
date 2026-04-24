@@ -593,11 +593,11 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 dierec_to_player = pushrb.position - (Vector2)transform.position;
 
-                pushrb.AddForce(dierec_to_player.normalized * pushForce* Time.deltaTime *50 / dierec_to_player.magnitude, ForceMode2D.Force);
+                pushrb.AddForce(dierec_to_player.normalized * pushForce* Time.deltaTime *100 / dierec_to_player.magnitude, ForceMode2D.Force);
             }
             Vector2 dierec_to_pushob = (Vector2)transform.position - (Vector2)col.transform.position;
             
-            rb.AddForce(dierec_to_pushob.normalized * pushForce* Time.deltaTime *50 / dierec_to_pushob.magnitude, ForceMode2D.Force);
+            rb.AddForce(dierec_to_pushob.normalized * pushForce* Time.deltaTime *100 / dierec_to_pushob.magnitude, ForceMode2D.Force);
 
         }
         }
@@ -611,11 +611,11 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 dierec_to_player = pullrb.position - (Vector2)transform.position;
 
-                pullrb.AddForce(-dierec_to_player.normalized * pullForce * Time.deltaTime *50 / dierec_to_player.magnitude, ForceMode2D.Force);
+                pullrb.AddForce(-dierec_to_player.normalized * pullForce * Time.deltaTime *100 / dierec_to_player.magnitude, ForceMode2D.Force);
             }
             Vector2 dierec_to_pullob = (Vector2)transform.position - (Vector2)col.transform.position;
 
-            rb.AddForce(-dierec_to_pullob.normalized * pullForce * Time.deltaTime *50/ dierec_to_pullob.magnitude, ForceMode2D.Force);
+            rb.AddForce(-dierec_to_pullob.normalized * pullForce * Time.deltaTime *100 / dierec_to_pullob.magnitude, ForceMode2D.Force);
 
         }
         }
