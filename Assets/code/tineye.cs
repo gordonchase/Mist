@@ -62,16 +62,25 @@ public class tineye : MonoBehaviour
     Vector2 leftEdge = rayOrigin + Vector2.left * halfWidth;
     Vector2 rightEdge = rayOrigin + Vector2.right * halfWidth;
 
-    RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, 7.5f, groundLayer);
-    RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, 7.5f, groundLayer);
+    RaycastHit2D leftfall = Physics2D.Raycast(leftEdge, Vector2.down, 6f, groundLayer);
+    RaycastHit2D rightfall = Physics2D.Raycast(rightEdge, Vector2.down, 6f, groundLayer);
+    Debug.DrawRay(leftEdge, Vector2.down * 7f, new Color32(0, 128, 255, 255));
+    Debug.DrawRay(rightEdge, Vector2.down * 7f, new Color32(0, 128, 255, 255));
 
     float groundOffset = halfHeight - (halfHeight/2); 
 
     Vector2 lowerLeft = leftEdge + Vector2.down * groundOffset;
     Vector2 lowerRight = rightEdge + Vector2.down * groundOffset;
 
-    RaycastHit2D wallray1 = Physics2D.Raycast(lowerLeft, Vector2.left, -0.3f, groundLayer);    
-    RaycastHit2D wallray2 = Physics2D.Raycast(lowerRight, Vector2.right, 0.3f, groundLayer); 
+    RaycastHit2D wallrayr = Physics2D.Raycast(lowerLeft, Vector2.left, -0.3f, groundLayer);    
+    RaycastHit2D wallrayl = Physics2D.Raycast(lowerRight, Vector2.right, 0.3f, groundLayer); 
+
+
+    leftRay = leftfall.collider != null;
+    rightRay = rightfall.collider != null;
+    wallray1 = wallrayr.collider != null;
+    wallray2 = wallrayl.collider != null;
+
 
 
 
@@ -107,18 +116,18 @@ public class tineye : MonoBehaviour
     }
 
     float currentspeed = rb.linearVelocity.x;
-    if (checkdistance < 1.5 && !attaking && !dead)
-        {
-        if (playerPos.x-enemyPos.x>0)
-        {
-        StartCoroutine(attakingco());
-        }
-        if (playerPos.x-enemyPos.x<0)
-        {
-        StartCoroutine(attakingco());
-        }
-        }
-    else if (checkdistance<seedistance && !dead){
+    // if (checkdistance < 1.5 && !attaking && !dead)
+    //     {
+    //     if (playerPos.x-enemyPos.x>0)
+    //     {
+    //     StartCoroutine(attakingco());
+    //     }
+    //     if (playerPos.x-enemyPos.x<0)
+    //     {
+    //     StartCoroutine(attakingco());
+    //     }
+    //     }
+    if (checkdistance<seedistance && !dead){
         emmiter = true;
     }
 
@@ -132,24 +141,29 @@ public class tineye : MonoBehaviour
     void FixedUpdate()
     {
         if (checkdistance<seedistance && !dead){
+
         if (playerPos.x-enemyPos.x>0 && currentspeed<speedcap && !wallray1)
         {
+
         if (leftRay){
             rb.AddForce(Vector2.left * speed * Time.deltaTime *100 , ForceMode2D.Force);
         }
         if (!leftRay)
             {
-            rb.AddForce(Vector2.right * 1.5f* Time.deltaTime *100 , ForceMode2D.Force);       
+            rb.AddForce(Vector2.right * 1.5f * Time.deltaTime *100 , ForceMode2D.Force);       
             }
         }
         if (playerPos.x-enemyPos.x<0 && currentspeed>-1*speedcap && ! jumping && !wallray2)
         {
+
         if (rightRay){
             rb.AddForce(Vector2.right * speed * Time.deltaTime *100 , ForceMode2D.Force);
+
         }
         if (!rightRay)
             {
-            rb.AddForce(Vector2.left * 1.5f * Time.deltaTime *100 , ForceMode2D.Force);       
+            rb.AddForce(Vector2.left * 1.5f * Time.deltaTime *100 , ForceMode2D.Force);   
+  
             }
         }
         if (wallray1 && isgrounded && playerPos.x-enemyPos.x>0)

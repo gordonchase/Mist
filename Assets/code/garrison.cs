@@ -61,6 +61,8 @@ public class garrison : MonoBehaviour
 
     RaycastHit2D leftRay = Physics2D.Raycast(leftEdge, Vector2.down, rayDistance, groundLayer);
     RaycastHit2D rightRay = Physics2D.Raycast(rightEdge, Vector2.down, rayDistance, groundLayer);
+    Debug.DrawRay(leftEdge, Vector2.down * rayDistance, new Color32(0, 128, 255, 255));
+    Debug.DrawRay(rightEdge, Vector2.down * rayDistance, new Color32(0, 128, 255, 255));
 
     float groundOffset = halfHeight - (halfHeight/2); 
 
